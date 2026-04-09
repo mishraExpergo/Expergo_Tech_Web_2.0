@@ -1,0 +1,87 @@
+"use client";
+import { motion } from "framer-motion";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+
+import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+
+const data = [
+  { name: "Jan", y2020: 48, y2021: 55, y2022: 62 },
+  { name: "Feb", y2020: 52, y2021: 58, y2022: 65 },
+  { name: "Mar", y2020: 45, y2021: 60, y2022: 70 },
+  { name: "Apr", y2020: 58, y2021: 62, y2022: 72 },
+  { name: "May", y2020: 55, y2021: 65, y2022: 78 },
+  { name: "Jun", y2020: 50, y2021: 68, y2022: 82 },
+];
+
+export const GovernanceAuditCard = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: "0 8px 30px color-mix(in srgb, var(--color-platform-teal) 15%, transparent)",
+      }}
+      className={`${platformCardClass} ${platformCardLayout}`}
+    >
+      <h3 className="text-base font-semibold text-brand-ink">Governance & Audit</h3>
+      <p className="mt-1 mb-4 text-xs text-brand-muted">Traceability, explainability & compliance</p>
+      <div className="min-h-[11rem] w-full flex-1">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
+          <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
+          <YAxis tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} domain={[0, 100]} />
+          <Tooltip
+            contentStyle={{
+              background: "#fff",
+              border: `1px solid ${platformChart.cardBorder}`,
+              borderRadius: 8,
+              fontSize: 12,
+            }}
+          />
+          <Legend wrapperStyle={{ fontSize: 11 }} />
+          <Line
+            type="monotone"
+            dataKey="y2020"
+            name="2020"
+            stroke={platformChart.purple}
+            strokeWidth={2}
+            dot={{ r: 3, fill: platformChart.purple }}
+            animationDuration={1000}
+          />
+          <Line
+            type="monotone"
+            dataKey="y2021"
+            name="2021"
+            stroke={platformChart.coral}
+            strokeWidth={2}
+            dot={{ r: 3, fill: platformChart.coral }}
+            animationDuration={1300}
+          />
+          <Line
+            type="monotone"
+            dataKey="y2022"
+            name="2022"
+            stroke={platformChart.teal}
+            strokeWidth={2}
+            dot={{ r: 3, fill: platformChart.teal }}
+            animationDuration={1600}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+      </div>
+    </motion.div>
+  );
+};

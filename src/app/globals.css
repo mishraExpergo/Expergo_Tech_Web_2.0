@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Poppins: `next/font` sets `--font-poppins` on `<html>` (see `layout.tsx`); stack adds named fallbacks */
+  --font-poppins: var(--font-stack-poppins);
+
+  --color-brand-teal: #16b2c3;
+  --color-brand-blue: #1d68d5;
+  --color-brand-ink: #101828;
+  --color-brand-footer: #111827;
+  --color-brand-muted: #667085;
+  --color-brand-paragraph: #1f1f1f;
+  --color-brand-border: #e4e7ec;
+  --color-brand-surface: #f9fafb;
+
+  /* Platform home dashboard (card grid) — matches marketing reference */
+  --color-platform-accent: #2b63ff;
+  --color-platform-purple: #7366e8;
+  --color-platform-teal: #5ec9b7;
+  --color-platform-coral: #f29b8a;
+  --color-platform-peach: #f5e0c8;
+  --color-platform-teal-soft: #d8f2ec;
+  --color-platform-card-border: #e1e8f0;
+
+  /* Semantic tokens for @apply (match :root HSL in @layer base) */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(213 37% 9%);
+  --color-muted-foreground: hsl(217 14% 40%);
+  --color-primary: hsl(173 78% 26%);
+  --color-border: hsl(220 13% 91%);
+
+  --color-card: hsl(210 20% 98%);
+  --color-muted: hsl(210 20% 96%);
+
+  /* Heatmap / risk bands (must match :root --risk-* HSL components) */
+  --color-risk-stable: hsl(152 76% 91%);
+  --color-risk-watch: hsl(48 96% 89%);
+  --color-risk-accelerating: hsl(27 95% 83%);
+  --color-risk-high: hsl(0 93% 89%);
+  --color-risk-stable-text: hsl(160 84% 20%);
+  --color-risk-watch-text: hsl(38 92% 30%);
+  --color-risk-accelerating-text: hsl(20 80% 35%);
+  --color-risk-high-text: hsl(0 72% 40%);
+
+  /* Site typography scale */
+  --text-site-display: 52px;
+  --text-site-sub: 36px;
+  --text-site-kicker: 16px;
+  --text-site-paragraph: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 213 37% 9%;
+
+    --card: 210 20% 98%;
+    --card-foreground: 213 37% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 37% 9%;
+
+    --primary: 173 78% 26%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 98%;
+    --secondary-foreground: 213 37% 9%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 217 14% 40%;
+
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 173 78% 26%;
+
+    --radius: 0.5rem;
+
+    /* EarlySafe custom tokens */
+    --es-teal: 173 78% 26%;
+    --es-deep-blue: 221 83% 53%;
+    --es-slate: 213 37% 9%;
+    --es-grey: 217 14% 40%;
+
+    /* Risk state colors */
+    --risk-stable: 152 76% 91%;
+    --risk-watch: 48 96% 89%;
+    --risk-accelerating: 27 95% 83%;
+    --risk-high: 0 93% 89%;
+
+    /* Risk state text */
+    --risk-stable-text: 160 84% 20%;
+    --risk-watch-text: 38 92% 30%;
+    --risk-accelerating-text: 20 80% 35%;
+    --risk-high-text: 0 72% 40%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Poppins stack — uses `--font-poppins` from `next/font` on `<html>` */
+    --font-stack-poppins: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-stack-poppins);
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-stack-poppins);
+  }
+
+  .font-body {
+    font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  /* Primary display heading (65px) */
+  .es-heading-hero {
+    font-family: var(--font-stack-poppins);
+    font-size: var(--text-site-sub);
+    line-height: 1.1;
+    @apply font-semibold tracking-tight text-foreground;
+  }
+
+  /* Section / sub headline (40px) */
+  .es-heading-section {
+    font-family: var(--font-stack-poppins);
+    font-size: var(--text-site-display);
+    line-height: 1.15;
+    @apply font-bold tracking-tight text-[#15B5C1];
+  }
+
+  /* Supporting line under a section title (not the 40px sub-head token) */
+  .es-heading-sub {
+    @apply text-lg md:text-xl font-medium text-muted-foreground;
+  }
+
+  .es-body {
+    @apply text-base md:text-lg text-muted-foreground leading-relaxed;
+  }
+
+  /* Standard paragraph (20px / #1F1F1F) — use `text-site-paragraph` + `text-brand-paragraph` for the same tokens in markup */
+  .es-paragraph {
+    font-size: var(--text-site-paragraph);
+    line-height: 1.55;
+    color: var(--color-brand-paragraph);
+  }
+
+  .es-caption {
+    @apply text-xs md:text-sm text-muted-foreground;
+  }
+
+  /* Small heading / kicker (16px) */
+  .es-small-heading {
+    font-family: var(--font-stack-poppins);
+    font-size: var(--text-site-kicker);
+    line-height: 1.4;
+    @apply font-semibold uppercase tracking-[0.15em];
+  }
+
+  .es-eyebrow {
+    font-family: var(--font-stack-poppins);
+    font-size: var(--text-site-kicker);
+    line-height: 1.4;
+    @apply font-semibold uppercase tracking-[0.15em] text-primary;
+  }
+}
+
