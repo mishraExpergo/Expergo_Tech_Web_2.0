@@ -128,7 +128,7 @@ export default function BetterMonitoringSection() {
            <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-gray-200 pt-6 lg:pt-0 lg:pl-8">
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
                 <p className="text-sm font-semibold text-gray-900 leading-relaxed">
-                  "Our network of multi-bureau signals ensures a complete view, replacing narrow static checkpoints with expansive demographic risk context, instantly integrated into your native origination and servicing environments."
+                  {`"Our network of multi-bureau signals ensures a complete view, replacing narrow static checkpoints with expansive demographic risk context, instantly integrated into your native origination and servicing environments."`}
                 </p>
                 <p className="text-xs text-gray-400 mt-4 font-bold uppercase tracking-widest">
                   Bureau Abstraction Layer

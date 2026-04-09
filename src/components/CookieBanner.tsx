@@ -41,7 +41,7 @@ export function CookieBanner() {
               <h3 className="es-heading-section font-semibold tracking-tight text-[#1F1F1F]">Cookie Consent</h3>
               <p className="mt-2 text-sm text-[#5D6B78] leading-[1.6]">
                 We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
-                By clicking "Accept All", you consent to our use of cookies. Read more in our{" "}
+                By clicking &quot;Accept All&quot;, you consent to our use of cookies. Read more in our{" "}
                 <Link href="#" className="font-semibold text-[#1497A8] hover:text-[#12AFC0] underline underline-offset-2">
                   Privacy Policy
                 </Link>.

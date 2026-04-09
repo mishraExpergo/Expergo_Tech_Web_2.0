@@ -38,7 +38,7 @@ export default function EverythingYouNeedGrid() {
             className="es-heading-section mb-6 font-bold leading-tight text-gray-900"
           >
             Everything You Need.<br/>
-            <span className="text-[#01AEE4]">Nothing You Don't.</span>
+            <span className="text-[#01AEE4]">Nothing You Don&apos;t.</span>
           </motion.h2>
           <motion.p
              initial={{ opacity: 0, y: 10 }}

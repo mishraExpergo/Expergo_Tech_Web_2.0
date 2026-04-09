@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) {
     const first = parsed.error.flatten().fieldErrors;
     const message =
-      Object.values(first).flat()[0] ?? parsed.error.errors[0]?.message ?? "Invalid input";
+      Object.values(first).flat()[0] ?? parsed.error.issues[0]?.message ?? "Invalid input";
     return NextResponse.json({ error: message, details: parsed.error.flatten() }, { status: 422 });
   }
 
