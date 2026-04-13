@@ -45,7 +45,7 @@ export function InfrastructureSection() {
             Built for institutional risk environments
           </h2>
           <p className="mt-4 text-center max-w-3xl text-base leading-relaxed text-[#667085]">
-          EarlySafe strengthens institutional risk discipline without replacing existing credit models..
+          EarlySafe strengthens institutional risk discipline without replacing existing credit models.
           </p>
         </div>
 

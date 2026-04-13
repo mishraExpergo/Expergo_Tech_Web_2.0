@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Circle, Shuffle, SlidersVertical, Target } from "lucide-react";
+import { Play } from "next/font/google";
+import { FaPlay } from "react-icons/fa";
 
 function PlusOneCircleIcon({ className }: { className?: string }) {
   return (
@@ -62,7 +64,7 @@ export function DetectDecideControlSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease }}
         >
-          Detect  <span className=" bg-white w-5 h-5 border-2 rounded-full"></span> Decide <span className=" bg-white w-5 h-5 border-2 rounded-full"></span>  Control
+          Detect  <FaPlay />  Decide<FaPlay /> Control
         </motion.h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-6 lg:gap-8">

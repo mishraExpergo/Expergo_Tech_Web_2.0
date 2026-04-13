@@ -16,7 +16,7 @@ const rigours = [
 
 export default function RegulatoryRigourSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className=" bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h4
@@ -39,7 +39,9 @@ export default function RegulatoryRigourSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {rigours.map((item, idx) => (
+          {rigours.map((item, idx) => {
+            const Icon = item.icon;
+            return (
             <motion.div
               key={idx}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -49,13 +51,14 @@ export default function RegulatoryRigourSection() {
               className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all hover:border-cyan-200 border-t-4 border-t-cyan-400 group flex flex-col justify-between min-h-[140px]"
             >
               <div className="mb-4">
-                <item.icon className="w-6 h-6 text-cyan-500 group-hover:scale-110 transition-transform" />
+                <Icon className="w-6 h-6 text-cyan-500 group-hover:scale-110 transition-transform" />
               </div>
               <p className="text-gray-800 font-semibold text-sm leading-snug">
                 {item.text}
               </p>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

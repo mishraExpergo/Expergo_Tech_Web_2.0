@@ -209,7 +209,7 @@ export function UseCasesPageContent() {
               href="mailto:info@earlysafe.com?subject=Executive%20briefing%20request"
               className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] hover:bg-[#1557b8] active:scale-[0.98]"
             >
-              Request Executive Briefing
+              Request Executive Brief
             </Link>
            
           </div>

@@ -30,14 +30,9 @@ export function CTASection() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BookDemoButton className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:bg-[#5F98F3] active:scale-[0.98]">
-            Request Executive Briefing
+            Request Executive Brief
             </BookDemoButton>
-            {/* <Link
-              href="mailto:info@earlysafe.com?subject=Executive%20briefing%20request"
-              className="inline-flex min-w-[220px] items-center justify-center rounded-lg border border-[#E8E9EB] bg-white px-6 py-3 text-sm font-semibold text-[#101828]  transition-transform  hover:bg-[#E8E9EB] active:scale-[0.98]"
-            >
-              Request Executive Briefing
-            </Link> */}
+           
           </div>
         </div>
       </section>

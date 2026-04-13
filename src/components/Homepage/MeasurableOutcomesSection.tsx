@@ -89,7 +89,7 @@ export function MeasurableOutcomesSection() {
                   {item.num}
                 </span>
                 <div className="min-w-0 flex-1 pt-0.5">
-                  <h3 className="text-[20px] font-bold text-brand-ink md:text-[20px]">{item.title}</h3>
+                  <h3 className="text-[20px] font-semibold text-brand-ink md:text-[20px]">{item.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-brand-muted md:text-[15px] md:leading-[1.55]">
                     {item.description}
                   </p>

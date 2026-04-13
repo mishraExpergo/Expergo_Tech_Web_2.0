@@ -100,8 +100,8 @@ export default function InspectionReadySection() {
                 <div
                   className={`${faceBase} transform-[rotateY(180deg)] bg-[#e9ecef] p-8 transition-colors group-hover:bg-[#dee2e6]`}
                 >
-                  <h3 className="font-bold text-[40px] text-cyan-500">70%</h3>
-                  <p className=" text-xl font-bold text-gray-900">Less manual work</p>
+                  <h3 className="font-bold text-[36px] text-cyan-500">Reduced Effort</h3>
+                  <p className=" text-xl font-semibold text-gray-900">Reduced manual effort during RBI / NHB inspections</p>
                 </div>
               </div>
             </div>

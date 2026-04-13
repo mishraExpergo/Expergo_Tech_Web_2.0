@@ -63,7 +63,7 @@ const zigzagRows = [
     title: "Bureau 360°",
     reversed: true,
     route:"/capabilities/bureau-360",
-    image: "/2.png",
+    image: "/Frame 3033 (1).svg",
     items: [
       {
         heading: "External Risk Signals",
@@ -122,6 +122,9 @@ function CapabilityPanel({
           ))}
         </div>
         <div className="mt-3 flex items-center justify-between bg-white rounded-lg px-4 py-3.5 sm:px-5">
+          <span className="text-[28px] font-bold text-[#15B5C1]">
+            {title}
+          </span>
           <Link
             href={route}
             className="inline-flex items-center rounded-md bg-[#15B5C1] px-3 py-3 text-[11px] font-semibold text-white transition hover:bg-[#13adbc]"

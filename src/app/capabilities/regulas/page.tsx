@@ -9,6 +9,7 @@ import SevenPillarsSection from "@/components/capabilities/regulas/SevenPillarsS
 import RegulatoryRigourSection from "@/components/capabilities/regulas/RegulatoryRigourSection";
 import InspectionReadySection from "@/components/capabilities/regulas/InspectionReadySection";
 import CallToActionSection from "@/components/capabilities/regulas/CallToActionSection";
+import { BlogCarousel } from "@/components/BlogCarousel";
 
 export const metadata: Metadata = {
   title: "Regulus — EXPERGO",
@@ -28,6 +29,7 @@ export default function RegulusPage() {
         <RegulatoryRigourSection />
         <InspectionReadySection />
         <CallToActionSection />
+        <BlogCarousel align="center" />
       </main>
       <Footer variant="capabilities" />
     </div>

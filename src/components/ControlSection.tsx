@@ -373,8 +373,7 @@ const DecideView = ({ accounts }: { accounts: AccountNode[] }) => {
         {Object.entries(labels).map(([key, label]) => (
           <div key={key} className="flex  items-center gap-1.5">
             <div className={`w-3 h-3 rounded-sm ${riskColors[key]}`} />
-            <span className="es-caption 
-">{label}</span>
+            <span className="es-caption">{label}</span>
           </div>
         ))}
       </div>
@@ -394,7 +393,9 @@ const DecideView = ({ accounts }: { accounts: AccountNode[] }) => {
             {nodes.slice(0, 30).map((n) => (
               <div key={n.id} className={`w-3 h-3 rounded-[2px] ${riskColors[state]}`} />
             ))}
-            {nodes.length > 30 && <span className="es-caption self-center ml-1">+{nodes.length - 30}</span>}
+            {state !== "stable" && nodes.length > 30 && (
+              <span className="es-caption self-center ml-1">+{nodes.length - 30}</span>
+            )}
           </div>
         </motion.div>
       ))}
@@ -407,14 +408,20 @@ const DecideView = ({ accounts }: { accounts: AccountNode[] }) => {
         className="mt-4 p-4 border border-border rounded-lg bg-muted/50"
       >
         <p className="text-xs font-medium text-foreground mb-2">Migration Flow</p>
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span>Stable</span>
-          <span className="text-primary">→ 8%</span>
-          <span>Watch</span>
-          <span className="text-risk-accelerating-text">→ 14%</span>
-          <span>Accelerating</span>
-          <span className="text-risk-high-text">→ 6%</span>
-          <span>High</span>
+        <div className="flex flex-col gap-2.5 text-xs text-muted-foreground sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-8 sm:gap-y-2">
+          <span className="inline-flex flex-wrap items-baseline gap-x-1.5">
+            <span className="font-medium text-foreground">Stable</span>
+            {/* <span className="text-primary">→ 8%</span> */}
+          </span>
+          <span className="inline-flex flex-wrap items-baseline gap-x-1.5">
+            <span className="font-medium text-foreground">Watch</span>
+            {/* <span className="text-risk-accelerating-text">→ 14%</span> */}
+          </span>
+          <span className="inline-flex flex-wrap items-baseline gap-x-1.5">
+            <span className="font-medium text-foreground">Accelerating</span>
+            {/* <span className="text-risk-high-text">→ 6%</span> */}
+          </span>
+          <span className="font-medium text-foreground">High</span>
         </div>
       </motion.div>
     </div>
@@ -424,7 +431,7 @@ const DecideView = ({ accounts }: { accounts: AccountNode[] }) => {
 // --- Control View ---
 const ControlView = ({ accounts }: { accounts: AccountNode[] }) => {
   const priorityQueue = useMemo(
-    () => accounts.filter((a) => a.riskState === "high" || a.riskState === "accelerating").sort((a, b) => b.migrationProb - a.migrationProb).slice(0, 8),
+    () => accounts.filter((a) => a.riskState === "high" || a.riskState === "accelerating").sort((a, b) => b.migrationProb - a.migrationProb).slice(0, 5),
     [accounts]
   );
 
@@ -506,10 +513,10 @@ const ScrollNarrative = () => {
 
   return (
     <section ref={sectionRef} className="relative" style={{ minHeight: "300vh" }}>
-      <div className="sticky top-0 min-h-screen flex items-center py-12">
-        <div className="container max-w-[1200px] mx-auto px-6 md:px-10">
+      <div className="sticky top-0 flex min-h-screen items-center py-12">
+        <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10">
           {/* Phase tabs */}
-          <div className="flex gap-1 mb-10 p-1 bg-muted rounded-lg w-fit">
+          <div className="mb-10 flex w-fit gap-1 rounded-lg bg-muted p-1">
             {(["detect", "decide", "control"] as Phase[]).map((p) => (
               <button
                 key={p}
@@ -523,9 +530,9 @@ const ScrollNarrative = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-12">
-            {/* Left - Text (same row height as visual; content vertically centered on lg) */}
-            <div className="flex h-full min-h-0 flex-col justify-center lg:col-span-5">
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
+            {/* Left - copy; aligns to vertical center of visual on large screens */}
+            <div className="flex min-h-0 w-full flex-col lg:col-span-5">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={phase}
@@ -549,9 +556,9 @@ const ScrollNarrative = () => {
               </AnimatePresence>
             </div>
 
-            {/* Right - Visual */}
-            <div className="flex h-[400px] flex-col lg:col-span-7 lg:min-h-0 ">
-              <div className="flex h-full min-h-[400px] flex-1 flex-col border border-border rounded-xl bg-card p-6">
+            {/* Right - visual panel */}
+            <div className="flex w-full min-h-[min(420px,55vh)] flex-col lg:col-span-7">
+              <div className="flex min-h-[min(420px,55vh)] w-full flex-1 flex-col rounded-xl border border-border bg-card p-6 shadow-sm">
                 <AnimatePresence mode="wait">
                   {phase === "detect" && (
                     <motion.div

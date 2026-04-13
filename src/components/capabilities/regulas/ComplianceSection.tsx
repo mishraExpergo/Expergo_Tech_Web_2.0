@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 
 const features = [
-  { id: 1, title: "Signal Detected", desc: "Early Warning captured in statutory register" },
-  { id: 2, title: "SOP Mapped", desc: "Regulatory expectations linked to signa" },
+  { id: 1, title: "Signal Detected", desc: "Early Warning captured in statutory compliance tool" },
+  { id: 2, title: "SOP Mapped", desc: "Regulatory expectations linked to signals" },
   { id: 3, title: "Ownership Assigned", desc: "Accountable person defined for action" },
   { id: 4, title: "Evidence Captured", desc: "Documentation and approvals recorded" },
   { id: 5, title: "Inspection Ready", desc: "Complete audit trail available on demand" },
@@ -44,7 +44,7 @@ export default function ComplianceSection() {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-600 text-[20px] leading-relaxed font-poppins">
-            REGULUS is a compliance control system designed for institutions operating under RBI and NHB supervision. It serves as the Statutory Early Warning Register, ensuring that every qualifying Early Warning Signal is formally recorded, reviewed, and closed with documented evidence.By capturing ownership, timelines, supporting documentation, and supervisory actions, REGULUS ensures that institutions can demonstrate how risks were handled — not just that they were detected.            </p>
+            REGULUS is a compliance tool system designed for institutions operating under RBI and NHB supervision. It serves as the Statutory Early Warning Register, ensuring that every qualifying Early Warning Signal is formally recorded, reviewed, and closed with documented evidence.By capturing ownership, timelines, supporting documentation, and supervisory actions, REGULUS ensures that institutions can demonstrate how risks were handled — not just that they were detected.            </p>
           </motion.div>
 
           {/* Right List */}

@@ -16,7 +16,7 @@ export default function LighthouseHero() {
         
         {/* Left Text Content */}
         <div className="flex-1 max-w-2xl mt-4 lg:mt-0">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -25,7 +25,7 @@ export default function LighthouseHero() {
              <span className="text-[#01AEE4] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#01AEE4]/10 rounded-full border border-[#01AEE4]/20 inline-block font-sans">
                 CAPABILITIES OVERVIEW
              </span>
-          </motion.div>
+          </motion.div> */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex gap-6 md:gap-10 border-t border-gray-200 pt-8"
+            className="flex gap-6 md:gap-10  pt-8"
           >
              {stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col">
@@ -70,7 +70,7 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
           >
             {/* Cyan ripples — drawn behind the art */}
             <div
-              className="pointer-events-none absolute left-1/2 top-[45%] z-0 flex h-0 w-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+              className="pointer-events-none absolute left-[49%] top-[35%] z-0 flex h-0 w-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
               aria-hidden
             >
               {[0, 1, 2].map((i) => (
@@ -98,7 +98,7 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             <img
               src="/Lighthousee.svg"
               alt="Lighthouse"
-              className="relative z-10 w-full max-w-[100rem] h-auto max-h-[100vh] object-contain select-none transform translate-y-8"
+              className="relative z-10 w-full max-w-[100rem] h-auto max-h-[100vh] object-contain select-none transform translate-y-30"
               decoding="async"
             />
           </motion.div>

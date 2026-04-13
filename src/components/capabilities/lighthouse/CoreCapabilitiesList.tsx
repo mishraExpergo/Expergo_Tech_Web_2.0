@@ -17,7 +17,7 @@ export default function CoreCapabilitiesList() {
     { 
       number: "3", title: "Migration & Watchlist Monitoring", 
       desc: "Monitor how accounts move across buckets and track watchlist inflow, outflow, and progression over time.",
-      pillLabel: "3. Bucket Migration", pillSide: "right"
+      pillLabel: "3. MIGRATION TRACKING", pillSide: "right"
     },
     { 
       number: "4", title: "Case Ownership & Control Tracking", 
@@ -27,7 +27,7 @@ export default function CoreCapabilitiesList() {
     { 
       number: "5", title: "Resolution & Outcome Measurement", 
       desc: "Measure how effectively cases are resolved, track repeat stress, and evaluate operational response quality.",
-      pillLabel: "5. Bucket Movement", pillSide: "right"
+      pillLabel: "5.RESOLUTION QUALITY", pillSide: "right"
     }
   ];
 

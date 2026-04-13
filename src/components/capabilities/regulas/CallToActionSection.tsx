@@ -6,14 +6,14 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 export default function CallToActionSection() {
   return (
     <section className="py-24 bg-white text-center">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.h2 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-[36px] mb-4 font-semibold text-gray-900"
         >
-          Ready to illuminate your portfolio risk?
+         Ready to make every signal inspection-ready?
         </motion.h2>
         <motion.p 
           initial={{ opacity: 0, y: 10 }}
@@ -22,8 +22,7 @@ export default function CallToActionSection() {
           transition={{ delay: 0.1 }}
           className="text-gray-600 mb-10"
         >
-          Statutory Early Warning Register for regulated lenders under RBI & NHB supervision.
-        </motion.p>
+From register → board pack → inspection pack, REGULUS™ ensures every action is tracked, documented, and provable        </motion.p>
         
         <motion.div 
           initial={{ opacity: 0, y: 10 }}

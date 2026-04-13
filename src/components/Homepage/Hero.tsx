@@ -1,16 +1,76 @@
 "use client";
 
+import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { motion } from "framer-motion";
-import { Shield, Eye, BarChart2, Target, CalendarDays, Download } from "lucide-react";
+import { Shield, Eye, BarChart2, Target } from "lucide-react";
 import { BookDemoButton } from "../book-demo/BookDemoProvider";
 
+const GRID_TILE = 32;
+const GRID_BASE =
+  "linear-gradient(to right, rgb(226 232 240) 1px, transparent 1px), linear-gradient(to bottom, rgb(226 232 240) 1px, transparent 1px)";
+const GRID_ACCENT =
+  "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
+
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
+
+  const onPointerMove = useCallback((e: ReactPointerEvent<HTMLElement>) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const xPct = ((e.clientX - r.left) / Math.max(r.width, 1)) * 100;
+    const yPct = ((e.clientY - r.top) / Math.max(r.height, 1)) * 100;
+    setPointer({ xPct, yPct });
+  }, []);
+
+  const onPointerLeave = useCallback(() => {
+    setPointer({ xPct: 50, yPct: 42 });
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-white pt-10 pb-20 font-sans mb-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+    <section
+      ref={sectionRef}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      className="relative overflow-hidden bg-white pt-10 pb-20 font-sans mb-24"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 select-none"
+      >
+        <div
+          className="absolute inset-0 bg-white"
+        />
+        <div
+          className="absolute inset-0 opacity-[0.65]"
+          style={{
+            backgroundImage: GRID_BASE,
+            backgroundSize: `${GRID_TILE}px ${GRID_TILE}px`,
+          }}
+        />
+        <div
+          className="absolute inset-0 will-change-[mask-image]"
+          style={{
+            backgroundImage: GRID_ACCENT,
+            backgroundSize: `${GRID_TILE}px ${GRID_TILE}px`,
+            opacity: 0.35,
+            maskImage: `radial-gradient(ellipse min(520px, 55vw) min(420px, 48vh) at ${pointer.xPct}% ${pointer.yPct}%, #000 0%, transparent 72%)`,
+            WebkitMaskImage: `radial-gradient(ellipse min(520px, 55vw) min(420px, 48vh) at ${pointer.xPct}% ${pointer.yPct}%, #000 0%, transparent 72%)`,
+          }}
+        />
+        <div
+          className="absolute inset-0 transition-[background] duration-200 ease-out"
+          style={{
+            background: `radial-gradient(ellipse min(480px, 50vw) min(380px, 45vh) at ${pointer.xPct}% ${pointer.yPct}%, rgba(1, 174, 228, 0.11) 0%, transparent 68%)`,
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
         
         {/* Left Side: Content */}
-        <div className="z-10 mt-10 lg:mt-0">
+        <div className="mt-10 lg:mt-0">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,12 +129,9 @@ export function Hero() {
         </div>
 
         {/* Right Side: Radar Animation */}
-        <div className="relative w-full h-[400px] lg:h-[550px] mt-10 lg:mt-0 rounded-[32px] overflow-hidden bg-gradient-to-br from-[#10212E] to-[#0A323D] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-[#1f3d4f]">
-          {/* Faint Grid Background */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f3d4f_1px,transparent_1px),linear-gradient(to_bottom,#1f3d4f_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-50"></div>
-          
+        <div className="relative w-full h-[400px] lg:h-[550px] mt-10 lg:mt-0 rounded-[32px] overflow-hidden">
           {/* Main Radar Circle */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] lg:w-[400px] lg:h-[400px] rounded-full border border-[#1f3d4f] bg-[#122b3b]/30 overflow-hidden shadow-inner flex items-center justify-center">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] lg:w-[400px] lg:h-[400px] rounded-full border border-[#1f3d4f] overflow-hidden flex items-center justify-center">
             
             {/* Sweeping Radar Arm */}
             <motion.div 
