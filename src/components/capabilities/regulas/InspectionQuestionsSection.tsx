@@ -7,23 +7,23 @@ import { ChevronDown } from "lucide-react";
 const questions = [
   {
     id: 1,
-    title: "What is REGULUS?",
+    title: "Structured Evidence",
     content: "A compliance control system that converts every risk signal into a time-bound, accountable record.It ensures every action is tracked and backed with verifiable evidence.",
   },
   {
     id: 2,
-    title: "How does REGULUS help in inspections?",
-    content: "It creates a complete audit trail for every signal from identification to closure.This makes compliance instantly inspection-ready, without manual effort..",
+    title: "Defined Accountability",
+    content: "Every signal is assigned to a clear owner with responsibility and timelines.No ambiguity — ownership is visible and enforced.",
   },
   {
     id: 3,
-    title: "How is accountability ensured?",
-    content: "Each signal is assigned to a defined owner with clear timelines.Delays are tracked and escalated to ensure no signal is left unaddressed.",
+    title: "Structured Approvals",
+    content: "Risk acceptance and approvals are recorded with full documentation and audit trail. Every decision is traceable, verifiable, and defensible.",
   },
   {
     id: 4,
-    title: "What types of signals does it track? ",
-    content: "It tracks documentation, behavioural, fraud, and compliance-related risks.All signals are mapped to regulatory expectations and required actions.",
+    title: "Automated Compliance Packs ",
+    content: "Board Packs and Inspection Packs are generated instantly from the system.No manual compilation — compliance is always ready.",
   },
   {
     id: 5,
@@ -33,10 +33,17 @@ const questions = [
 ];
 
 export default function InspectionQuestionsSection() {
-  const [openId, setOpenId] = useState<number | null>(1);
+  const [openIds, setOpenIds] = useState<Set<number>>(
+    () => new Set(questions.map((q) => q.id))
+  );
 
   const toggleOpen = (id: number) => {
-    setOpenId(openId === id ? null : id);
+    setOpenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   };
 
   return (
@@ -49,7 +56,7 @@ export default function InspectionQuestionsSection() {
             viewport={{ once: true }}
             className="text-site-sub mb-4 font-bold text-gray-900"
           >
-            Inspection <span className="text-[#01AEE4]">Questions</span>
+           Turning Detection into <span className="text-[#01AEE4]">Compliance</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -58,8 +65,7 @@ export default function InspectionQuestionsSection() {
             transition={{ delay: 0.1 }}
             className="text-gray-600 max-w-2xl mx-auto"
           >
-            During regulatory inspections, institutions must prove — click each question to explore, 
-            then toggle the view:
+            REGULUS converts fragmented signals into structured, accountable, and inspection-ready compliance records.
           </motion.p>
         </div>
 
@@ -78,18 +84,19 @@ export default function InspectionQuestionsSection() {
                 className="w-full flex items-center justify-between text-left py-4 hover:text-[#01AEE4] transition-colors group"
               >
                 <div className="flex items-center gap-6">
-                  <div className={`w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-colors ${openId === q.id ? 'bg-[#1677FF] text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-cyan-50 group-hover:text-[#01AEE4]'}`}>
+                  <div className={`w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-colors ${openIds.has(q.id) ? 'bg-[#1677FF] text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-cyan-50 group-hover:text-[#01AEE4]'}`}>
                     {q.id}.
                   </div>
-                  <span className={`text-xl font-medium ${openId === q.id ? 'text-[#01AEE4]' : 'text-gray-900 group-hover:text-[#01AEE4]'}`}>
+                  <span className={`text-xl font-medium ${openIds.has(q.id) ? 'text-[#01AEE4]' : 'text-gray-900 group-hover:text-[#01AEE4]'}`}>
                     {q.title}
                   </span>
                 </div>
-                <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${openId === q.id ? 'rotate-180 text-[#01AEE4]' : ''}`} />
+                {/* <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${openIds.has(q.id) ? 'rotate-180 text-[#01AEE4]' : ''}`} /> */}
               </button>
               <AnimatePresence>
-                {openId === q.id && (
+                {openIds.has(q.id) && (
                   <motion.div
+                    key={q.id}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -108,8 +115,7 @@ export default function InspectionQuestionsSection() {
 
         <div className="text-center mt-12">
           <p className="text-sm text-gray-500 max-w-lg mx-auto">
-          REGULUS solves this by creating a centralised statutory register that 
-          captures compliance at the moment risk appears.
+          REGULUS ensures compliance is not recreated later — it is captured in real time.
           </p>
         </div>
       </div>

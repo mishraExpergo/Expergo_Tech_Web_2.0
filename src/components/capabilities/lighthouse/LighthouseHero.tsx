@@ -16,16 +16,7 @@ export default function LighthouseHero() {
         
         {/* Left Text Content */}
         <div className="flex-1 max-w-2xl mt-4 lg:mt-0">
-          {/* <motion.div
-            initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mb-4"
-          >
-             <span className="text-[#01AEE4] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#01AEE4]/10 rounded-full border border-[#01AEE4]/20 inline-block font-sans">
-                CAPABILITIES OVERVIEW
-             </span>
-          </motion.div> */}
+         
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -33,7 +24,7 @@ export default function LighthouseHero() {
             className="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-2 leading-tight"
           >
             Risk Dashboard <br/>
-            <span className="text-[#01AEE4]">Lighthouse</span>
+            <span className="text-[#15B5C1]">Lighthouse</span>
           </motion.h1>
 
           <motion.p
