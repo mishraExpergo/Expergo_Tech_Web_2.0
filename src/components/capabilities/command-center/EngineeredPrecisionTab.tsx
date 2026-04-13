@@ -27,8 +27,8 @@ export default function EngineeredPrecisionTab() {
              viewport={{ once: true }}
              className="mb-4"
           >
-             <span className="text-[#1677FF] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#1677FF]/10 rounded-full border border-[#1677FF]/20">
-                UNDER THE HOOD
+             <span className="text-[#1677FF] font-semibold text-[16px] tracking-widest uppercase px-3 py-1 ">
+                CORE CAPABILITIES
              </span>
           </motion.div>
           <motion.h2
@@ -36,7 +36,7 @@ export default function EngineeredPrecisionTab() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="es-heading-section mb-6 font-bold text-gray-900"
+            className="text-[36px] mb-6 font-bold text-gray-900"
           >
             Engineered for <span className="text-[#01AEE4]">Precision</span>
           </motion.h2>
@@ -47,11 +47,11 @@ export default function EngineeredPrecisionTab() {
            initial={{ opacity: 0, y: 20 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true, margin: "-50px" }}
-           className="bg-[#1D2534] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-[#1e2a3c]"
+           className="bg-[#1D2534] rounded-2xl   overflow-hidden shadow-2xl flex flex-col md:flex-row border border-[#1e2a3c]"
         >
            
            {/* Left Section List */}
-           <div className="w-full md:w-1/3 bg-[#171d29] border-b md:border-b-0 md:border-r border-[#2d3a50] p-6">
+           <div className="w-full md:w-1/2 bg-[#171d29] border-b md:border-b-0 md:border-r border-[#2d3a50] p-6">
               <ul className="flex flex-col gap-2">
                  {features.map((feat, idx) => (
                     <li key={idx}>

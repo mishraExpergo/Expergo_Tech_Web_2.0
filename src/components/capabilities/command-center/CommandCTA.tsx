@@ -13,7 +13,7 @@ export default function CommandCTA() {
            viewport={{ once: true }}
            className="mb-4"
         >
-           <span className="es-small-heading px-3 py-1 tracking-widest text-[#1677FF] bg-[#1677FF]/10 rounded-full border border-[#1677FF]/20">
+           <span className="text-[16px] px-3 py-1  text-[#1677FF] ">
               NEXT STEPS
            </span>
         </motion.div>
@@ -24,7 +24,7 @@ export default function CommandCTA() {
           viewport={{ once: true }}
           className="es-heading-hero mb-6 font-bold tracking-tight text-gray-900"
         >
-          Turn Warnings Into <span className="text-[#1677FF]">Results</span>
+          Turn Warnings Into <span className="text-[#15B5C1]">Results</span>
         </motion.h2>
         
         <motion.p 
@@ -32,10 +32,10 @@ export default function CommandCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-gray-600 mb-12 text-lg max-w-2xl mx-auto leading-relaxed"
+          className="text-gray-600  text-lg max-w-2xl mx-auto leading-relaxed"
         >
-          Connect EarlySafe data directly to actionable pathways. Stop losing time on manual reviews 
-          and ensure that every signal triggers a documented, controlled response.
+          EarlySafe Command Centre brings discipline, coordination, and measurable outcomes to risk resolution. See it in action.
+ 
         </motion.p>
         
         <motion.div 
@@ -43,14 +43,11 @@ export default function CommandCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center items-center gap-4 border-t border-gray-100 pt-10"
+          className="flex flex-wrap justify-center items-center gap-4  pt-10"
         >
           <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm tracking-wide">
             Book a demo
           </BookDemoButton>
-          <button className="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-medium px-8 py-3 rounded-md transition-all shadow-sm">
-            Request Personalized Pricing
-          </button>
         </motion.div>
       </div>
     </section>

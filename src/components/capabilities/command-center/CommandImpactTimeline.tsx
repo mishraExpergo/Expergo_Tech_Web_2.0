@@ -5,12 +5,12 @@ import { Zap, Shield, FileText, CheckSquare, Target, Activity } from "lucide-rea
 
 export default function CommandImpactTimeline() {
   const elements = [
-    { title: "Faster Threat Response", desc: "Instantly routes validated external risks entirely eliminating manual queue limits.", icon: Zap, side: "left" },
-    { title: "Reduced Risk Fallout", desc: "Automating rapid limits based on variables ensures early damage control natively.", icon: Shield, side: "right" },
-    { title: "Manual Review Cuts", desc: "Directly filters thousands of noisy variables down to purely actionable paths.", icon: FileText, side: "left" },
-    { title: "False Positive Clarity", desc: "Validates incoming triggers mathematically against historical benchmarks silently.", icon: Target, side: "right" },
-    { title: "Error Free Process", desc: "Removes human translation dependencies perfectly securing evaluation pipelines.", icon: CheckSquare, side: "left" },
-    { title: "Performance Visibility", desc: "Autonomously archives and scores logic validations for full compliance history.", icon: Activity, side: "right" },
+    { title: "Faster Threat Response", desc: "Rapidly identify and act on emerging portfolio stress before it escalates into systematic risk", icon: Zap, side: "left" },
+    { title: "Reduced Risk Fallout", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: Shield, side: "right" },
+    { title: "Manual Review Cuts", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: FileText, side: "left" },
+    { title: "False Positive Clarity", desc: "Assign ownership across operational team so every case has a responsible party driving resolution", icon: Target, side: "right" },
+    { title: "Error Free Process", desc: "Strengthen coordination and follow through with structured workflows and milestone tracking", icon: CheckSquare, side: "left" },
+    { title: "Performance Visibility", desc: "Surface delays and case level performance data in real time for for faster course correction.", icon: Activity, side: "right" },
   ];
 
   return (
@@ -24,8 +24,8 @@ export default function CommandImpactTimeline() {
              viewport={{ once: true }}
              className="mb-4"
           >
-             <span className="text-[#1677FF] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#1677FF]/10 rounded-full border border-[#1677FF]/20">
-                MEASURABLE IMPACT
+             <span className="text-[#1677FF]   tracking-widest uppercase px-3 py-1 text-[16px]">
+                Business Outcomes
              </span>
           </motion.div>
           <motion.h2
@@ -33,9 +33,9 @@ export default function CommandImpactTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="es-heading-section font-bold text-gray-900"
+            className="text-[36px] font-bold text-gray-900"
           >
-            <span className="text-[#1677FF]">Measurable</span> Impact
+            <span className="text-[#15B5C1]">Measurable</span> Impact
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -44,7 +44,7 @@ export default function CommandImpactTimeline() {
             transition={{ delay: 0.2 }}
             className="text-gray-500 font-medium text-sm mt-4 tracking-wide"
           >
-            Directly translating operational integrations into guaranteed efficiency shifts.
+            Seven pillars driving measurable impact across your portfolio.
           </motion.p>
         </div>
 

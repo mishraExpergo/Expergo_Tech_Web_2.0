@@ -1,11 +1,33 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function ExternalSignalsFlow() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
+
+  const pathHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const leftCards = [
+    { id: "01", text: "Bureau score migration" },
+    { id: "03", text: "Trade line additions and closures" },
+    { id: "04", text: "Off-us delinquency signals" },
+  ];
+
+  const rightCards = [
+    { id: "02", text: "Enquiry velocity and recency" },
+    { id: "05", text: "Off-us delinquency signals" }, // Text from the image
+    { id: "06", text: "Multi-lender exposure patterns" },
+  ];
+
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section className="py-24 bg-white font-sans overflow-hidden">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">
@@ -13,95 +35,137 @@ export default function ExternalSignalsFlow() {
              initial={{ opacity: 0, y: 10 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true, margin: "-50px" }}
-             className="text-[#1677FF] font-semibold text-sm tracking-wide uppercase mb-2"
+             className="text-[#01AEE4] font-bold text-xs tracking-wider uppercase mb-3"
           >
-            Capabilities
+            OVERVIEW
           </motion.h4>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.1 }}
-            className="es-heading-section font-bold text-gray-900"
+            className="text-3xl md:text-4xl lg:text-[40px] font-black text-[#1D2B3D] leading-tight"
           >
             External signals that bring <span className="text-[#01AEE4]">borrower</span><br/>
             <span className="text-[#01AEE4]">behaviour</span> into focus
           </motion.h2>
-          <motion.p
+          <motion.div
              initial={{ opacity: 0, y: 10 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true, margin: "-50px" }}
              transition={{ delay: 0.2 }}
-             className="text-gray-600 mt-4 max-w-3xl mx-auto font-medium"
+             className="text-[#5C6E82] mt-6 max-w-3xl mx-auto font-medium leading-relaxed text-sm md:text-base space-y-4"
           >
-            EXPERGO 360 harnesses macro trends across demographic sectors, merging intelligent analysis for new rules 
-            outlining patterns to generate precise outcomes directly tied to underlying indicators of change.
-          </motion.p>
+            <p>
+              BUREAU 360° is a bureau intelligence layer designed for credit portfolios. It helps institutions monitor borrower
+              behaviour across lenders by converting bureau data into structured, portfolio-level intelligence.
+            </p>
+            <p>
+              It brings together key bureau indicators such as:
+            </p>
+          </motion.div>
         </div>
 
-        {/* Flow Diagram Container */}
+        {/* Timeline Container */}
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
+           ref={containerRef}
+           initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true, margin: "-100px" }}
            transition={{ duration: 0.6 }}
-           className="bg-[#1D2534] rounded-[1.5rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-xl"
+           className="bg-[#212E41] rounded-[24px] p-8 md:p-16 relative shadow-2xl"
         >
-          {/* Subtle background glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#01AEE4]/5 blur-[120px] rounded-full pointer-events-none" />
-
-          {/* Left Block */}
-          <div className="flex-1 w-full md:w-auto relative z-10 flex justify-center md:justify-end">
-            <div className="bg-[#242F41] border border-gray-600 rounded-lg py-5 px-8 flex flex-col shadow-[0_0_20px_rgba(0,0,0,0.2)] whitespace-nowrap min-w-[240px]">
-              <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">Ingestion</span>
-              <span className="text-white font-bold text-lg">Bureau Data Ingestion</span>
-              {/* Output dot */}
-              <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 rounded-full border border-cyan-500 bg-[#242F41] flex items-center justify-center">
-                 <div className="w-2 h-2 bg-cyan-400 rounded-full" />
-              </div>
-            </div>
-            
-            {/* Connecting lines on desktop */}
-            <div className="hidden md:block absolute top-1/2 -right-16 w-16 h-px bg-gradient-to-r from-cyan-500/80 to-transparent" />
+          {/* Middle Vertical Line Tracker */}
+          <div className="absolute top-16 bottom-48 left-1/2 -translate-x-1/2 w-px hidden md:block bg-transparent">
+             <motion.div 
+                style={{ height: pathHeight }}
+                className="w-full bg-[#01AEE4]" 
+             />
           </div>
 
-          {/* Right Blocks mapped through a vertical flow line */}
-          <div className="flex-[1.2] w-full md:w-auto relative z-10 flex flex-col gap-6 pl-0 md:pl-12 border-l border-cyan-800/50">
+          <div className="flex flex-col md:flex-row justify-center relative w-full h-auto">
              
-             {[
-               { sub: "Geometry", title: "Credit Registry and Geometry" },
-               { sub: "Logic", title: "API driven latency speeds" },
-               { sub: "Output", title: "Multi bureau aggregation attributes" },
-             ].map((block, idx) => (
+            {/* Mobile View - Single Column */}
+            <div className="flex md:hidden flex-col gap-6 w-full relative z-10">
+              {[...leftCards, ...rightCards].sort((a,b) => parseInt(a.id) - parseInt(b.id)).map((card, idx) => (
                 <motion.div 
-                  key={idx}
-                  initial={{ opacity: 0, x: 20 }}
+                  key={card.id}
+                  initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ delay: 0.3 + (idx * 0.1), duration: 0.4 }}
-                  className="bg-[#242F41] border border-gray-600 rounded-lg py-4 px-6 shadow-[0_0_20px_rgba(0,0,0,0.1)] relative"
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-[#2B394E] rounded-xl border border-[#3E4F66] p-5 shadow-lg relative"
                 >
-                   {/* Connection line horizontal piece */}
-                   <div className="hidden md:block absolute top-1/2 -left-[49px] w-12 h-px bg-cyan-700/50" />
-                   {/* Input dot */}
-                   <div className="hidden md:block absolute top-1/2 -left-[5px] -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-500 shadow-[0_0_8px_#01AEE4]" />
-                   
-                   <span className="block text-cyan-400 text-[10px] font-bold uppercase tracking-wide mb-1">{block.sub}</span>
-                   <span className="block text-white font-semibold text-sm">{block.title}</span>
+                  <span className="block text-xs font-bold text-white mb-1.5">{card.id}</span>
+                  <span className="block text-white font-semibold text-[15px]">{card.text}</span>
                 </motion.div>
-             ))}
-             
+              ))}
+            </div>
+
+            {/* Desktop View - Two Columns */}
+            <div className="hidden md:flex w-full h-[550px] relative z-10">
+               {/* Left Column */}
+               <div className="flex-1 flex flex-col justify-between pr-12 relative h-full">
+                  {leftCards.map((card, idx) => (
+                    <motion.div 
+                      key={card.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ delay: 0.2 + (idx * 0.2) }}
+                      className="bg-[#2B394E] rounded-xl border border-[#3E4F66] p-4 lg:p-5 shadow-lg relative ml-auto w-full max-w-[280px] lg:max-w-[340px]"
+                    >
+                      {/* Connection Line to Center */}
+                      <div className="absolute top-1/2 -right-12 w-12 h-px bg-[#01AEE4]" />
+                      {/* Dot on Center Line */}
+                      <div className="absolute top-1/2 -right-[51px] -translate-y-1/2 w-2 h-2 rounded-full bg-[#01AEE4]" />
+
+                      <span className="block text-xs font-bold text-white mb-1">{card.id}</span>
+                      <span className="block text-white font-bold text-[14px] lg:text-[15px] leading-snug">{card.text}</span>
+                    </motion.div>
+                  ))}
+               </div>
+
+               {/* Right Column (Staggered by adding a margin top) */}
+               <div className="flex-1 flex flex-col justify-between pl-12 relative h-full pt-[60px] pb-[60px]">
+                  {rightCards.map((card, idx) => (
+                    <motion.div 
+                      key={card.id}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ delay: 0.3 + (idx * 0.2) }}
+                      className="bg-[#2B394E] rounded-xl border border-[#3E4F66] p-4 lg:p-5 shadow-lg relative mr-auto w-full max-w-[280px] lg:max-w-[340px]"
+                    >
+                      {/* Connection Line to Center */}
+                      <div className="absolute top-1/2 -left-12 w-12 h-px bg-[#01AEE4]" />
+                      {/* Dot on Center Line */}
+                      <div className="absolute top-1/2 -left-[51px] -translate-y-1/2 w-2 h-2 rounded-full bg-[#01AEE4]" />
+
+                      <span className="block text-xs font-bold text-white mb-1">{card.id}</span>
+                      <span className="block text-white font-bold text-[14px] lg:text-[15px] leading-snug">{card.text}</span>
+                    </motion.div>
+                  ))}
+               </div>
+            </div>
           </div>
+
+          {/* Bottom Footer Text within Container */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.8 }}
+            className="mt-16 md:mt-24 text-center px-4"
+          >
+            <p className="text-[#C0CBE3] text-[13px] md:text-[14px] leading-relaxed max-w-2xl mx-auto font-medium">
+               Instead of using bureau data as a static input, BUREAU 360° helps institutions interpret how 
+               borrower credit behaviour is evolving across the wider lending ecosystem. <br className="hidden md:block"/>
+               This enables structured visibility into:
+            </p>
+          </motion.div>
 
         </motion.div>
-
-        {/* Small footer text */}
-        <div className="mt-8 text-center px-4">
-          <p className="text-[10px] leading-relaxed text-gray-400 max-w-2xl mx-auto uppercase tracking-wide font-medium">
-             BUREAU 360 PROVIDES CONTINUOUS DYNAMIC LOGIC MAPPING FROM RAW BUREAU AGGREGATION CONSTANTS INTO ACTIONABLE
-             PORTFOLIO VISIBILITY WITH REINFORCED REGULATORY ASSURANCE EMBEDDED THROUGHOUT.
-          </p>
-        </div>
 
       </div>
     </section>

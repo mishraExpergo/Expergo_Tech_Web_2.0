@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Cloud, Lock, ServerCog, Sparkles, Sliders, Database, Shuffle, CheckCircle2 } from "lucide-react";
+import { Cloud, Lock, ServerCog, Sparkles, Sliders, Database, Shuffle } from "lucide-react";
 
 export default function EverythingYouNeedGrid() {
   const cards = [
@@ -26,8 +26,8 @@ export default function EverythingYouNeedGrid() {
              viewport={{ once: true }}
              className="mb-4"
           >
-             <span className="text-[#1677FF] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#1677FF]/10 rounded-full border border-[#1677FF]/20">
-                CORE CAPABILITIES
+             <span className="text-[#1677FF] font-semibold text-[16px] tracking-widest uppercase px-3 py-1 ">
+                Functional Features
              </span>
           </motion.div>
           <motion.h2
@@ -35,9 +35,9 @@ export default function EverythingYouNeedGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="es-heading-section mb-6 font-bold leading-tight text-gray-900"
+            className="text-[36px] mb-6 font-bold leading-tight text-gray-900"
           >
-            Everything You Need.<br/>
+            Everything You Need,<br/>
             <span className="text-[#01AEE4]">Nothing You Don&apos;t.</span>
           </motion.h2>
           <motion.p
@@ -53,40 +53,64 @@ export default function EverythingYouNeedGrid() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-           {cards.map((card, idx) => (
+           {cards.map((card, idx) => {
+             const useTealHover = idx % 2 === 1;
+             const hoverBg = useTealHover ? "hover:bg-[#2EC2B3]" : "hover:bg-[#213242]";
+             const hoverBorder = useTealHover
+               ? "hover:border-[#2EC2B3]/90"
+               : "hover:border-[#213242]";
+             return (
              <motion.div
                key={idx}
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-50px" }}
                transition={{ duration: 0.4, delay: idx * 0.1 }}
-               className="bg-white border border-[#01AEE4]/30 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden h-full flex flex-col justify-center"
+               className={`group relative flex h-full flex-col justify-center overflow-hidden rounded-2xl border border-[#01AEE4]/30 bg-white shadow-sm transition-all duration-300 hover:shadow-md ${hoverBorder} ${hoverBg}`}
              >
-                {/* Thin top accent block on hover */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#01AEE4] to-[#1677FF] opacity-0 transition-opacity" style={{ opacity: 0 }} />
-
                 {card.isStats ? (
-                  <div className="p-8 flex flex-col justify-center items-center h-full text-center group hover:bg-[#F0F7FF] transition-colors">
-                     <h3 className="es-heading-section mb-2 font-black text-[#1cdba0]">{card.stat}</h3>
-                     <p className="text-xs font-bold text-gray-700 uppercase tracking-widest leading-relaxed whitespace-pre-line">
+                  <div
+                    className={`flex h-full flex-col items-center justify-center p-8 text-center transition-colors ${
+                      useTealHover
+                        ? "group-hover:[&_h3]:text-[#213242] group-hover:[&_p]:text-[#213242]/90"
+                        : "group-hover:[&_h3]:text-[#2EC2B3] group-hover:[&_p]:text-white/90"
+                    }`}
+                  >
+                     <h3 className="es-heading-section mb-2 font-black text-[#1cdba0] transition-colors">{card.stat}</h3>
+                     <p className="text-xs font-bold uppercase tracking-widest leading-relaxed text-gray-700 whitespace-pre-line transition-colors">
                        {card.sub}
                      </p>
                   </div>
                 ) : (
-                  <div className="p-8 group hover:bg-[#F0F7FF]/50 transition-colors h-full flex flex-col">
-                     <div className="text-[#01AEE4] mb-4">
-                        {card.icon && <card.icon className="w-6 h-6" />}
+                  <div className="flex h-full flex-col p-8 transition-colors">
+                     <div
+                       className={`mb-4 text-[#01AEE4] transition-colors ${
+                         useTealHover
+                           ? "group-hover:text-[#213242]"
+                           : "group-hover:text-[#2EC2B3]"
+                       }`}
+                     >
+                        {card.icon && <card.icon className="h-6 w-6" />}
                      </div>
-                     <h3 className="font-bold text-gray-900 text-sm mb-3">
+                     <h3
+                       className={`mb-3 text-sm font-bold text-gray-900 transition-colors ${
+                         useTealHover ? "group-hover:text-[#213242]" : "group-hover:text-white"
+                       }`}
+                     >
                         {card.title}
                      </h3>
-                     <p className="text-gray-500 text-xs leading-relaxed flex-1">
+                     <p
+                       className={`flex-1 text-xs leading-relaxed text-gray-500 transition-colors ${
+                         useTealHover ? "group-hover:text-[#213242]/85" : "group-hover:text-white/80"
+                       }`}
+                     >
                         {card.desc}
                      </p>
                   </div>
                 )}
              </motion.div>
-           ))}
+           );
+           })}
         </div>
 
       </div>

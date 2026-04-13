@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const steps = [
-  { id: 1, title: "Ingestion", desc: "Automated macro data capture." },
-  { id: 2, title: "Mapping", desc: "Aligning Bureau variables onto standard risk definitions." },
-  { id: 3, title: "Loading", desc: "Pushing arrays into logical parameters." },
-  { id: 4, title: "Consolidation", desc: "Tying single markers to cumulative metrics." },
-  { id: 5, title: "Delivery", desc: "Targeted push events directly into core system dashboards." },
+  { id: 1, title: "Segments", desc: "Borrower behaviour across segments" },
+  { id: 2, title: "Exposure", desc: "External leverage and exposure build-up." },
+  { id: 3, title: "Activity", desc: "Cross-lender credit activity." },
+  { id: 4, title: "Concentration", desc: "Portfolio-level concentration patterns" },
+  { id: 5, title: "Geo Trends", desc: "Geography and channel-level bureau trends" },
 ];
 
 export default function DataPipelineSection() {
@@ -73,15 +74,16 @@ export default function DataPipelineSection() {
                 transition={{ duration: 0.5, delay: idx * 0.1, type: "spring", stiffness: 60 }}
                 className={`relative pl-8 ${idx !== steps.length - 1 ? 'pb-8' : ''}`}
               >
+                <Image src="/line.svg" alt="Data Pipeline" width={500} height={500} className="absolute" />
                  {idx !== steps.length - 1 && (
                    <div className="absolute left-6 top-8 bottom-0 w-px bg-cyan-100/50" />
                  )}
-                 <div className="absolute left-0 top-1 text-5xl font-bold text-gray-100 leading-none -ml-4 z-0 pointer-events-none">
+                 <div className="absolute left-0 top-1 text-5xl font-bold text-gray-300 leading-none -ml-4 z-0 pointer-events-none">
                    {step.id}
                  </div>
                  
                  <div className="relative z-10 flex flex-col pt-2">
-                   <h3 className="es-small-heading mb-1 inline-block w-fit border-b border-cyan-100 pb-1 tracking-wide text-[#01AEE4]">
+                   <h3 className="text-[16px] font-semibold mb-1 inline-block w-fit pb-1 tracking-wide text-[#01AEE4]">
                      {step.title}
                    </h3>
                    <p className="text-gray-500 font-medium text-sm">

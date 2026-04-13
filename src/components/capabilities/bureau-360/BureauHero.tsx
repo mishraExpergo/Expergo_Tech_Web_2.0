@@ -1,5 +1,6 @@
 "use client";
 
+import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
@@ -20,7 +21,7 @@ export default function BureauHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="es-heading-hero mb-6 font-bold  text-[#15B5C1]"
+            className="text-[52px] mb-6 font-bold  text-[#15B5C1]"
           >
             BUREAU 360°
           </motion.h1>
@@ -29,10 +30,12 @@ export default function BureauHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className=" text-gray-800 font-medium mb-8 text-[20px] leading-snug"
+            className=" text-gray-800  mb-8 text-[20px] leading-snug"
           >
-            BUREAU 360° is a credit bureau aggregator and analysis engine that continuously searches for trends over prior months rather than static lines checking single boundaries.
-          </motion.p>
+            BUREAU 360° converts credit bureau signals into structured
+            borrower behaviour intelligence — giving lenders continuous,
+            cross-lender visibility into how credit activity, leverage, and
+            exposure evolve across the wider lending ecosystem.          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,9 +43,9 @@ export default function BureauHero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mb-12"
           >
-            <button className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
-              Request access
-            </button>
+            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
+              Book Demo
+            </BookDemoButton>
           </motion.div>
 
           {/* Tags row */}
@@ -53,26 +56,26 @@ export default function BureauHero() {
             className="flex flex-wrap gap-3"
           >
             {tags.map((tag, idx) => (
-               <div key={idx} className="flex items-center gap-2 bg-[#F0F7FF] border border-[#E0EFFF] py-2 px-4 rounded-full">
-                 <CheckCircle2 className="w-4 h-4 text-[#01AEE4]" strokeWidth={2.5} />
-                 <span className="text-gray-700 text-xs font-semibold">{tag}</span>
-               </div>
+              <div key={idx} className="flex items-center gap-2 bg-[#F0F7FF] border border-[#E0EFFF] py-2 px-4 rounded-full">
+                <CheckCircle2 className="w-4 h-4 text-[#01AEE4]" strokeWidth={2.5} />
+                <span className="text-gray-700 text-xs font-semibold">{tag}</span>
+              </div>
             ))}
           </motion.div>
         </div>
 
         {/* Right Isometric Visual */}
         <div className="flex-1 flex justify-center items-center w-full aspect-square max-w-[500px] relative">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="w-full h-full relative"
           >
-            <img 
-               src="/BureauHero.png" 
-               alt="Bureau 360 Dashboard Isometric Layers" 
-               className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+            <img
+              src="/BureauHero.png"
+              alt="Bureau 360 Dashboard Isometric Layers"
+              className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
             />
           </motion.div>
         </div>

@@ -16,16 +16,13 @@ export default function CommandHero() {
             viewport={{ once: true }}
             className="mb-4"
           >
-             <span className="es-small-heading flex w-fit items-center justify-center gap-2 px-3 py-2 tracking-widest text-[#1677FF] rounded-full border border-[#1677FF]/20">
-             <span><Shield className="w-4 h-4" /></span>
-               EarlySafe Command Centre
-             </span>
+            
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="es-heading-hero mb-6 font-bold tracking-tight text-[#01AEE4]"
+            className="text-[52px] mb-6 font-bold tracking-tight text-[#15B5C1]"
           >
             Command Centre
           </motion.h1>
@@ -34,7 +31,7 @@ export default function CommandHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-gray-600 font-medium mb-10 leading-relaxed max-w-lg"
+            className="text-[20px] text-gray-600 font-medium mb-10 leading-relaxed max-w-lg"
           >
 EarlySafe Command Centre transforms how institutions execute early warning responses — converting signals into structured workflows with ownership, timelines, and accountability.          </motion.p>
 
@@ -51,7 +48,7 @@ EarlySafe Command Centre transforms how institutions execute early warning respo
 
         {/* Right UI Visual Mockup */}
        <div className="">
-        <img src="/Command-centerHero.svg " alt="Command Center" width={550} height={550} />
+        <img src="/1 1.png" alt="Command Center" width={600} height={600} />
        </div>
 
       </div>

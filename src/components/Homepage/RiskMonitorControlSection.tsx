@@ -141,7 +141,7 @@ export function RiskMonitorControlSection() {
             <circle cx="200" cy="200" r="84" stroke="#7DD3FC" strokeWidth="1" opacity="0.5" />
           </svg>
           <div className="relative z-[1] flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-cyan-100 via-cyan-50 to-sky-100 shadow-[0_0_48px_rgba(34,211,238,0.35)] ring-1 ring-cyan-200/60 lg:h-36 lg:w-36">
-            <Shield className="h-14 w-14 text-[#2563EB] lg:h-16 lg:w-16" strokeWidth={1.35} aria-hidden />
+            <Shield className="h-14 w-14 text-[#15B5C1] lg:h-16 lg:w-16" strokeWidth={1.35} aria-hidden />
           </div>
         </div>
 

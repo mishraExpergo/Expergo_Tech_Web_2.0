@@ -14,16 +14,19 @@ import { InstitutionalFeaturesSection } from "@/components/Homepage/Institutiona
 import { BlogCarousel } from "../BlogCarousel";
 import { CTASection } from "@/components/CTASection";
 import { RiskMonitorControlSection } from "@/components/Homepage/RiskMonitorControlSection";
+import { Hero } from "@/components/Homepage/Hero";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-background px-4 py-12 md:px-8 lg:px-16">
-      <div className="mx-auto max-w-7xl">
+      <Hero />
         <RiskMonitorControlSection />
+        <DetectDecideControlSection />
+      <div className="bg-background  mx-24">
+      <div className=" max-w-full">
 
         <motion.div
-          className="mb-12 text-center"
+          className="mb-12 mt-24 text-center mx-auto max-w-7xl"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -75,7 +78,6 @@ const Index = () => {
       </div>
       </div>
 
-      <DetectDecideControlSection />
 
       <MeasurableOutcomesSection />
 

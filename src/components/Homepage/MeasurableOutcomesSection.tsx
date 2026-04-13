@@ -81,7 +81,7 @@ export function MeasurableOutcomesSection() {
               viewport={{ once: true, margin: "-24px" }}
               transition={{ duration: 0.4, delay: i * 0.06, ease }}
             >
-              <article className="flex gap-5 rounded-xl border border-[#E4E7EC] bg-white p-5 shadow-sm md:gap-8 md:p-6 md:pl-8 lg:gap-10">
+              <article className="flex gap-5  border-b-2 border-[#E4E7EC] bg-white p-5  md:gap-8 md:p-6 md:pl-8 lg:gap-10">
                 <span
                   className="w-14 shrink-0 select-none text-left text-4xl font-bold tabular-nums text-[#16B2C3]/20 md:w-16 md:text-5xl"
                   aria-hidden
@@ -89,7 +89,7 @@ export function MeasurableOutcomesSection() {
                   {item.num}
                 </span>
                 <div className="min-w-0 flex-1 pt-0.5">
-                  <h3 className="text-base font-bold text-brand-ink md:text-lg">{item.title}</h3>
+                  <h3 className="text-[20px] font-bold text-brand-ink md:text-[20px]">{item.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-brand-muted md:text-[15px] md:leading-[1.55]">
                     {item.description}
                   </p>

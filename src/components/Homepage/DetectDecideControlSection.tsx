@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SlidersVertical, Target } from "lucide-react";
+import { Circle, Shuffle, SlidersVertical, Target } from "lucide-react";
 
 function PlusOneCircleIcon({ className }: { className?: string }) {
   return (
@@ -25,7 +25,7 @@ const cards = [
     ],
   },
   {
-    icon: PlusOneCircleIcon,
+    icon: Shuffle,
     title: "Decide",
     bullets: [
       "Model state transitions and forward migration probability.",
@@ -50,19 +50,19 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function DetectDecideControlSection() {
   return (
     <section
-      className="font-heading bg-[#0B0E14] px-4 py-16 md:px-8 md:py-20 lg:px-16 lg:py-24"
+      className="font-heading bg-[#0B0E14]  px-4 shadow-lg mt-24   py-16 md:px-8 md:py-20 lg:px-16 lg:py-24"
       aria-labelledby="detect-decide-control-heading"
     >
       <div className="mx-auto max-w-7xl">
         <motion.h2
           id="detect-decide-control-heading"
-          className="mb-12 text-center text-3xl font-bold tracking-tight text-white md:mb-14 md:text-4xl lg:text-site-sub lg:leading-tight"
+          className="mb-12 text-center text-3xl font-bold tracking-tight text-white md:mb-14 md:text-4xl lg:text-site-sub lg:leading-tight flex items-center justify-center gap-12"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease }}
         >
-          Detect → Decide → Control
+          Detect  <span className=" bg-white w-5 h-5 border-2 rounded-full"></span> Decide <span className=" bg-white w-5 h-5 border-2 rounded-full"></span>  Control
         </motion.h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-6 lg:gap-8">
@@ -71,7 +71,7 @@ export function DetectDecideControlSection() {
             return (
               <motion.article
                 key={card.title}
-                className="rounded-2xl bg-[#1C1F26] p-8 text-white"
+                className="rounded-2xl border-2 border-transparent bg-[#1C1F26] p-8 text-white transition-[border-color] duration-300 ease-out hover:border-[#15B5C1]"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}

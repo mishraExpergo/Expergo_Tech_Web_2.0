@@ -10,7 +10,7 @@ const links = [
   { href: "/capabilities", label: "Capabilities", match: (p: string) => p === "/capabilities" },
   { href: "/outcomes", label: "Outcomes", match: (p: string) => p === "/outcomes" },
   { href: "/use-cases", label: "Use Cases", match: (p: string) => p === "/use-cases" },
-  { href: "/insights", label: "Blogs", match: () => false },
+  { href: "/blog", label: "Blogs", match: (p: string) => p === "/blog" },
 ] as const;
 
 export function Header() {

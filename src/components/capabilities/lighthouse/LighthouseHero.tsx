@@ -1,74 +1,76 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield } from "lucide-react";
 
 export default function LighthouseHero() {
   const stats = [
-    { value: "300+", label: "Risk and Controll View" },
-    { value: "40+", label: "Risk Signal" },
+    { value: "500+", label: "Logic limits evaluated" },
+    { value: "40+", label: "Integrations" },
     { value: "99.9%", label: "Uptime SLA" },
-    { value: "<2s", label: "Signal Latency" }
+    { value: "<2s", label: "Event Latency" }
   ];
 
   return (
-    <section className="relative z-0 flex min-h-[calc(100dvh-72px)] flex-col justify-center overflow-hidden bg-[#F9FAFB] pb-24 lg:pb-28">
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center gap-12 px-6 py-8 lg:flex-row lg:gap-10 lg:px-8 lg:py-10">
+    <section className="relative pb-16 pt-24 overflow-hidden bg-[#F9FAFB] pt-0">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8 pt-0 mt-0 lg:-mt-8">
+        
         {/* Left Text Content */}
-        <div className="flex w-full max-w-2xl flex-1 flex-col justify-center">
+        <div className="flex-1 max-w-2xl mt-4 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="mb-4"
           >
-            
+             <span className="text-[#01AEE4] font-semibold text-xs tracking-widest uppercase px-3 py-1 bg-[#01AEE4]/10 rounded-full border border-[#01AEE4]/20 inline-block font-sans">
+                CAPABILITIES OVERVIEW
+             </span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[52px] mb-2 font-black leading-tight text-gray-900"
+            className="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-2 leading-tight"
           >
             Risk Dashboard <br/>
-            <span className="text-[#15B5C1]">Lighthouse</span>
+            <span className="text-[#01AEE4]">Lighthouse</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[20px] text-[#1F1F1F]  mb-12  max-w-xl"
+            className="text-lg text-gray-500 font-medium mb-12 leading-relaxed max-w-xl"
           >
-          Transforms how institutions monitor and control portfolio risk. A risk control dashboard that reveals how stress forms,moves,and is acted upon across the credit life cycle.
+Transforms how institutions monitor and control portfolio risk. A risk control dashboard that reveals how stress forms,moves,and is acted upon across the credit life cycle.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex gap-6 md:gap-10  pt-8"
+            className="flex gap-6 md:gap-10 border-t border-gray-200 pt-8"
           >
              {stats.map((stat, idx) => (
-                <div key={idx} className="flex flex-col w-1/2">
-                   <span className="text-[32px] md:text-[32px] font-black text-[#15B5C1] mb-1">{stat.value}</span>
-                   <span className="text-[12px] md:text-[12px] font-bold text-gray-900 uppercase tracking-wide  max-w-[80px]">{stat.label}</span>
+                <div key={idx} className="flex flex-col">
+                   <span className="text-2xl md:text-3xl font-black text-[#01AEE4] mb-1">{stat.value}</span>
+                   <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wide leading-tight max-w-[80px]">{stat.label}</span>
                 </div>
              ))}
           </motion.div>
         </div>
 
         {/* Right: Lighthouse SVG + cyan ripple overlay */}
-        <div className="flex w-full min-h-0 flex-1 items-center justify-center lg:max-w-[700px]">
+        <div className="flex w-full max-w-[520px] flex-1 items-center justify-center -mt-8 lg:-mt-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-            className="relative flex w-full items-center justify-center p-4 sm:p-8"
+            className="relative flex w-full items-center justify-center p-8"
           >
-            {/* Cyan ripples — behind the lighthouse, anchored near the lantern / top */}
+            {/* Cyan ripples — drawn behind the art */}
             <div
-              className="pointer-events-none absolute left-[calc(50%-6px)] top-[14%] z-0 flex h-0 w-0 -translate-x-1/2 items-center justify-center"
+              className="pointer-events-none absolute left-1/2 top-[45%] z-0 flex h-0 w-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
               aria-hidden
             >
               {[0, 1, 2].map((i) => (
@@ -76,22 +78,18 @@ export default function LighthouseHero() {
                   key={i}
                   className="absolute rounded-full bg-[#01AEE4]"
                   style={{
-                    width: 102,
-                    height: 102,
+                    width: 200,
+                    height: 200,
                   }}
                   animate={{
-                    scale: [1, 1.75, 2.32],
-                    opacity: [0.42, 0.2, 0],
+                    scale: [1, 3.5],
+                    opacity: [0.7, 0],
                   }}
                   transition={{
-                    duration: 4.25,
+                    duration: 4,
                     repeat: Infinity,
-                    delay: i * 1.42,
-                    ease: [
-                      [0.33, 0, 0.2, 1],
-                      [0.22, 1, 0.36, 1],
-                    ],
-                    times: [0, 0.48, 1],
+                    delay: i * 1.33,
+                    ease: "linear",
                   }}
                 />
               ))}
@@ -100,7 +98,7 @@ export default function LighthouseHero() {
             <img
               src="/Lighthousee.svg"
               alt="Lighthouse"
-              className="relative scale-150 mt-35 z-10 h-auto w-full max-h-[min(52dvh,480px)] max-w-[100rem] object-contain select-none sm:max-h-[min(56dvh,520px)] lg:max-h-[min(62dvh,580px)]"
+              className="relative z-10 w-full max-w-[100rem] h-auto max-h-[100vh] object-contain select-none transform translate-y-8"
               decoding="async"
             />
           </motion.div>

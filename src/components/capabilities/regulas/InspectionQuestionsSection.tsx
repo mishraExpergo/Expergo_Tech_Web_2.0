@@ -7,28 +7,28 @@ import { ChevronDown } from "lucide-react";
 const questions = [
   {
     id: 1,
-    title: "Was the signal identified?",
-    content: "Our real-time event logs give inspectors unquestionable proof of procedure, accessible instantly upon request without manual compilation.",
+    title: "What is REGULUS?",
+    content: "A compliance control system that converts every risk signal into a time-bound, accountable record.It ensures every action is tracked and backed with verifiable evidence.",
   },
   {
     id: 2,
-    title: "Was the correct action taken?",
-    content: "Automated checks against standard operating procedures track staff actions directly to required mandates to ensure absolute adherence.",
+    title: "How does REGULUS help in inspections?",
+    content: "It creates a complete audit trail for every signal from identification to closure.This makes compliance instantly inspection-ready, without manual effort..",
   },
   {
     id: 3,
-    title: "Was ownership defined?",
-    content: "All clinical and governance actions are tracked passively during workflow execution, ensuring documentation is consistently up-to-date.",
+    title: "How is accountability ensured?",
+    content: "Each signal is assigned to a defined owner with clear timelines.Delays are tracked and escalated to ensure no signal is left unaddressed.",
   },
   {
     id: 4,
-    title: "Were timelines followed? ",
-    content: "Generate tamper-proof, time-stamped reporting of all risk events and responses mapped specifically to individual portfolios with a single click.",
+    title: "What types of signals does it track? ",
+    content: "It tracks documentation, behavioural, fraud, and compliance-related risks.All signals are mapped to regulatory expectations and required actions.",
   },
   {
     id: 5,
-    title: "Is evidence complete and verifiable?",
-    content: "Every decision, from identification to remediation, is tied to specific user identities, timestamps, and the rationale provided at the moment of action.",
+    title: "What outcomes does REGULUS deliver?",
+    content: "It ensures timely action, clear visibility of exposure, and structured compliance. Compliance is not explained later — it is proven in real time.",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function InspectionQuestionsSection() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[36px] mb-4 font-bold text-gray-900"
+            className="text-site-sub mb-4 font-bold text-gray-900"
           >
             Inspection <span className="text-[#01AEE4]">Questions</span>
           </motion.h2>
