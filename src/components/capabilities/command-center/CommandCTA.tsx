@@ -14,7 +14,7 @@ export default function CommandCTA() {
            className="mb-4"
         >
            <span className="text-[16px] px-3 py-1  text-[#1677FF] ">
-              NEXT STEPS
+              Get Started
            </span>
         </motion.div>
         
@@ -24,7 +24,7 @@ export default function CommandCTA() {
           viewport={{ once: true }}
           className="es-heading-hero mb-6 font-bold tracking-tight text-gray-900"
         >
-          Turn Warnings Into <span className="text-[#15B5C1]">Results</span>
+          From Warnings to <span className="text-[#15B5C1]">Action</span>
         </motion.h2>
         
         <motion.p 
@@ -32,10 +32,10 @@ export default function CommandCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-gray-600  text-lg max-w-2xl mx-auto leading-relaxed"
+          className="text-gray-600  text-lg max-w-4xl mx-auto leading-relaxed"
         >
-          EarlySafe Command Centre brings discipline, coordination, and measurable outcomes to risk resolution. See it in action.
- 
+EarlySafe Command Centre ensures every risk signal is converted into action, assigned with accountability, 
+and resolved within defined timelines — delivering measurable outcomes across your portfolio. 
         </motion.p>
         
         <motion.div 
