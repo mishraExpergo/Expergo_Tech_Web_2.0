@@ -5,7 +5,6 @@ import {
   motion,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -112,13 +111,7 @@ export function ComplianceHubAssemble() {
     offset: ["start 0.88", "start 0.22"],
   });
 
-  const assembly = useTransform(scrollYProgress, (v) => (reduce ? 1 : v));
-  const assemblySpring = useSpring(assembly, {
-    stiffness: 90,
-    damping: 26,
-    mass: 0.45,
-  });
-  const progress = reduce ? assembly : assemblySpring;
+  const progress = useTransform(scrollYProgress, (v) => (reduce ? 1 : v));
 
   const d = useTransform(progress, (p) => D_FAR + (D_NEAR - D_FAR) * p);
   const meshOpacity = useTransform(progress, [0, 0.35, 1], [0.45, 0.72, 0.9]);

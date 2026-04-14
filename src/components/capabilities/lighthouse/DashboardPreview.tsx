@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import NewFile from "@/components/Homepage/NewFile";
+import NewFileLazy from "@/components/Homepage/NewFileLazy";
 
 export default function DashboardPreview() {
   const ref = useRef<HTMLElement>(null);
@@ -48,7 +48,7 @@ export default function DashboardPreview() {
           transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
           className="h-full w-full"
         >
-          <NewFile/>
+          <NewFileLazy />
         </motion.div>
       </div>
     </motion.section>

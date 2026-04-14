@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Roboto } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
@@ -16,13 +16,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
   display: "swap",
   weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  display: "swap",
-  weight: ["100", "300", "400", "500", "700", "900"],
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -39,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} ${roboto.variable}`}
+      className={`${inter.variable} ${poppins.variable}`}
     >
       <body className={`${inter.className} font-sans`}>
         <Providers>

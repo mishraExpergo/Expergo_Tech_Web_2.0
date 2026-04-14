@@ -6,7 +6,6 @@ import {
   AnimatePresence,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 import {
@@ -79,10 +78,8 @@ function useAssemble() {
     target: ref,
     offset: ["start 0.88", "start 0.28"],
   });
-  const t = useSpring(
-    useTransform(scrollYProgress, (v) => (reduce ? 1 : v)),
-    { stiffness: 120, damping: 32, mass: 0.35 },
-  );
+  /** Direct scroll progress avoids per-frame spring work on scroll (major CPU win). */
+  const t = useTransform(scrollYProgress, (v) => (reduce ? 1 : v));
   return { ref, t };
 }
 
@@ -249,6 +246,7 @@ function DelinquencyTrend({ assemble }: { assemble: AssembleMotion }) {
                   strokeWidth={0.8}
                   fill={fill}
                   fillOpacity={1}
+                  isAnimationActive={false}
                   dot={key === "s1" ? whiteDot : false}
                   activeDot={{ r: 4, fill: "#fff", stroke: BRAND, strokeWidth: 1.5 }}
                 />
@@ -326,7 +324,7 @@ function RiskConcentration({ assemble }: { assemble: AssembleMotion }) {
                   fontSize: 11,
                 }}
               />
-              <Bar dataKey="v" radius={[4, 4, 0, 0]} maxBarSize={22} animationDuration={900}>
+              <Bar dataKey="v" radius={[4, 4, 0, 0]} maxBarSize={22} isAnimationActive={false}>
                 {concentrationData.map((_, i) => (
                   <Cell key={i} fill={barFillForIndex(i, concentrationData.length)} />
                 ))}
@@ -552,7 +550,7 @@ export default function NewFile() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTab((prev) => (prev + 1) % tabs.length);
-    }, 5000);
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 

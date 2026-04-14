@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
 import { SignalFabricCard } from "@/components/Homepage/SignalFabricCard";
@@ -11,7 +12,15 @@ import { PredictiveTrajectoryCard } from "@/components/Homepage/PredictiveTrajec
 import { DetectDecideControlSection } from "@/components/Homepage/DetectDecideControlSection";
 import { MeasurableOutcomesSection } from "@/components/Homepage/MeasurableOutcomesSection";
 import { InstitutionalFeaturesSection } from "@/components/Homepage/InstitutionalFeaturesSection";
-import { BlogCarousel } from "../BlogCarousel";
+const BlogCarousel = dynamic(
+  () => import("@/components/BlogCarousel").then((m) => ({ default: m.BlogCarousel })),
+  {
+    loading: () => (
+      <div className="mx-auto mt-16 h-56 w-full max-w-6xl animate-pulse rounded-xl bg-gray-100/80" aria-hidden />
+    ),
+    ssr: true,
+  },
+);
 import { CTASection } from "@/components/CTASection";
 import { RiskMonitorControlSection } from "@/components/Homepage/RiskMonitorControlSection";
 import { Hero } from "@/components/Homepage/Hero";
