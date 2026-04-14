@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import Script from "next/script";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-GCR6CDJSMK";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +39,18 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable}`}
     >
       <body className={`${inter.className} font-sans`}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <Providers>
           {children}
           <Footer />
