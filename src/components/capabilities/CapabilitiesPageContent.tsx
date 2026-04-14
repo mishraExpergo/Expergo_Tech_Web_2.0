@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BlogCarousel } from "@/components/BlogCarousel";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
+import { ComplianceHubAssemble } from "@/components/capabilities/ComplianceHubAssemble";
 import Image from "next/image";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -30,8 +31,8 @@ const zigzagRows = [
   {
     title: "Regulus",
     reversed: true,
-     route:"/capabilities/regulas",
-    image: "/Regulas.png",
+    route: "/capabilities/regulas",
+    graphic: "compliance-hub" as const,
     items: [
       {
         heading: "Governance & Regulatory Alignment",
@@ -84,6 +85,7 @@ function CapabilityPanel({
   index,
   route,
   image,
+  graphic,
   reversed,
 }: {
   title: string;
@@ -91,7 +93,8 @@ function CapabilityPanel({
   reduce: boolean;
   index: number;
   route: string;
-  image: string;
+  image?: string;
+  graphic?: "compliance-hub";
   reversed: boolean;
 }) {
   return (
@@ -134,13 +137,17 @@ function CapabilityPanel({
         </div>
       </div>
       <div className="relative mx-auto flex shrink-0 justify-center self-center md:mx-0">
-        <Image
-          src={image}
-          width={400}
-          height={400}
-          alt={`${title} illustration`}
-          className=" h-[400px] w-[400px] object-contain"
-        />
+        {graphic === "compliance-hub" ? (
+          <ComplianceHubAssemble />
+        ) : image ? (
+          <Image
+            src={image}
+            width={400}
+            height={400}
+            alt={`${title} illustration`}
+            className="h-[400px] w-[400px] object-contain"
+          />
+        ) : null}
       </div>
     </motion.div>
   );
@@ -193,7 +200,8 @@ export function CapabilitiesPageContent() {
                 reduce={reduce}
                 index={i}
                 route={row.route}
-                image={row.image}
+                image={"image" in row ? row.image : undefined}
+                graphic={"graphic" in row ? row.graphic : undefined}
                 reversed={row.reversed}
               />
             </div>
