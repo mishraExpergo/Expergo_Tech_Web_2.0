@@ -1,13 +1,14 @@
 "use client";
 
+import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
 
 export default function LighthouseHero() {
   const stats = [
-    { value: "500+", label: "Logic limits evaluated" },
-    { value: "40+", label: "Integrations" },
-    { value: "99.9%", label: "Uptime SLA" },
-    { value: "<2s", label: "Event Latency" }
+    { value: "400+", label: "PORTFOLIO INSIGHTS" },
+    { value: "40+", label: "RISK SIGNALS TRACKED" },
+    { value: "10+", label: "PAYMENT BEHAVIOUR SIGNALS" },
+    { value: "Real Time", label: "STRESS MONITORING" }
   ];
 
   return (
@@ -35,6 +36,18 @@ export default function LighthouseHero() {
           >
 Transforms how institutions monitor and control portfolio risk. A risk control dashboard that reveals how stress forms,moves,and is acted upon across the credit life cycle.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap items-center gap-4"
+          >
+            <BookDemoButton
+             className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm hover:shadow-md">
+              Book Demo
+            </BookDemoButton>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

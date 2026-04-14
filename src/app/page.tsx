@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import type { Metadata } from "next";
 import Home from "@/components/Homepage/Home";
-// import NewFile from "@/components/Homepage/NewFile";
+import NewFile from "@/components/Homepage/NewFile";
 
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function HomePage() {
     <>
     <Header/>
     <Home/>
-    {/* <NewFile/> */}
+    <NewFile/>
     </>
   );
 }
