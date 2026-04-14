@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { UseCasesPageContent } from "@/components/use-cases/UseCasesPageContent";
 
@@ -14,7 +13,6 @@ export default function UseCasesPage() {
     <>
       <Header />
       <UseCasesPageContent />
-      <Footer variant="useCases" />
     </>
   );
 }

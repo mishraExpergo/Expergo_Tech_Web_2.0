@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import { ComparisonSection } from "@/components/ComparisonSection";
@@ -26,7 +25,6 @@ export default function HomePage() {
       <InfrastructureSection />
       <CTASection />
       <BlogCarousel align="center" />
-      <Footer variant="capabilities"/>
     </>
   );
 }

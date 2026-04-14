@@ -31,7 +31,7 @@ const zigzagRows = [
     title: "Regulus",
     reversed: true,
      route:"/capabilities/regulas",
-    image: "/Screenshot (50).png",
+    image: "/Regulas.png",
     items: [
       {
         heading: "Governance & Regulatory Alignment",
@@ -47,7 +47,7 @@ const zigzagRows = [
     title: "Command Center",
     reversed: false,
       route:"/capabilities/command-center",
-      image: "/Command-centerHero.svg",
+      image: "/1 1.png",
     items: [
       {
         heading: "Operational Risk Control",

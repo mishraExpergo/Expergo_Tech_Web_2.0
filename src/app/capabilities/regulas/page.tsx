@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import RegulusHero from "@/components/capabilities/regulas/RegulusHero";
 import ComplianceSection from "@/components/capabilities/regulas/ComplianceSection";
@@ -20,7 +19,7 @@ export default function RegulusPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1 w-full pt-24 pb-16 overflow-hidden">
+      <main className="flex-1 w-full  pb-16 overflow-hidden">
         <RegulusHero />
         <ComplianceSection />
         <DetectionSection />
@@ -31,7 +30,6 @@ export default function RegulusPage() {
         <CallToActionSection />
         <BlogCarousel align="center" />
       </main>
-      <Footer variant="capabilities" />
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { CapabilitiesPageContent } from "@/components/capabilities/CapabilitiesPageContent";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { BlogCarousel } from "@/components/BlogCarousel";
 
 export const metadata: Metadata = {
   title: "Capabilities — EXPERGO",
@@ -15,7 +13,6 @@ export default function CapabilitiesPage() {
     <>
       <Header />
       <CapabilitiesPageContent />
-      <Footer variant="capabilities" />
     </>
   );
 }

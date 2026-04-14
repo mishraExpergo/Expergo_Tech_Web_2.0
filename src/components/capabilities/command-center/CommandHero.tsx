@@ -1,5 +1,6 @@
 "use client";
 
+import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
 import { LineChart, BarChart3, Activity, PieChart, Shield } from "lucide-react";
 
@@ -40,9 +41,9 @@ EarlySafe Command Centre transforms how institutions execute early warning respo
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <button className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
+            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
               Book Demo
-            </button>
+            </BookDemoButton>
           </motion.div>
         </div>
 

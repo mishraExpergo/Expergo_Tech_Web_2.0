@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
 import { CookieBanner } from "@/components/CookieBanner";
+import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -41,7 +42,10 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable} ${roboto.variable}`}
     >
       <body className={`${inter.className} font-sans`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Footer />
+        </Providers>
         <CookieBanner />
       </body>
     </html>

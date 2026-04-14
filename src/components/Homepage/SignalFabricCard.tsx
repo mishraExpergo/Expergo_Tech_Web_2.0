@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
 
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
@@ -32,22 +32,22 @@ export const SignalFabricCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Signal Fabric</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Multi-source data ingestion & normalisation</p>
-      <div className="grid min-h-[8.5rem] flex-1 grid-cols-8 gap-1 auto-rows-fr">
+      <div className="grid min-h-[8.5rem] flex-1 auto-rows-fr grid-cols-8 gap-1">
         {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, i) => (
           <motion.div
             key={i}
-            className="aspect-square rounded-sm"
+            className="relative aspect-square origin-center cursor-default rounded-sm"
             style={{ backgroundColor: cellColor(i) }}
             initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: hoveredCell === i ? 1 : 0.85,
-              scale: hoveredCell === i ? 1.25 : 1,
-            }}
-            whileInView={{ opacity: 0.85, scale: 1 }}
-            viewport={{ once: true }}
+            whileInView={{ opacity: 0.92, scale: 1 }}
+            viewport={{ once: true, margin: "0px 0px -40px 0px" }}
             transition={{ delay: i * 0.008, duration: 0.3 }}
-            onHoverStart={() => setHoveredCell(i)}
-            onHoverEnd={() => setHoveredCell(null)}
+            whileHover={{
+              scale: 1.22,
+              zIndex: 2,
+              boxShadow: "0 4px 14px color-mix(in srgb, var(--color-platform-teal) 35%, transparent)",
+              transition: { type: "spring", stiffness: 400, damping: 22 },
+            }}
           />
         ))}
       </div>

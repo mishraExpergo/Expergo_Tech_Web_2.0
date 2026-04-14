@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import BureauHero from "@/components/capabilities/bureau-360/BureauHero";
 import ExternalSignalsFlow from "@/components/capabilities/bureau-360/ExternalSignalsFlow";
@@ -29,7 +28,6 @@ export default function BureauPage() {
         <BureauCTA />
         <BlogCarousel theme="light" align="center" />
       </main>
-      <Footer variant="capabilities" />
     </div>
   );
 }

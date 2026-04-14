@@ -16,7 +16,7 @@ import {
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
 
 const data = [
-  { name: "Jan", risk: 85, threshold: 70, baseline: 60 },
+  { name: "Jan", risk: 85, threshold: 85, baseline: 85 },
   { name: "Feb", risk: 78, threshold: 72, baseline: 55 },
   { name: "Mar", risk: 90, threshold: 68, baseline: 50 },
   { name: "Apr", risk: 65, threshold: 65, baseline: 58 },

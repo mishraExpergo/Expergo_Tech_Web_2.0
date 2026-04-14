@@ -17,11 +17,12 @@ import {
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
 
 const data = [
-  { name: "Figma", value: 45 },
-  { name: "Sketch", value: 30 },
-  { name: "XD", value: 85 },
-  { name: "PS", value: 60 },
-  { name: "AI", value: 95 },
+  { name: "JAN", value: 45 },
+  { name: "FEB", value: 30 },
+  { name: "MAR", value: 85 },
+  { name: "APR", value: 60 },
+  { name: "MAY", value: 95 },
+  { name: "JUN", value: 95 },
 ];
 
 /** Reference: uniform purple bars */

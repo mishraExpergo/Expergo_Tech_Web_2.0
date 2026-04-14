@@ -16,12 +16,12 @@ export default function ExternalSignalsFlow() {
   const leftCards = [
     { id: "01", text: "Bureau score migration" },
     { id: "03", text: "Trade line additions and closures" },
-    { id: "04", text: "Off-us delinquency signals" },
+    { id: "05", text: "Borrower behaviour segmentation" },
   ];
 
   const rightCards = [
     { id: "02", text: "Enquiry velocity and recency" },
-    { id: "05", text: "Off-us delinquency signals" }, // Text from the image
+    { id: "04", text: "Off-us delinquency signals" }, // Text from the image
     { id: "06", text: "Multi-lender exposure patterns" },
   ];
 

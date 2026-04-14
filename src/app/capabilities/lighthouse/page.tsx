@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import LighthouseHero from "@/components/capabilities/lighthouse/LighthouseHero";
 import DashboardPreview from "@/components/capabilities/lighthouse/DashboardPreview";
@@ -31,7 +30,6 @@ export default function LighthousePage() {
         <LighthouseCTA />
         <BlogCarousel theme="light" align="center" />
       </main>
-      <Footer variant="capabilities" />
     </div>
   );
 }

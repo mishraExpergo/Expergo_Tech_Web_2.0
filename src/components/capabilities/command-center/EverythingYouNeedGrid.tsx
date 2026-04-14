@@ -11,7 +11,7 @@ export default function EverythingYouNeedGrid() {
     { icon: Sliders, title: "Ownership & Routing", desc: "Cases assigned to defined roles with structured handoff protocols ensuring accountability at every stage." },
     { isStats: true, stat: "100%", sub: "Signal capture" },
     { icon: Shuffle, title: "Cross-Team Coordination", desc: "Seamless orchestration acrossOperations, Credit, Legal, Technical, and Collections through unified workflows." },
-    { icon: Sparkles, title: "Queue Monitoring", desc: "Continuous visibility into case age, queue depth, and bottlenecks for proactive resource allocation." },
+    { icon: Sparkles, title: "Queue Monitoring", desc: "Real-time visibility into case backlog, ageing, and bottlenecks,enabling proactive workload management and SLA control." },
     { icon: Database, title: "Resolution Tracking", desc: "Every case closed with a defined outcome, structured rationale, and complete documentation." },
   ];
 

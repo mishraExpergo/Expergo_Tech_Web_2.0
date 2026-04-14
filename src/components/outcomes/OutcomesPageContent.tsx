@@ -10,7 +10,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const stakeholderCards = [
   {
     title: "For CRO",
-    body: "Capital stability, earlier intervention.",
+    body: "Capital stability, early intervention.",
   },
   {
     title: "For Head of Collections",
@@ -28,8 +28,8 @@ const stakeholderCards = [
 
 const outcomeDetailCards = [
   {
-    title: "Earlier Identification of Deterioration",
-    body: "Stress rarely appears first in DPD. By detecting behavioural deviation and migration momentum early, institutions gain time to intervene before slippage compounds.",
+    title: "Early Identification of Deterioration",
+    body: "Stress rarely appears first in DPD. By detecting behavioural deviations and migration momentum early, institutions gain time to intervene before slippage compounds.",
     bullets: [
       "Reduced surprise deterioration",
       "Improved vintage stability",
@@ -141,7 +141,7 @@ export function OutcomesPageContent() {
           </h1>
           <p className="mt-6 max-w-4xl text-[20px] leading-relaxed text-[#101828] sm:text-xl">
             EarlySafe is designed to influence portfolio trajectory not simply observe delinquency. Structured
-            control produces measurable institutional impact.
+            controls produce measurable institutional impact.
           </p>
         </div>
       </section>

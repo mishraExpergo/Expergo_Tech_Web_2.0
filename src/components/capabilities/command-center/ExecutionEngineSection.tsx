@@ -54,8 +54,7 @@ export default function ExecutionEngineSection() {
              transition={{ delay: 0.2 }}
              className="text-gray-500 mt-4 max-w-2xl mx-auto text-sm"
           >
-            EarlySafe Command Centre ensures that early stage risk is managed consistently and efficiently transforming detection into disciplined, accountable resolution across your entire institution.
-          </motion.p>
+Instead of relying on informal follow-ups and manual coordination, institutions gain a structured framework where every signal triggers clear action, escalation, and closure          </motion.p>
         </div>
 
         {/* 3 Cards */}
@@ -67,7 +66,7 @@ export default function ExecutionEngineSection() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-50px" }}
                transition={{ duration: 0.5, delay: idx * 0.15 }}
-               className="bg-white border border-[#E0EFFF] rounded-xl p-8 shadow-sm hover:shadow-md hover:border-[#01AEE4]/50 transition-all flex flex-col items-center text-center group"
+               className="bg-white border border-[#E0EFFF] rounded-xl p-8 shadow-sm hover:shadow-md hover:shadow-[#1677FF] hover:border-[#0B64F4] transition-all flex flex-col items-center text-center group"
              >
                 <div className="bg-[#E8F2FA] rounded-full p-3 mb-6 text-[#01AEE4] group-hover:scale-110 transition-transform">
                    <card.icon className="w-6 h-6" />

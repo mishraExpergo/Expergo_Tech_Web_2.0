@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { OutcomesPageContent } from "@/components/outcomes/OutcomesPageContent";
 
@@ -14,7 +13,6 @@ export default function OutcomesPage() {
     <>
       <Header />
       <OutcomesPageContent />
-      <Footer variant="useCases"/>
     </>
   );
 }

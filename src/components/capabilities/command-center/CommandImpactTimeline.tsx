@@ -5,12 +5,13 @@ import { Zap, Shield, FileText, CheckSquare, Target, Activity } from "lucide-rea
 
 export default function CommandImpactTimeline() {
   const elements = [
-    { title: "Faster Threat Response", desc: "Rapidly identify and act on emerging portfolio stress before it escalates into systematic risk", icon: Zap, side: "left" },
-    { title: "Reduced Risk Fallout", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: Shield, side: "right" },
-    { title: "Manual Review Cuts", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: FileText, side: "left" },
-    { title: "False Positive Clarity", desc: "Assign ownership across operational team so every case has a responsible party driving resolution", icon: Target, side: "right" },
-    { title: "Error Free Process", desc: "Strengthen coordination and follow through with structured workflows and milestone tracking", icon: CheckSquare, side: "left" },
-    { title: "Performance Visibility", desc: "Surface delays and case level performance data in real time for for faster course correction.", icon: Activity, side: "right" },
+    { title: "Faster Stress Response", desc: "Rapidly identify and act on emerging portfolio stress before it escalates into systematic risk", icon: Zap, side: "left" },
+    { title: "Reduced Roll Forward", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: Shield, side: "right" },
+    { title: "Improved Cure Rates", desc: "Prevent accounts from rolling into deeper delinquency stages through early early targeted intervention.", icon: FileText, side: "left" },
+    { title: "Clear Accountability", desc: "Each case is assigned to a defined owner with tracked responsibility. This ensures no signal is missed or left unaddressed.", icon: Target, side: "right" },
+    { title: "Stronger Execution Discipline", desc: "Standardised workflows ensure consistent and coordinated action across teams.This improves efficiency across Ops, Credit, Legal, and Collections.", icon: CheckSquare, side: "left" },
+    { title: "Better Performance Visibility", desc: "Real-time tracking highlights delays, bottlenecks, and SLA breaches.This enables proactive intervention and performance improvement.", icon: Activity, side: "right" },
+    { title: "Structured Resolution", desc: "Every case is closed with a defined outcome and complete action trail. This ensures consistency, traceability, and stronger governance.", icon: Activity, side: "left" },
   ];
 
   return (
@@ -53,7 +54,7 @@ export default function CommandImpactTimeline() {
            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-100 via-blue-200 to-transparent -translate-x-1/2 ml-0" />
 
            {elements.map((item, idx) => (
-             <div key={idx} className={`relative flex items-center mb-16 md:mb-12 ${item.side === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} flex-row`}>
+             <div key={idx} className={`relative flex items-center mb-16 md:mb-2 ${item.side === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} flex-row`}>
                 
                 {/* Connector Dot */}
                 <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#1677FF] bg-white z-10 hidden md:block" />
@@ -67,10 +68,10 @@ export default function CommandImpactTimeline() {
                 {/* Card Container */}
                 <div className={`w-full md:w-1/2 ${item.side === 'left' ? 'md:pr-16 pl-10 md:pl-0' : 'md:pl-16 pl-10'}`}>
                    <motion.div
-                     initial={{ opacity: 0, x: item.side === 'left' ? -30 : 30 }}
+                     initial={{ opacity: 0, x: item.side === 'left' ? -150 : 150 }}
                      whileInView={{ opacity: 1, x: 0 }}
                      viewport={{ once: true, margin: "-100px" }}
-                     transition={{ duration: 0.5, type: "spring", stiffness: 60 }}
+                     transition={{ duration: 4, type: "spring", stiffness: 40 }}
                      className="bg-white border border-[#01AEE4]/20 rounded-xl p-6 shadow-[0_4px_20px_rgba(1,174,228,0.05)] hover:shadow-[0_8px_30px_rgba(1,174,228,0.1)] transition-all"
                    >
                      <div className="bg-[#E8F2FA] w-10 h-10 rounded-full flex items-center justify-center text-[#01AEE4] mb-4">

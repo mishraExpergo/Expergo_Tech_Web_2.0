@@ -1,6 +1,11 @@
 "use client";
 
-import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield } from "lucide-react";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
@@ -35,7 +40,7 @@ export default function RegulusHero() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative overflow-hidden bg-white pb-32"
+      className="relative overflow-hidden pt-10 bg-white pb-32"
     >
       <div
         aria-hidden
@@ -97,8 +102,8 @@ export default function RegulusHero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mb-4 w-2/3 text-base leading-snug text-gray-900"
           >
-           The Statutory Early Warning Compliance tool for RBI & NHB 
-regulated lenders.
+            The Statutory Early Warning Compliance tool for RBI & NHB regulated
+            lenders.
           </motion.p>
 
           <motion.p
@@ -119,7 +124,6 @@ regulated lenders.
             <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm hover:shadow-md">
               Book Demo
             </BookDemoButton>
-           
           </motion.div>
         </div>
 
@@ -134,7 +138,7 @@ regulated lenders.
             <motion.div
               key={i}
               initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ 
+              animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.1, 0.3, 0.1],
               }}
@@ -153,116 +157,200 @@ regulated lenders.
           ))}
 
           {/* Dotted outer circle */}
-          <motion.div 
+          <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             className="absolute rounded-full border-2 border-dashed border-cyan-500"
-            style={{ width: '85%', height: '85%' }}
+            style={{ width: "85%", height: "85%" }}
           />
-          
-          <motion.div 
+
+          <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             className="absolute rounded-full border border-cyan-400"
-            style={{ width: '95%', height: '95%' }}
+            style={{ width: "95%", height: "95%" }}
           />
 
           {/* Center Shield Container */}
-          <div className={`relative z-20 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white ${isHovered ? 'shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110' : 'shadow-none scale-100'}`}>
-             <Shield className="w-28 h-28 text-cyan-500" strokeWidth={1.5} />
+          <div
+            className={`relative z-20 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white ${isHovered ? "shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110" : "shadow-none scale-100"}`}
+          >
+            <Shield className="w-28 h-28 text-cyan-500" strokeWidth={1.5} />
           </div>
 
           {/* Floating hover cards — positioned inside inset so they never sit outside the viewport */}
-          <div className="pointer-events-none absolute inset-2 z-30 sm:inset-3" aria-hidden={true}>
-          <AnimatePresence>
-            {isHovered && (
-              <>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, x: 6, y: 6 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    x: [0, -6, 0],
-                    y: [0, -6, 0]
-                  }}
-                  exit={{ opacity: 0, scale: 0.95, x: 6, y: 6 }}
-                  transition={{ 
-                    x: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0 },
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0 },
-                    opacity: { duration: 0.3 }, 
-                    scale: { duration: 0.3 } 
-                  }}
-                  className="absolute left-0 top-[24%] flex max-w-[min(100%,11.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:top-[26%] sm:max-w-[13rem] sm:gap-3 sm:rounded-2xl sm:px-4"
-                >
-                  <span className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl" style={{ fontFamily: "Arial, sans-serif" }}>1</span>
-                  <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm"><span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">DPD is lagging</span></span>
-                </motion.div>
+          <div
+            className="pointer-events-none absolute inset-2 z-30 sm:inset-3"
+            aria-hidden={true}
+          >
+            <AnimatePresence>
+              {isHovered && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: 6, y: 6 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: [0, -6, 0],
+                      y: [0, -6, 0],
+                    }}
+                    exit={{ opacity: 0, scale: 0.95, x: 6, y: 6 }}
+                    transition={{
+                      x: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0,
+                      },
+                      y: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0,
+                      },
+                      opacity: { duration: 0.3 },
+                      scale: { duration: 0.3 },
+                    }}
+                    className="absolute left-0 top-[24%] flex max-w-[min(100%,11.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:top-[26%] sm:max-w-[13rem] sm:gap-3 sm:rounded-2xl sm:px-4"
+                  >
+                    <span
+                      className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl"
+                      style={{ fontFamily: "Arial, sans-serif" }}
+                    >
+                      1
+                    </span>
+                    <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">
+                      <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">
+                        DPD is lagging
+                      </span>
+                    </span>
+                  </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, x: -6, y: 6 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    x: [0, 6, 0],
-                    y: [0, -6, 0]
-                  }}
-                  exit={{ opacity: 0, scale: 0.95, x: -6, y: 6 }}
-                  transition={{ 
-                    x: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-                    opacity: { duration: 0.3 }, 
-                    scale: { duration: 0.3 } 
-                  }}
-                  className="absolute right-0 top-[30%] flex max-w-[min(100%,13rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:top-[32%] sm:max-w-[15rem] sm:gap-3 sm:rounded-2xl sm:px-4"
-                >
-                  <span className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl" style={{ fontFamily: "Arial, sans-serif" }}>2</span>
-                  <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">Portfolio momentum <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">forms earlier</span></span>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: -6, y: 6 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: [0, 6, 0],
+                      y: [0, -6, 0],
+                    }}
+                    exit={{ opacity: 0, scale: 0.95, x: -6, y: 6 }}
+                    transition={{
+                      x: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5,
+                      },
+                      y: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5,
+                      },
+                      opacity: { duration: 0.3 },
+                      scale: { duration: 0.3 },
+                    }}
+                    className="absolute right-0 top-[30%] flex max-w-[min(100%,13rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:top-[32%] sm:max-w-[15rem] sm:gap-3 sm:rounded-2xl sm:px-4"
+                  >
+                    <span
+                      className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl"
+                      style={{ fontFamily: "Arial, sans-serif" }}
+                    >
+                      2
+                    </span>
+                    <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">
+                      Portfolio momentum{" "}
+                      <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">
+                        forms earlier
+                      </span>
+                    </span>
+                  </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, x: 6, y: -6 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    x: [0, -6, 0],
-                    y: [0, 6, 0]
-                  }}
-                  exit={{ opacity: 0, scale: 0.95, x: 6, y: -6 }}
-                  transition={{ 
-                    x: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.0 },
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.0 },
-                    opacity: { duration: 0.3 }, 
-                    scale: { duration: 0.3 } 
-                  }}
-                  className="absolute bottom-[28%] left-0 flex max-w-[min(100%,12.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:bottom-[30%] sm:max-w-[14rem] sm:gap-3 sm:rounded-2xl sm:px-4"
-                >
-                  <span className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl" style={{ fontFamily: "Arial, sans-serif" }}>3</span>
-                  <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">Collections <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">capacity is finite</span></span>
-                </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: 6, y: -6 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: [0, -6, 0],
+                      y: [0, 6, 0],
+                    }}
+                    exit={{ opacity: 0, scale: 0.95, x: 6, y: -6 }}
+                    transition={{
+                      x: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1.0,
+                      },
+                      y: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1.0,
+                      },
+                      opacity: { duration: 0.3 },
+                      scale: { duration: 0.3 },
+                    }}
+                    className="absolute bottom-[28%] left-0 flex max-w-[min(100%,12.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:bottom-[30%] sm:max-w-[14rem] sm:gap-3 sm:rounded-2xl sm:px-4"
+                  >
+                    <span
+                      className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl"
+                      style={{ fontFamily: "Arial, sans-serif" }}
+                    >
+                      3
+                    </span>
+                    <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">
+                      Collections{" "}
+                      <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">
+                        capacity is finite
+                      </span>
+                    </span>
+                  </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, x: -6, y: -6 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    x: [0, 6, 0],
-                    y: [0, 6, 0]
-                  }}
-                  exit={{ opacity: 0, scale: 0.95, x: -6, y: -6 }}
-                  transition={{ 
-                    x: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-                    opacity: { duration: 0.3 }, 
-                    scale: { duration: 0.3 } 
-                  }}
-                  className="absolute bottom-[18%] right-0 flex max-w-[min(100%,11.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:bottom-[20%] sm:max-w-[13rem] sm:gap-3 sm:rounded-2xl sm:px-4"
-                >
-                  <span className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl" style={{ fontFamily: "Arial, sans-serif" }}>4</span>
-                  <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">Capital <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">impact compounds</span></span>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, x: -6, y: -6 }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: [0, 6, 0],
+                      y: [0, 6, 0],
+                    }}
+                    exit={{ opacity: 0, scale: 0.95, x: -6, y: -6 }}
+                    transition={{
+                      x: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1.5,
+                      },
+                      y: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1.5,
+                      },
+                      opacity: { duration: 0.3 },
+                      scale: { duration: 0.3 },
+                    }}
+                    className="absolute bottom-[18%] right-0 flex max-w-[min(100%,11.5rem)] items-center gap-2 rounded-xl bg-white px-3 py-2 shadow-xl sm:bottom-[20%] sm:max-w-[13rem] sm:gap-3 sm:rounded-2xl sm:px-4"
+                  >
+                    <span
+                      className="text-2xl font-bold uppercase text-gray-200 sm:text-4xl"
+                      style={{ fontFamily: "Arial, sans-serif" }}
+                    >
+                      4
+                    </span>
+                    <span className="text-xs font-semibold text-[#01AEE4] leading-snug sm:text-sm">
+                      Capital{" "}
+                      <span className="border-b-[3px] border-[#01AEE4] pb-0.5 sm:pb-1">
+                        impact compounds
+                      </span>
+                    </span>
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

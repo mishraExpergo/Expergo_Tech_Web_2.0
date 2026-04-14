@@ -99,7 +99,7 @@ export default function CoreCapabilitiesGrid() {
             <motion.div
               key={idx}
               variants={itemVariants}
-              className={`${cap.span} ${cap.bg} rounded-3xl p-8 lg:p-10 flex flex-col sm:flex-row gap-6 shadow-sm hover:shadow-md transition-shadow`}
+              className={`${cap.span} ${cap.bg} rounded-3xl p-8 lg:p-10 flex flex-col sm:flex-row gap-6 shadow-sm hover:shadow-sm cursor-pointer hover:shadow-[#1A6EF5] transition-shadow`}
             >
               {/* Icon Container */}
               <div className="bg-white w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-gray-100/50">
