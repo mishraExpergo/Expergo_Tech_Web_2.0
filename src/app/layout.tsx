@@ -65,7 +65,7 @@
 
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+// import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
@@ -115,7 +115,7 @@ export default function RootLayout({
 
         <CookieBanner />
 
-        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+        
       </body>
     </html>
   );
