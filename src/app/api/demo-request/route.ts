@@ -1,8 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { insertDemoRequest } from "@/lib/db/insert-leads";
-import { demoRequestSchema } from "@/lib/schemas/forms";
+import { demoRequestApiSchema } from "@/lib/schemas/forms";
 import { postJsonWebhook } from "@/lib/server/webhook";
+import { recaptchaGate } from "@/lib/server/recaptcha-gate";
 
 export async function POST(req: NextRequest) {
   let body: unknown;
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const parsed = demoRequestSchema.safeParse(body);
+  const parsed = demoRequestApiSchema.safeParse(body);
   if (!parsed.success) {
     const first = parsed.error.flatten().fieldErrors;
     const message =
@@ -20,7 +21,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message, details: parsed.error.flatten() }, { status: 422 });
   }
 
-  const data = parsed.data;
+  const { recaptchaToken, ...data } = parsed.data;
+  const captchaResponse = await recaptchaGate(recaptchaToken, "demo_request");
+  if (captchaResponse) {
+    return captchaResponse;
+  }
+
   const payload = {
     type: "demo_request" as const,
     receivedAt: new Date().toISOString(),

@@ -4,7 +4,8 @@ import { useCallback, useEffect, useId, useState } from "react";
 import { Check, ChevronDown, X } from "lucide-react";
 
 import { submitDemoRequest } from "@/lib/api/public";
-import type { DemoRequestInput } from "@/lib/schemas/forms";
+import { executeRecaptcha } from "@/lib/client/recaptcha";
+import type { DemoRequestApiInput, DemoRequestInput } from "@/lib/schemas/forms";
 
 const PRIMARY = "#2563EB";
 const PRIMARY_HOVER = "#1d4ed8";
@@ -131,7 +132,9 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
     setSubmitError(null);
     setSubmitting(true);
     try {
-      await submitDemoRequest(form as DemoRequestInput);
+      const recaptchaToken = await executeRecaptcha("demo_request");
+      const body: DemoRequestApiInput = { ...(form as DemoRequestInput), recaptchaToken };
+      await submitDemoRequest(body);
       setStep(2);
     } catch (e) {
       setSubmitError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
@@ -275,6 +278,20 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
             {submitError ? (
               <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">
                 {submitError}
+              </p>
+            ) : null}
+
+            {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+              <p className="mt-4 text-center text-[11px] leading-relaxed text-gray-500">
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a href="https://policies.google.com/privacy" className="underline hover:text-gray-700">
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a href="https://policies.google.com/terms" className="underline hover:text-gray-700">
+                  Terms of Service
+                </a>{" "}
+                apply.
               </p>
             ) : null}
 

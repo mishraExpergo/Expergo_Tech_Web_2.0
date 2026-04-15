@@ -5,6 +5,7 @@ import { useCallback, useState, type FormEvent } from "react";
 import { Linkedin, Mail } from "lucide-react";
 
 import { subscribeNewsletter } from "@/lib/api/public";
+import { executeRecaptcha } from "@/lib/client/recaptcha";
 
 export function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -21,7 +22,8 @@ export function Footer() {
       if (!email) return;
       setNewsletterBusy(true);
       try {
-        await subscribeNewsletter({ email, source: "footer" });
+        const recaptchaToken = await executeRecaptcha("newsletter");
+        await subscribeNewsletter({ email, source: "footer", recaptchaToken });
         setNewsletterEmail("");
         setNewsletterMessage({ kind: "ok", text: "Thanks — you’re subscribed." });
       } catch (err) {
@@ -64,7 +66,7 @@ export function Footer() {
                 placeholder="Enter E-Mail"
                 autoComplete="email"
                 disabled={newsletterBusy}
-                className="min-h-[52px] min-w-0 flex-1 border-0 bg-transparent py-3 pl-3 pr-2 text-sm font-medium text-neutral-900 placeholder:text-neutral-400  disabled:opacity-60"
+                className="min-h-[52px] min-w-0 flex-1 border-0 bg-transparent outline-none py-3 pl-3 pr-2 text-sm font-medium text-neutral-900 placeholder:text-neutral-400  disabled:opacity-60"
               />
             </div>
             <button
@@ -81,6 +83,19 @@ export function Footer() {
               role="status"
             >
               {newsletterMessage.text}
+            </p>
+          ) : null}
+          {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+            <p className="mt-4 text-center text-[11px] leading-relaxed text-white/45">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a href="https://policies.google.com/privacy" className="underline decoration-white/30 hover:text-white/70">
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="https://policies.google.com/terms" className="underline decoration-white/30 hover:text-white/70">
+                Terms of Service
+              </a>{" "}
+              apply.
             </p>
           ) : null}
         </div>
@@ -143,7 +158,7 @@ export function Footer() {
               href="/capabilities#briefing"
               className="inline-flex h-11 w-full max-w-[220px] items-center justify-center rounded-lg bg-[#2b5a9e] text-sm font-bold text-white shadow-sm transition hover:bg-[#244a87] sm:h-12 lg:w-auto lg:min-w-[200px] lg:max-w-none"
             >
-              Request Executive
+              Request Executive Breif
             </Link>
           </div>
         </div>

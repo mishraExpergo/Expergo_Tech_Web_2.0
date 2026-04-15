@@ -15,6 +15,13 @@ export const demoRequestSchema = z.object({
 
 export type DemoRequestInput = z.infer<typeof demoRequestSchema>;
 
+/** API body: form fields plus optional reCAPTCHA v3 token (required when `RECAPTCHA_SECRET_KEY` is set). */
+export const demoRequestApiSchema = demoRequestSchema.extend({
+  recaptchaToken: z.string().trim().min(1).optional(),
+});
+
+export type DemoRequestApiInput = z.infer<typeof demoRequestApiSchema>;
+
 export const newsletterSchema = z.object({
   email: z.string().trim().email("Valid email required").max(320),
   /** Optional segment for analytics / CRM (e.g. footer variant). */
@@ -22,3 +29,9 @@ export const newsletterSchema = z.object({
 });
 
 export type NewsletterInput = z.infer<typeof newsletterSchema>;
+
+export const newsletterApiSchema = newsletterSchema.extend({
+  recaptchaToken: z.string().trim().min(1).optional(),
+});
+
+export type NewsletterApiInput = z.infer<typeof newsletterApiSchema>;

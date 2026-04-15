@@ -1,4 +1,4 @@
-import type { DemoRequestInput, NewsletterInput } from "@/lib/schemas/forms";
+import type { DemoRequestApiInput, NewsletterApiInput } from "@/lib/schemas/forms";
 
 type ApiErrorBody = { error?: string };
 
@@ -25,10 +25,10 @@ async function postJson(path: `/api/${string}`, body: unknown, fallbackMessage: 
   }
 }
 
-export async function submitDemoRequest(body: DemoRequestInput): Promise<void> {
+export async function submitDemoRequest(body: DemoRequestApiInput): Promise<void> {
   await postJson("/api/demo-request", body, "Could not submit demo request");
 }
 
-export async function subscribeNewsletter(body: NewsletterInput): Promise<void> {
+export async function subscribeNewsletter(body: NewsletterApiInput): Promise<void> {
   await postJson("/api/newsletter", body, "Could not subscribe");
 }

@@ -7,6 +7,8 @@ import Link from "next/link";
 export function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
+ 
+
   useEffect(() => {
     const consent = localStorage.getItem("expergo_cookie_consent");
     if (!consent) {
@@ -17,8 +19,11 @@ export function CookieBanner() {
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem("expergo_cookie_consent", "accepted");
-    setIsVisible(false);
+    localStorage.setItem("cookie-consent", "accepted");
+  
+    window.gtag?.("consent", "update", {
+      analytics_storage: "granted",
+    });
   };
 
   const declineCookies = () => {
