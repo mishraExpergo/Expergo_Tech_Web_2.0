@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useState, type FormEvent } from "react";
 import { Linkedin, Mail } from "lucide-react";
+import { BookDemoButton } from "../book-demo/BookDemoProvider";
+
 
 import { subscribeNewsletter } from "@/lib/api/public";
 import { executeRecaptcha } from "@/lib/client/recaptcha";
