@@ -107,7 +107,7 @@ export function Footer() {
               Continuous Portfolio Risk Control.
             </p>
             <a href="mailto:info@earlysafe.com" className="mt-5 block text-sm font-medium text-white/90 hover:text-white">
-              info@earlysafe.com
+              info@expergo.texh
             </a>
             <p className="mt-1 text-sm text-white/75">Gurgaon, India</p>
           </div>
@@ -154,12 +154,11 @@ export function Footer() {
           </nav>
 
           <div className="flex sm:col-span-2 lg:col-span-1 lg:justify-end">
-            <Link
-              href="/capabilities#briefing"
+            <BookDemoButton
               className="inline-flex h-11 w-full max-w-[220px] items-center justify-center rounded-lg bg-[#2b5a9e] text-sm font-bold text-white shadow-sm transition hover:bg-[#244a87] sm:h-12 lg:w-auto lg:min-w-[200px] lg:max-w-none"
             >
               Request Executive Breif
-            </Link>
+            </BookDemoButton>
           </div>
         </div>
 
