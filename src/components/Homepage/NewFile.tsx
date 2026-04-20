@@ -541,10 +541,10 @@ export default function NewFile() {
   const { ref: assembleRef, t: assemble } = useAssemble();
 
   const tabs = [
-    { title: "Delinquency Trend", Comp: DelinquencyTrend },
+    { title: "Delinquency Trends", Comp: DelinquencyTrend },
     { title: "Risk Concentration", Comp: RiskConcentration },
-    { title: "External to Internal Risk", Comp: ExternalInternalRisk },
-    { title: "Trigger Closer Time", Comp: TriggerCloserTime },
+    { title: "External Internal Risk", Comp: ExternalInternalRisk },
+    { title: "Trigger Clouser Time", Comp: TriggerCloserTime },
   ] as const;
 
   useEffect(() => {

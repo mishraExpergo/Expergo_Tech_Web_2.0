@@ -13,7 +13,7 @@ const zigzagRows = [
   {
     title: "Lighthouse",
     reversed: false,
-     route:"/capabilities/lighthouse",
+    route: "/capabilities/lighthouse",
     image: "/tr-removebg-preview (1).png",
     items: [
       {
@@ -47,8 +47,8 @@ const zigzagRows = [
   {
     title: "Command Center",
     reversed: false,
-      route:"/capabilities/command-center",
-      image: "/1 1.png",
+    route: "/capabilities/command-center",
+    image: "/1 1.png",
     items: [
       {
         heading: "Operational Risk Control",
@@ -63,7 +63,7 @@ const zigzagRows = [
   {
     title: "Bureau 360°",
     reversed: true,
-    route:"/capabilities/bureau-360",
+    route: "/capabilities/bureau-360",
     image: "/Frame 3033 (1).svg",
     items: [
       {
@@ -100,7 +100,7 @@ function CapabilityPanel({
   return (
     <motion.div
       className={[
-        "flex w-full flex-col gap-5 rounded-xl border border-[#000000]/21 bg-[#F8FBFC] p-4 sm:gap-6 sm:p-5 md:items-center md:gap-8 lg:gap-10",
+        "flex w-full flex-col gap-5 overflow-hidden rounded-lg border border-[#000000]/15 bg-[#F8FBFC] p-4 sm:gap-6 sm:p-5 md:items-center md:gap-8 lg:gap-10",
         reversed ? "flex-col-reverse md:flex-row-reverse" : "md:flex-row",
       ].join(" ")}
       initial={reduce ? false : { opacity: 0, y: 18 }}
@@ -108,44 +108,50 @@ function CapabilityPanel({
       viewport={{ once: true, margin: "-8% 0px", amount: 0.2 }}
       transition={{ duration: 0.5, ease, delay: index * 0.05 }}
     >
-      <div className="flex min-w-0 flex-1 flex-col ">
-        <div className="rounded-lg px-4 py-3 sm:px-5">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="px-1 py-1 sm:px-3 sm:py-3">
           {items.map((item, itemIndex) => (
             <div
               key={item.heading}
-              className={`py-3 ${itemIndex !== items.length - 1 ? "" : ""}`}
+              className={`py-3 ${
+                itemIndex !== items.length - 1
+                  ? "border-b border-[#D9E7EA] sm:border-b-0"
+                  : ""
+              }`}
             >
-              <h3 className="text-[24px] font-semibold leading-snug text-[#1497A8]">
+              <h3 className="text-[20px] font-semibold leading-snug text-[#1497A8] sm:text-[22px] lg:text-[24px]">
                 {item.heading}
               </h3>
-              <p className="mt-1.5 text-[16px] leading-[1.45] text-[#5D6B78] sm:text-[15.5px]">
+              <p className="mt-2 text-[14px] leading-[1.55] text-[#5D6B78] sm:text-[15.5px]">
                 {item.body}
               </p>
             </div>
           ))}
         </div>
-        <div className="mt-3 flex items-center justify-between bg-white rounded-lg px-4 py-3.5 sm:px-5">
-          <span className="text-[28px] font-bold text-[#15B5C1]">
+        <div className="mt-4 flex flex-col gap-3 rounded-lg bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+          <span className="text-[24px] font-bold leading-tight text-[#15B5C1] sm:text-[28px]">
             {title}
           </span>
           <Link
             href={route}
-            className="inline-flex items-center rounded-md bg-[#15B5C1] px-3 py-3 text-[11px] font-semibold text-white transition hover:bg-[#13adbc]"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-[#15B5C1] px-4 py-3 text-[12px] font-semibold text-white transition hover:bg-[#13adbc] sm:w-auto"
           >
-            Explore Product
+            Explore
           </Link>
         </div>
       </div>
-      <div className="relative mx-auto flex shrink-0 justify-center self-center md:mx-0">
+      <div className="relative mx-auto flex w-full shrink-0 justify-center self-center md:mx-0 md:w-auto">
         {graphic === "compliance-hub" ? (
-          <ComplianceHubAssemble />
+          <div className="w-full max-w-[320px] sm:max-w-[380px] md:max-w-none">
+            <ComplianceHubAssemble />
+          </div>
         ) : image ? (
           <Image
             src={image}
             width={400}
             height={400}
             alt={`${title} illustration`}
-            className="h-[400px] w-[400px] object-contain"
+            className="mx-auto h-auto w-full max-w-[260px] object-contain sm:max-w-[340px] md:h-[360px] md:w-[360px] md:max-w-none lg:h-[400px] lg:w-[400px]"
           />
         ) : null}
       </div>
@@ -160,13 +166,13 @@ export function CapabilitiesPageContent() {
   return (
     <main className="bg-white text-brand-ink">
       <section
-        className=" px-4 pb-10 pt-12 sm:px-6 sm:pt-14 lg:px-8"
+        className="px-4 pb-8 pt-10 sm:px-6 sm:pb-10 sm:pt-14 lg:px-8"
         aria-labelledby="capabilities-heading"
       >
         <div className="mx-auto max-w-6xl text-left">
           <motion.h1
             id="capabilities-heading"
-            className="es-heading-hero mt-3 text-balance font-bold leading-tight tracking-tight text-brand-ink"
+            className="font-heading mt-3 text-balance text-[40px] font-bold leading-tight tracking-tight text-brand-ink sm:text-[52px] lg:text-site-sub"
             initial={reduce ? false : { opacity: 0, y: 28 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.605, ease, delay: 0.04 }}
@@ -174,7 +180,7 @@ export function CapabilitiesPageContent() {
             Portfolio Risk <span className="text-[#14BACB]">Capabilities</span>
           </motion.h1>
           <motion.p
-            className="mt-4 max-w-3xl text-pretty text-sm leading-[1.55] text-brand-muted sm:text-[15px]"
+            className="mt-4 max-w-3xl text-pretty text-[15px] leading-[1.65] text-brand-muted sm:text-base"
             initial={reduce ? false : { opacity: 0, y: 22 }}
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.605, ease, delay: 0.12 }}
@@ -188,12 +194,12 @@ export function CapabilitiesPageContent() {
       </section>
 
       <section
-        className="px-4 py-6 sm:px-6 lg:px-8"
+        className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8"
         aria-label="Product capabilities"
       >
         <div className="mx-auto max-w-6xl">
           {zigzagRows.map((row, i) => (
-            <div key={row.title} className="mb-4 last:mb-0">
+            <div key={row.title} className="mb-5 last:mb-0 sm:mb-6">
               <CapabilityPanel
                 title={row.title}
                 items={row.items}
@@ -211,25 +217,25 @@ export function CapabilitiesPageContent() {
 
       <section
         id="briefing"
-        className="border-y border-[#E4E7EC] bg-white px-4 py-20 sm:px-6 lg:px-8"
+        className="border-y border-[#E4E7EC] bg-white px-4 py-14 sm:px-6 sm:py-20 lg:px-8"
         aria-labelledby="outcomes-cta-heading"
       >
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[16px] uppercase text-[#0B64F4]">
+          <p className="text-[13px] font-semibold uppercase tracking-widest text-[#0B64F4] sm:text-[16px]">
             Institutionalize Control
           </p>
           <h2
             id="outcomes-cta-heading"
-            className="text-[36px] mt-4 font-semibold text-[#1F1F1F]"
+            className="mt-4 text-[28px] font-semibold leading-tight text-[#1F1F1F] sm:text-[36px]"
           >
             Capital resilience requires structural discipline.
           </h2>
-          <p className="mx-auto text-[16px] mt-5 max-w-2xl tracking-wider text-base font-poppins  leading-relaxed text-[#1F1F1F] ">
+          <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#1F1F1F] sm:text-[16px] sm:tracking-wider">
             Institutions that manage risk formation early preserve stability and unlock measured growth. EarlySafe.
             Continuous Portfolio Risk Control.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <BookDemoButton className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:bg-[#5F98F3] active:scale-[0.98]">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10">
+            <BookDemoButton className="inline-flex min-h-11 w-full max-w-xs items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:bg-[#5F98F3] active:scale-[0.98] sm:w-auto sm:min-w-[220px]">
               Book  Demo
             </BookDemoButton>
           </div>

@@ -7,28 +7,28 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const items = [
   {
     num: "01",
-    title: "Earlier stress visibility",
-    description: "Identify deterioration regimes before they surface in DPD reporting.",
+    title: "Earlier identification of emerging stress",
+    description: "Surface deterioration before it reflects in DPD, enabling intervention while outcomes remain controllable.",
   },
   {
     num: "02",
-    title: "Reduced flow-forward %",
-    description: "Model and contain forward migration before momentum accelerates.",
+    title: "Lower flow-forward across delinquency buckets",
+    description: "Arrest migration early by acting on direction and velocity of risk—not just current position.",
   },
   {
     num: "03",
-    title: "Improved collections allocation efficiency",
-    description: "Direct finite collections capacity where recovery probability is highest.",
+    title: "Higher productivity of collections capacity",
+    description: "Allocate finite resources to accounts where intervention has the highest marginal impact on recovery.",
   },
   {
     num: "04",
-    title: "Better capital stability",
-    description: "Proactive provisioning aligned with trajectory intelligence reduces capital volatility.",
+    title: "Improved stability of portfolio performance",
+    description: "Align actions and provisioning to forward risk trajectory, reducing volatility in credit costs.",
   },
   {
     num: "05",
-    title: "Regulatory defensibility",
-    description: "Auditable, traceable risk classification strengthens regulatory posture.",
+    title: "Stronger control and auditability of risk actions",
+    description: "Ensure all risk signals, decisions, and interventions are traceable, attributable, and defensible",
   },
 ] as const;
 
@@ -57,20 +57,19 @@ export function MeasurableOutcomesSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.05, ease }}
         >
-          Measurable institutional{" "}
+          Trajectory-led portfolio  {" "}
           <span className="text-[#16B2C3]">outcomes.</span>
         </motion.h2>
 
-        <motion.p
+        {/* <motion.p
           className="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-brand-muted md:text-lg"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.45, delay: 0.1, ease }}
         >
-          EarlySafe is designed to influence portfolio trajectory — not merely observe delinquency. CRO language. No
-          AI hype.
-        </motion.p>
+          EarlySafe is designed to influence portfolio trajectory — not merely observe delinquency. CRO language
+        </motion.p> */}
 
         <ul className="mx-auto mt-12 max-w-5xl space-y-4 md:mt-14 md:space-y-5">
           {items.map((item, i) => (

@@ -1,30 +1,51 @@
 "use client";
 
 import { useCallback, useEffect, useId, useState } from "react";
-import { Check, ChevronDown, X } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
+import { Drawer, ConfigProvider } from "antd";
+import { executeRecaptcha, submitBookDemo } from "@/lib/api/public";
 
-import { submitDemoRequest } from "@/lib/api/public";
-import { executeRecaptcha } from "@/lib/client/recaptcha";
-import type { DemoRequestApiInput, DemoRequestInput } from "@/lib/schemas/forms";
-
-const PRIMARY = "#2563EB";
-const PRIMARY_HOVER = "#1d4ed8";
+export type BookDemoMode = "demo" | "brief";
 
 export type BookDemoModalProps = {
   open: boolean;
   onClose: () => void;
+  mode: BookDemoMode;
 };
 
-const COMPANY_SIZES = ["1–10", "11–50", "51–200", "201–500"] as const;
+const COMPANY_SIZES = [
+  "1-10",
+  "11-50",
+  "51-200",
+  "201-500",
+  "501-1000",
+  "1000+",
+] as const;
+
+const INDUSTRIES = [
+  "Scheduled Bank",
+  "Co-operative Bank",
+  "NBFC",
+  "HFC",
+  "MFI",
+  "Other",
+] as const;
+
+const USE_CASE_OPTIONS = [
+  "Early risk detection & watchlist control",
+  "Portfolio level visibility & stress tracking",
+  "Execution discipline & SLA control",
+  "Compliance & inspection readiness",
+] as const;
 
 type FormState = {
   fullName: string;
   workEmail: string;
   companyName: string;
   phone: string;
-  companySize: "" | (typeof COMPANY_SIZES)[number];
+  companySize: string;
   industry: string;
-  useCase: string;
+  interest: string;
 };
 
 const initialForm: FormState = {
@@ -34,58 +55,65 @@ const initialForm: FormState = {
   phone: "",
   companySize: "",
   industry: "",
-  useCase: "",
+  interest: "",
 };
-const INDUSTRIES = ["NBFC / Lending", "Fintech", "Banking", "Insurance", "E-commerce", "Other"];
-const USE_CASES = [
-  "Portfolio risk monitoring",
-  "Early warning systems",
-  "Regulatory compliance",
-  "Lighthouse / analytics",
-  "Regulus / governance",
-  "General demo",
-];
+
+const modalCopy = {
+  demo: {
+    title: "Book a Demo",
+    intro: "Tell us about yourself so we can tailor the demo to your needs.",
+    source: "book-demo-modal",
+    successTitle: "Demo request received",
+    successBody:
+      "Our team will contact you shortly to schedule a walkthrough around your portfolio priorities.",
+  },
+  brief: {
+    title: "Access the Executive Brief",
+    intro:
+      "A leadership view on achieving portfolio control across signals, execution, external insights, and compliance.",
+    source: "executive-brief-modal",
+    successTitle: "Executive Brief request received",
+    successBody:
+      "We will send the brief and follow up with the right context for your portfolio control priorities.",
+  },
+} as const;
 
 function ProgressBars({ step }: { step: 1 | 2 }) {
-  const active = step;
   return (
-    <div className="mb-8 flex gap-1.5">
-      {[0, 1].map((i) => {
-        const filled = i < active;
-        return (
-          <div
-            key={i}
-            className={`h-1 flex-1 rounded-full transition-all ${
-              filled ? "h-1.5" : "h-1"
-            }`}
-            style={{ backgroundColor: filled ? PRIMARY : "#E5E7EB" }}
-          />
-        );
-      })}
+    <div className="mb-6 flex gap-3">
+      {[1, 2].map((item) => (
+        <div
+          key={item}
+          className={`h-[5px] flex-1 rounded-full transition-colors ${
+            item <= step ? "bg-[#16B2C3]" : "bg-[#E0E0E0]"
+          }`}
+        />
+      ))}
     </div>
   );
 }
 
 const inputClass =
-  "w-full rounded-lg bg-[#F3F4F6] px-3 py-3 text-sm text-gray-900 outline-none ring-1 ring-transparent transition placeholder:text-gray-400 focus:ring-2 focus:ring-[#2563EB]/30";
+  "min-h-[48px] w-full rounded-lg border border-[#E4E7EC] bg-[#F9FAFB] px-4 py-3 text-sm text-[#111827] outline-none transition placeholder:text-[#9CA3AF] focus:border-[#16B2C3] focus:bg-white focus:ring-2 focus:ring-[#16B2C3]/20";
 
-const labelClass = "mb-1.5 block text-xs font-medium text-gray-600";
+const labelClass = "mb-1.5 block text-sm font-medium text-[#111111]";
 
 function SelectChevron() {
   return (
     <ChevronDown
-      className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6B7280]"
       aria-hidden
     />
   );
 }
 
-export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
+export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   const titleId = useId();
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState<FormState>(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const copy = modalCopy[mode];
 
   useEffect(() => {
     if (!open) {
@@ -96,91 +124,111 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
     }
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  const canSubmit = useCallback(
+    () =>
+      Boolean(
+        form.fullName.trim() &&
+          form.workEmail.trim() &&
+          form.companyName.trim() &&
+          form.phone.trim() &&
+          form.companySize &&
+          form.industry &&
+          form.interest
+      ),
+    [form]
+  );
 
-  useEffect(() => {
-    if (open) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  const canStep1 = useCallback(() => {
-    return (
-      form.fullName.trim() &&
-      form.workEmail.trim() &&
-      form.companyName.trim() &&
-      form.phone.trim() &&
-      Boolean(form.companySize) &&
-      Boolean(form.industry) &&
-      Boolean(form.useCase)
-    );
-  }, [form]);
-
-  const update = (k: keyof FormState, v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const update = (k: keyof FormState, v: string) => {
+    setForm((f) => ({ ...f, [k]: v }));
+    if (submitError) setSubmitError(null);
+  };
 
   const handleConfirm = useCallback(async () => {
-    if (!canStep1() || submitting) return;
+    if (!canSubmit() || submitting) return;
     setSubmitError(null);
     setSubmitting(true);
+
     try {
-      const recaptchaToken = await executeRecaptcha("demo_request");
-      const body: DemoRequestApiInput = { ...(form as DemoRequestInput), recaptchaToken };
-      await submitDemoRequest(body);
+      const recaptchaToken = await executeRecaptcha("book_demo");
+      await submitBookDemo({
+        fullName: form.fullName,
+        workEmail: form.workEmail,
+        companyName: form.companyName,
+        phone: form.phone,
+        companySize: form.companySize,
+        country: "",
+        industry: form.industry,
+        projectDetails: "",
+        useCase: form.interest,
+        source: copy.source,
+        recaptchaToken,
+      });
       setStep(2);
     } catch (e) {
-      setSubmitError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      setSubmitError(
+        e instanceof Error ? e.message : "Something went wrong. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
-  }, [canStep1, form, submitting]);
-
-  if (!open) return null;
+  }, [canSubmit, copy.source, form, submitting]);
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6">
-      <button
-        type="button"
-        className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"
-        aria-label="Close dialog"
-        onClick={onClose}
-      />
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        className="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#16B2C3",
+          fontFamily: "inherit",
+        },
+      }}
+    >
+      <Drawer
+        title={null}
+        placement="right"
+        onClose={onClose}
+        open={open}
+        width={480}
+        closable={true}
+        closeIcon={
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          </span>
+        }
+        styles={{
+          header: { display: "none" },
+          body: { padding: "28px 28px 32px" },
+          wrapper: { boxShadow: "-8px 0 30px rgba(0,0,0,0.12)" },
+        }}
+        rootClassName="book-demo-drawer"
       >
+        {/* Close button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-lg p-1.5 text-gray-800 transition hover:bg-gray-100"
+          className="absolute right-5 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]"
           aria-label="Close"
         >
-          <X className="h-5 w-5" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
         </button>
 
-        {step < 2 && <ProgressBars step={step} />}
+        {/* Progress bars */}
+        <ProgressBars step={step} />
 
-        {/* Step 1 — Form */}
+        {/* Step 1 – Form */}
         {step === 1 && (
-          <div>
-            <h2 id={titleId} className="es-heading-section pr-10 font-bold text-gray-900">
-              Book a Demo
+          <div className="pt-2">
+            <h2
+              id={titleId}
+              className="text-[28px] font-bold leading-[1.15] text-[#16B2C3] sm:text-[32px]"
+            >
+              {copy.title}
             </h2>
-            <p className="mt-2 text-sm text-gray-800">
-              Tell us about yourself so we can tailor the demo to your needs.
+            <p className="mt-2 text-[15px] leading-[1.4] text-[#6B7280]">
+              {copy.intro}
             </p>
 
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="mt-7 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+              {/* Full Name */}
               <div>
                 <label className={labelClass}>Full Name</label>
                 <input
@@ -190,6 +238,8 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   onChange={(e) => update("fullName", e.target.value)}
                 />
               </div>
+
+              {/* Work Email */}
               <div>
                 <label className={labelClass}>Work Email</label>
                 <input
@@ -200,6 +250,8 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   onChange={(e) => update("workEmail", e.target.value)}
                 />
               </div>
+
+              {/* Company Name */}
               <div>
                 <label className={labelClass}>Company Name</label>
                 <input
@@ -209,6 +261,8 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   onChange={(e) => update("companyName", e.target.value)}
                 />
               </div>
+
+              {/* Phone No. */}
               <div>
                 <label className={labelClass}>Phone No.</label>
                 <input
@@ -218,11 +272,13 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   onChange={(e) => update("phone", e.target.value)}
                 />
               </div>
+
+              {/* Company Size */}
               <div>
                 <label className={labelClass}>Company Size</label>
                 <div className="relative">
                   <select
-                    className={`${inputClass} appearance-none cursor-pointer`}
+                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
                     value={form.companySize}
                     onChange={(e) => update("companySize", e.target.value)}
                   >
@@ -236,11 +292,13 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   <SelectChevron />
                 </div>
               </div>
+
+              {/* Industry */}
               <div>
                 <label className={labelClass}>Industry</label>
                 <div className="relative">
                   <select
-                    className={`${inputClass} appearance-none cursor-pointer`}
+                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
                     value={form.industry}
                     onChange={(e) => update("industry", e.target.value)}
                   >
@@ -254,104 +312,88 @@ export function BookDemoModal({ open, onClose }: BookDemoModalProps) {
                   <SelectChevron />
                 </div>
               </div>
-            </div>
 
-            <div className="mt-4">
-              <label className={labelClass}>Use Case / Interest</label>
-              <div className="relative">
-                <select
-                  className={`${inputClass} appearance-none cursor-pointer`}
-                  value={form.useCase}
-                  onChange={(e) => update("useCase", e.target.value)}
-                >
-                  <option value="">What are you most interested in?</option>
-                  {USE_CASES.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
-                    </option>
-                  ))}
-                </select>
-                <SelectChevron />
+              {/* Use Case / Interest – full width */}
+              <div className="sm:col-span-2">
+                <label className={labelClass}>Use Case / Interest</label>
+                <div className="relative">
+                  <select
+                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                    value={form.interest}
+                    onChange={(e) => update("interest", e.target.value)}
+                  >
+                    <option value="">What are you most interested in?</option>
+                    {USE_CASE_OPTIONS.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                  <SelectChevron />
+                </div>
               </div>
             </div>
 
             {submitError ? (
-              <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">
+              <p
+                className="mt-5 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800"
+                role="alert"
+              >
                 {submitError}
               </p>
             ) : null}
 
-            {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-              <p className="mt-4 text-center text-[11px] leading-relaxed text-gray-500">
-                This site is protected by reCAPTCHA and the Google{" "}
-                <a href="https://policies.google.com/privacy" className="underline hover:text-gray-700">
-                  Privacy Policy
-                </a>{" "}
-                and{" "}
-                <a href="https://policies.google.com/terms" className="underline hover:text-gray-700">
-                  Terms of Service
-                </a>{" "}
-                apply.
-              </p>
-            ) : null}
-
             <button
               type="button"
-              disabled={!canStep1() || submitting}
+              disabled={!canSubmit() || submitting}
               onClick={() => void handleConfirm()}
-              className="mt-8 w-full rounded-lg py-3.5 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-50"
-              style={{ backgroundColor: canStep1() && !submitting ? PRIMARY : "#93c5fd" }}
-              onMouseEnter={(e) => {
-                if (canStep1() && !submitting)
-                  (e.target as HTMLButtonElement).style.backgroundColor = PRIMARY_HOVER;
-              }}
-              onMouseLeave={(e) => {
-                if (canStep1() && !submitting)
-                  (e.target as HTMLButtonElement).style.backgroundColor = PRIMARY;
-              }}
+              className="mt-8 w-full rounded-xl bg-[#E8F4FD] py-3.5 text-[15px] font-semibold text-[#16B2C3] transition hover:bg-[#d6edfa] disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {submitting ? "Sending…" : "Confirm Booking"}
+              {submitting ? "Sending..." : "Confirm Booking"}
             </button>
           </div>
         )}
 
-        {/* Step 2 — Success */}
+        {/* Step 2 – Success */}
         {step === 2 && (
-          <div className="text-center">
-            <div
-              className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full text-white"
-              style={{ backgroundColor: PRIMARY }}
-            >
+          <div className="py-8 text-center">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#16B2C3] text-white">
               <Check className="h-8 w-8" strokeWidth={2.5} />
             </div>
-            <h2 id={titleId} className="es-heading-section font-bold text-gray-900">
-              Thank you!
+            <h2
+              id={titleId}
+              className="text-[28px] font-bold leading-tight text-[#111111] sm:text-[32px]"
+            >
+              {copy.successTitle}
             </h2>
-            <p className="mt-3 text-sm text-gray-800">
-              We&apos;ve sent a confirmation to{" "}
-              <span className="font-semibold">{form.workEmail || "your email"}</span>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#6B7280]">
+              {copy.successBody}
             </p>
 
-            <div className="mt-8 rounded-xl bg-[#F3F4F6] p-5 text-left text-sm text-gray-800">
+            <div className="mt-8 rounded-lg border border-[#E4E7EC] bg-[#F9FAFB] p-5 text-left text-sm text-[#202124]">
               <p className="leading-relaxed">
-                We&apos;ve received your request. Our team will contact you shortly to schedule your demo at a time
-                that works for you.
+                We&apos;ve sent a confirmation to{" "}
+                <span className="font-semibold">
+                  {form.workEmail || "your email"}
+                </span>
+                .
               </p>
             </div>
 
-            <p className="mt-6 text-xs text-gray-600">Watch your inbox for a reply from us.</p>
+            <p className="mt-6 text-xs text-[#9CA3AF]">
+              Watch your inbox for a reply from us.
+            </p>
 
             <button
               type="button"
               onClick={onClose}
-              className="mt-8 w-full max-w-xs rounded-lg py-3 text-sm font-semibold text-white transition hover:opacity-90"
-              style={{ backgroundColor: PRIMARY }}
+              className="mt-8 w-full max-w-xs rounded-xl bg-[#16B2C3] py-3 text-sm font-semibold text-white transition hover:bg-[#139BA8]"
             >
               Done
             </button>
           </div>
         )}
-      </div>
-    </div>
+      </Drawer>
+    </ConfigProvider>
   );
 }

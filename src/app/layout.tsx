@@ -67,6 +67,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 // import { GoogleAnalytics } from "@next/third-parties/google";
 
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
@@ -107,15 +108,15 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable}`}
     >
       <body className={`${inter.className} font-sans`}>
-        <Providers>
-          <GoogleAnalyticsTracker />
-          {children}
-          <Footer />
-        </Providers>
+        <AntdRegistry>
+          <Providers>
+            <GoogleAnalyticsTracker />
+            {children}
+            <Footer />
+          </Providers>
 
-        <CookieBanner />
-
-        
+          <CookieBanner />
+        </AntdRegistry>
       </body>
     </html>
   );

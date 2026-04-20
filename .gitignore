@@ -7,6 +7,10 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+/public/screenshots
+.env.local
+.env
+.env.example
 
 # testing
 /coverage
@@ -30,3 +34,4 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+.vercel

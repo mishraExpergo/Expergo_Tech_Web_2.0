@@ -69,7 +69,15 @@ const HeatmapSection = () => {
   const [dimension, setDimension] = useState<Dimension>("Product");
   const [signal, setSignal] = useState<SignalType>("Migration Risk");
   const [timeWindow, setTimeWindow] = useState<TimeWindow>("90D");
-  const [selectedCell, setSelectedCell] = useState<CellData | null>(null);
+  const data = useMemo(() => generateHeatmapData(dimension, signal), [dimension, signal]);
+  const rows = dimensionRows[dimension];
+
+  const [selectedCell, setSelectedCell] = useState<CellData | null>(data[0] ?? null);
+
+  // Reset to first cell when dimension or signal changes
+  useEffect(() => {
+    setSelectedCell(data[0] ?? null);
+  }, [data]);
 
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionInView, setSectionInView] = useState(false);
@@ -77,9 +85,6 @@ const HeatmapSection = () => {
   const [tabsFocusInside, setTabsFocusInside] = useState(false);
   const [clickPaused, setClickPaused] = useState(false);
   const clickPauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const data = useMemo(() => generateHeatmapData(dimension, signal), [dimension, signal]);
-  const rows = dimensionRows[dimension];
 
   const pauseAuto = tabsPointerInside || tabsFocusInside || clickPaused;
 
@@ -157,7 +162,7 @@ const HeatmapSection = () => {
         <div className="flex flex-wrap gap-4 mb-8">
           <select
             value={dimension}
-            onChange={(e) => { setDimension(e.target.value as Dimension); setSelectedCell(null); }}
+            onChange={(e) => setDimension(e.target.value as Dimension)}
             className="text-sm border border-border rounded-lg px-4 py-2 bg-background text-foreground"
           >
             {(["Product", "Geography", "Segment"] as Dimension[]).map((d) => (
@@ -166,7 +171,7 @@ const HeatmapSection = () => {
           </select>
           <select
             value={signal}
-            onChange={(e) => { setSignal(e.target.value as SignalType); setSelectedCell(null); }}
+            onChange={(e) => setSignal(e.target.value as SignalType)}
             className="text-sm border border-border rounded-lg px-4 py-2 bg-background text-foreground"
           >
             {(["Migration Risk", "Behavioural Anomaly", "Fraud Exposure", "Capital-at-Risk"] as SignalType[]).map((s) => (
@@ -299,7 +304,7 @@ const HeatmapSection = () => {
                   transition={{ duration: 0.305 }}
                   className="border border-dashed border-border rounded-xl p-6 flex items-center justify-center min-h-[300px]"
                 >
-                  <p className="es-caption text-center">Select a cell to view cohort details</p>
+                  <p className="text-xl text-center text-blue-500">Select a cell to view cohort details</p>
                 </motion.div>
               )}
             </AnimatePresence>

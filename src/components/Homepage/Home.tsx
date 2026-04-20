@@ -49,8 +49,8 @@ const Index = () => {
             Platform
           </motion.span>
           <h1 className="es-heading-hero mt-2 font-bold text-foreground">
-            A unified portfolio{" "}
-            <span className="text-[var(--color-platform-accent)]">risk system.</span>
+            A unified portfolio Control{" "}
+            <span className="text-[var(--color-platform-accent)]">risk platform.</span>
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base text-[var(--color-brand-muted)]">
             Each layer performs a defined institutional function. Together, they form a unified portfolio risk
@@ -74,14 +74,16 @@ const Index = () => {
           </div>
 
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:h-full lg:min-h-0">
-            <GovernanceAuditCard />
+            {/* <GovernanceAuditCard /> */}
+            <PredictiveTrajectoryCard />
           </div>
           <div className="lg:col-start-3 lg:row-span-2 lg:row-start-2 lg:h-full lg:min-h-[28rem]">
             <ControlOrchestrationCard />
           </div>
 
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-3 lg:h-full lg:min-h-0">
-            <PredictiveTrajectoryCard />
+              <GovernanceAuditCard />
+
           </div>
         </div>
       </div>

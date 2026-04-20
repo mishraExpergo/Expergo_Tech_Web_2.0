@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   try {
     const input = bookDemoInputSchema.parse(await req.json());
-    const recaptcha = await verifyRecaptcha(input.recaptchaToken, "demo_request");
+    const recaptcha = await verifyRecaptcha(input.recaptchaToken, "book_demo");
 
     await saveBookDemoRequest(input, recaptcha);
     await sendBookDemoEmails(input);

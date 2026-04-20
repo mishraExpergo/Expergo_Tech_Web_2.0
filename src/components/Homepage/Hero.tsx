@@ -104,11 +104,14 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-3">
               <BarChart2 className="w-[18px] h-[18px] text-[#01AEE4]" strokeWidth={2.5} />
-              <span className="text-[#334155] font-semibold text-[15px]">Influence portfolio outcomes.</span>
+              <span className="text-[#334155] font-semibold text-[15px]">
+                Quantify trajectory
+
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Target className="w-[18px] h-[18px] text-[#01AEE4]" strokeWidth={2.5} />
-              <span className="text-[#334155] font-semibold text-[15px]">Quantify trajectory.</span>
+              <span className="text-[#334155] font-semibold text-[15px]">Influence portfolio outcomes</span>
             </div>
           </motion.div>
 
@@ -118,13 +121,10 @@ export function Hero() {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center gap-4"
           >
-            <BookDemoButton className="flex items-center justify-center gap-2 px-7 py-3 rounded-[10px] border-[1.5px] border-[#1677FF] text-[#1677FF] font-bold text-[15px] bg-white hover:bg-blue-50 hover:shadow-lg transition-all active:scale-95 group">
-              Book a Demo
+            <BookDemoButton mode="demo" className="flex items-center justify-center gap-2 px-7 py-3 rounded-[10px] border-[1.5px] border-[#1677FF] text-[#1677FF] font-bold text-[15px] bg-white hover:shadow-lg transition-all active:scale-95 group hover:bg-blue-500 hover:border-blue-500 hover:text-white  ">
+              Schedule Exective Brief
             </BookDemoButton>
-            {/* <button className="flex items-center justify-center gap-2 px-7 py-3 rounded-[10px] border-[1.5px] border-[#1677FF] text-[#1677FF] font-bold text-[15px] bg-white hover:bg-blue-50 hover:shadow-lg transition-all active:scale-95 group">
-              Download
-              <Download className="w-4 h-4 ml-1 group-hover:scale-110 transition-transform" strokeWidth={2.5} />
-            </button> */}
+            
           </motion.div>
         </div>
 

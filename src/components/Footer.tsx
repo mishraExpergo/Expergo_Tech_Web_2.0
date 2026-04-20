@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useCallback, useState, type FormEvent } from "react";
 import { Linkedin, Mail } from "lucide-react";
+import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
+import { executeRecaptcha, subscribeNewsletter } from "@/lib/api/public";
 
-import { subscribeNewsletter } from "@/lib/api/public";
-import { executeRecaptcha } from "@/lib/client/recaptcha";
+
 
 export function Footer() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -107,7 +108,7 @@ export function Footer() {
               Continuous Portfolio Risk Control.
             </p>
             <a href="mailto:info@earlysafe.com" className="mt-5 block text-sm font-medium text-white/90 hover:text-white">
-              info@earlysafe.com
+              info@expergo.tech
             </a>
             <p className="mt-1 text-sm text-white/75">Gurgaon, India</p>
           </div>
@@ -115,13 +116,13 @@ export function Footer() {
           <nav aria-label="Site sections" className="sm:col-span-1">
             <ul className="space-y-3">
               <li>
-                <Link href="/#platform" className={linkClass}>
+                <Link href="/platform" className={linkClass}>
                   Platform
                 </Link>
               </li>
               <li>
                 <Link href="/outcomes" className={linkClass}>
-                  Outcome
+                  Outcomes
                 </Link>
               </li>
               <li>
@@ -145,8 +146,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#company" className={linkClass}>
-                 Blog
+                <Link href="/insights" className={linkClass}>
+                 Insights
                 </Link>
               </li>
              
@@ -154,12 +155,11 @@ export function Footer() {
           </nav>
 
           <div className="flex sm:col-span-2 lg:col-span-1 lg:justify-end">
-            <Link
-              href="/capabilities#briefing"
+            <BookDemoButton
               className="inline-flex h-11 w-full max-w-[220px] items-center justify-center rounded-lg bg-[#2b5a9e] text-sm font-bold text-white shadow-sm transition hover:bg-[#244a87] sm:h-12 lg:w-auto lg:min-w-[200px] lg:max-w-none"
             >
               Request Executive Breif
-            </Link>
+            </BookDemoButton>
           </div>
         </div>
 
