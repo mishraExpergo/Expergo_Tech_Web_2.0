@@ -1,9 +1,9 @@
-import type { QueryResult, QueryResultRow } from "pg";
+import type { QueryResult, QueryResultRow, Pool as PoolType } from "pg";
 import pkg from "pg";
 const { Pool } = pkg;
 
 type GlobalWithPg = typeof globalThis & {
-  __expergoPgPool?: Pool;
+  __expergoPgPool?: PoolType;
 };
 
 /**

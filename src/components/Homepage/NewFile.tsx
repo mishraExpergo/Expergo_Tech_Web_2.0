@@ -552,7 +552,7 @@ export default function NewFile() {
       setActiveTab((prev) => (prev + 1) % tabs.length);
     }, 7000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tabs.length]);
 
   const Active = tabs[activeTab].Comp;
 
