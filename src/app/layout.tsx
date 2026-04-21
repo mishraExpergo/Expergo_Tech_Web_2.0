@@ -65,6 +65,7 @@
 
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { Suspense } from "react";
 // import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
@@ -110,7 +111,9 @@ export default function RootLayout({
       <body className={`${inter.className} font-sans`}>
         <AntdRegistry>
           <Providers>
-            <GoogleAnalyticsTracker />
+            <Suspense fallback={null}>
+              <GoogleAnalyticsTracker />
+            </Suspense>
             {children}
             <Footer />
           </Providers>
