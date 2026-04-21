@@ -219,11 +219,11 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
           <div className="pt-2">
             <h2
               id={titleId}
-              className="text-[28px] font-bold leading-[1.15] text-[#16B2C3] sm:text-[32px]"
+              className="text-[20px] font-bold leading-[1.15] text-[#16B2C3] sm:text-[24px]"
             >
               {copy.title}
             </h2>
-            <p className="mt-2 text-[15px] leading-[1.4] text-[#6B7280]">
+            <p className="mt-2 text-[12px] leading-[1.4] text-[#6B7280]">
               {copy.intro}
             </p>
 

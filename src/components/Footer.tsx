@@ -5,6 +5,7 @@ import { useCallback, useState, type FormEvent } from "react";
 import { Linkedin, Mail } from "lucide-react";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { executeRecaptcha, subscribeNewsletter } from "@/lib/api/public";
+import { LinkedinFilled } from "@ant-design/icons";
 
 
 
@@ -165,16 +166,16 @@ export function Footer() {
 
         <div className="h-px w-full bg-[#1e3a5f]" aria-hidden />
 
-        <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row sm:py-7">
+        <div className="flex flex-col items-center justify-between gap-4 py-8 sm:flex-row sm:py-2">
           <a
             href="https://www.linkedin.com/company/expergo-technologies"
             aria-label="LinkedIn"
-            className="text-white/60 transition hover:text-white"
+            className="text-white transition hover:text-blue-500  "
           >
-            <Linkedin className="h-5 w-5" />
+            <LinkedinFilled size={25} />
           </a>
           <p className="text-center text-xs text-white/45 sm:text-left">
-            © {new Date().getFullYear()} EarlySafe. All rights reserved.
+            © {new Date().getFullYear()} Expergo. All rights reserved.
           </p>
         </div>
       </div>

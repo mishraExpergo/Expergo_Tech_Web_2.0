@@ -88,7 +88,7 @@ export default function BusinessOutcomeBox() {
                   Outcomes
                 </span>
                 <h2 className="text-[26px] font-bold leading-tight tracking-wide text-white sm:text-[36px]">
-                  Business Outcome
+                 Business Value
                 </h2>
               </div>
             </div>

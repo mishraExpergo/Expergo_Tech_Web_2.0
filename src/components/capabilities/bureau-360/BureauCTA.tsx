@@ -35,8 +35,8 @@ export default function BureauCTA() {
           transition={{ delay: 0.2 }}
           className="flex flex-wrap justify-center items-center gap-4"
         >
-          <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm tracking-wide">
-          Request Executive Briefing          
+          <BookDemoButton mode="brief" className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm tracking-wide">
+          Request Executive Brief         
           </BookDemoButton>
           {/* <button className="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-medium px-8 py-3 rounded-md transition-all shadow-sm">
             Request Personalized Pricing

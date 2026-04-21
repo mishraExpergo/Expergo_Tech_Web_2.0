@@ -75,15 +75,13 @@ export default function DataPipelineSection() {
                 className={`relative pl-8 ${idx !== steps.length - 1 ? 'pb-8' : ''}`}
               >
                 <Image src="/line.svg" alt="Data Pipeline" width={500} height={500} className="absolute" />
-                 {idx !== steps.length - 1 && (
-                   <div className="absolute left-6 top-8 bottom-0 w-px bg-cyan-100/50" />
-                 )}
+                
                  <div className="absolute left-0 top-1 text-5xl font-bold text-gray-300 leading-none -ml-4 z-0 pointer-events-none">
                    {step.id}
                  </div>
                  
-                 <div className="relative z-10 flex flex-col pt-2">
-                   <h3 className="text-[16px] font-semibold mb-1 inline-block w-fit pb-1 tracking-wide text-[#01AEE4]">
+                 <div className="relative z-10 flex flex-col pt-1">
+                   <h3 className="text-[16px] font-semibold mb-1 inline-block w-fit tracking-wide text-[#01AEE4]">
                      {step.title}
                    </h3>
                    <p className="text-gray-500 font-medium text-sm">
@@ -92,7 +90,7 @@ export default function DataPipelineSection() {
                  </div>
                  
                  {/* Connection horizontal line */}
-                 <div className="absolute -left-12 top-6 w-16 h-px bg-gradient-to-r from-transparent to-cyan-100 pointer-events-none" />
+                 {/* <div className="absolute -left-12 top-6 w-16 h-px from-transparent to-cyan-100 pointer-events-none" /> */}
               </motion.div>
            ))}
         </div>

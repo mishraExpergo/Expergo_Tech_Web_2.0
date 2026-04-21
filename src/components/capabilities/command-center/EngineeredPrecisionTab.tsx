@@ -1,20 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Server, Activity, Database, GitMerge, Zap, ShieldCheck } from "lucide-react";
+import { CgController } from "react-icons/cg";
+import { PiTreeStructureDuotone } from "react-icons/pi";
+
+
 
 const features = [
-  { id: "01", title: "Constant System Availability", icon: Server, desc: "Built with multi-region redundancy to ensure zero downtime even during massive demographic shifts or unexpected traffic spikes." },
-  { id: "02", title: "Microsecond Load Pacing", icon: Activity, desc: "Operating within absolute sub-second parameters ensuring live logic immediately scales without backlogging standard processes." },
-  { id: "03", title: "API Abstraction Layer", icon: Database, desc: "Unified parsing structures flawlessly translate diverse external endpoint variables into standardized internal triggers." },
+  { id: "01", title: "Signal-to-Action Conversion ", icon: Server, desc: "Every qualifying early warning signal is automatically converted into an actionable case, ensuring no critical trigger remains unattended." },
+
+  { id: "02", title: "Ownership & Accountability", icon: Activity, desc: "Each case is assigned to a clearly defined role or function, ensuring responsibility is established at every stage of the resolution process." },
+
+  { id: "03", title: "SLA-Driven Execution", icon: Database, desc: "Actions are governed by defined timelines, with delays tracked in real time and escalated automatically when thresholds are breached.." },
+
   { id: "04", title: "Parallelised Processing", icon: GitMerge, desc: "Distributes logical verifications concurrently allowing millions of evaluations simultaneously without bottlenecking." },
-  { id: "05", title: "Event-Driven Triggers", icon: Zap, desc: "Immediate asynchronous firing pathways strictly bypassing standard cron structures for instantaneous reaction states." },
-  { id: "06", title: "Advanced Flow Architecture", icon: ShieldCheck, desc: "Secured pathways entirely abstracting raw data while solely forwarding verified logic decisions." }
+
+  { id: "05", title: "Role-Based Workflows", icon: Zap, desc: "Cases move through structured workflows across multiple teams — Operations, Credit, Legal, Technical, and Collections." },
+
+  { id: "06", title: "Decision-Based Routing", icon: ShieldCheck, desc: "Cases are classified based on borrower behaviour — behavioural vs intentional stress allowing workflows to adjust accordingly." },
+
+  { id: "07", title: "Escalation & Control", icon: CgController, desc: "High-risk cases and SLA breaches trigger automatic escalation, providing management visibility and immediate control." },
+  
+  { id: "08", title: "Structured Resolution", icon: PiTreeStructureDuotone, desc: "Every case is closed with a defined outcome, documented rationale, and a complete action history for governance review." }
 ];
 
 export default function EngineeredPrecisionTab() {
-  const [activeTab, setActiveTab] = useState(1); // 0-indexed for simplicity? No, let's use idx
+  const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="py-24 bg-white relative">

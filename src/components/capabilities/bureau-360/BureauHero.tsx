@@ -14,7 +14,6 @@ const GRID_ACCENT =
 export default function BureauHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
-  const [isHovered, setIsHovered] = useState(false);
 
   const onPointerMove = useCallback((e: ReactPointerEvent<HTMLElement>) => {
     const el = sectionRef.current;
@@ -90,10 +89,10 @@ export default function BureauHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className=" text-gray-800  mb-8 w-[30rem] text-[20px] leading-snug"
+            className=" text-gray-800  mb-8 w-[30rem] text-[20px] font-medium"
           >
             BUREAU 360° converts credit bureau signals into structured
-            borrower behaviour intelligence — giving lenders continuous,
+            borrower behaviour intelligence  giving lenders continuous,
             cross-lender visibility into how credit activity, leverage, and
             exposure evolve across the wider lending ecosystem.        
           </motion.p>
@@ -113,8 +112,6 @@ export default function BureauHero() {
         {/* Right Isometric Visual */}
         <div 
           className="flex-1 flex justify-center items-center relative w-full aspect-square max-w-[500px] cursor-pointer"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
           {/* Animated concentric circles */}
           {[...Array(4)].map((_, i) => (
@@ -155,13 +152,12 @@ export default function BureauHero() {
           />
 
           {/* Center Shield Container */}
-          <div className={`relative z-20 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white ${isHovered ? 'shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110' : 'shadow-none scale-100'}`}>
+          <div className="relative z-20 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110">
              <Shield className="w-28 h-28 text-cyan-500" strokeWidth={1.5} />
           </div>
 
-          {/* Floating Hover Cards */}
+          {/* Floating Cards */}
           <AnimatePresence>
-            {isHovered && (
               <>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, x: 10, y: 10 }}
@@ -247,7 +243,6 @@ export default function BureauHero() {
                   <span className="text-[#01AEE4] font-semibold text-sm whitespace-nowrap">Cross-lender <span className="border-b-[3px] border-[#01AEE4] pb-1">exposure & leverage</span></span>
                 </motion.div>
               </>
-            )}
           </AnimatePresence>
         </div>
       </div>

@@ -16,7 +16,7 @@ const links = [
   },
   { href: "/outcomes", label: "Outcomes", match: (p: string) => p === "/outcomes" },
   { href: "/use-cases", label: "Use Cases", match: (p: string) => p === "/use-cases" },
-  { href: "/blog", label: "Insights", match: (p: string) => p === "/blog" },
+  { href: "/insights", label: "Insights", match: (p: string) => p === "/insights" },    
 ] as const;
 
 const capabilityLinks = [

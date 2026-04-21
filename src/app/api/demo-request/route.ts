@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const recaptcha = await verifyRecaptcha(input.recaptchaToken, "demo_request");
 
     await saveBookDemoRequest(input, recaptcha);
-    await sendBookDemoEmails(input);
+    // await sendBookDemoEmails(input);
 
     return NextResponse.json({ success: true });
   } catch (err) {

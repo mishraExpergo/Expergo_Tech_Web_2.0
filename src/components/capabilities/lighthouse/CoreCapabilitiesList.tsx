@@ -53,7 +53,7 @@ export default function CoreCapabilitiesList() {
             transition={{ delay: 0.1 }}
             className=" text-[36px] text-[#1F1F1F] mb-6 font-bold text-gray-900"
           >
-            Core <span className="text-[#01AEE4]">Capabilities</span>
+            What we <span className="text-[#01AEE4]">Deliver</span>
           </motion.h2>
         </div>
 
