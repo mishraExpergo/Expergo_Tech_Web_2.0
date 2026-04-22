@@ -107,44 +107,60 @@ function SelectChevron() {
   );
 }
 
+type FormErrors = Partial<Record<keyof FormState | 'security', string>>;
+
 export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   const titleId = useId();
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState<FormState>(initialForm);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [securityAnswer, setSecurityAnswer] = useState("");
   const copy = modalCopy[mode];
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
       setStep(1);
       setForm(initialForm);
       setSubmitting(false);
       setSubmitError(null);
+      setErrors({});
+      setNum1(Math.floor(Math.random() * 10) + 1);
+      setNum2(Math.floor(Math.random() * 10) + 1);
+      setSecurityAnswer("");
     }
   }, [open]);
 
-  const canSubmit = useCallback(
-    () =>
-      Boolean(
-        form.fullName.trim() &&
-          form.workEmail.trim() &&
-          form.companyName.trim() &&
-          form.phone.trim() &&
-          form.companySize &&
-          form.industry &&
-          form.interest
-      ),
-    [form]
-  );
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {};
+    if (!form.fullName.trim() || form.fullName.trim().length < 2) newErrors.fullName = "Full name must be at least 2 characters";
+    if (!/^\S+@\S+\.\S+$/.test(form.workEmail)) newErrors.workEmail = "Please enter a valid work email";
+    if (!form.companyName.trim() || form.companyName.trim().length < 2) newErrors.companyName = "Company name must be at least 2 characters";
+    if (!form.phone.trim() || form.phone.trim().length < 6) newErrors.phone = "Phone number is too short";
+    if (!form.companySize) newErrors.companySize = "Please select a company size";
+    if (!form.industry) newErrors.industry = "Please select an industry";
+    if (!form.interest) newErrors.interest = "Please select an interest";
+
+    const expectedAnswer = num1 + num2;
+    if (parseInt(securityAnswer) !== expectedAnswer) {
+      newErrors.security = "Incorrect security answer";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const update = (k: keyof FormState, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
+    if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
     if (submitError) setSubmitError(null);
   };
 
   const handleConfirm = useCallback(async () => {
-    if (!canSubmit() || submitting) return;
+    if (!validate() || submitting) return;
     setSubmitError(null);
     setSubmitting(true);
 
@@ -171,7 +187,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [canSubmit, copy.source, form, submitting]);
+  }, [copy.source, form, submitting]);
 
   return (
     <ConfigProvider
@@ -232,11 +248,12 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
               <div>
                 <label className={labelClass}>Full Name</label>
                 <input
-                  className={inputClass}
+                  className={`${inputClass} ${errors.fullName ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="Jane Doe"
                   value={form.fullName}
                   onChange={(e) => update("fullName", e.target.value)}
                 />
+                {errors.fullName && <p className="mt-1 text-xs text-red-500">{errors.fullName}</p>}
               </div>
 
               {/* Work Email */}
@@ -244,33 +261,36 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 <label className={labelClass}>Work Email</label>
                 <input
                   type="email"
-                  className={inputClass}
+                  className={`${inputClass} ${errors.workEmail ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="Jane@company.in"
                   value={form.workEmail}
                   onChange={(e) => update("workEmail", e.target.value)}
                 />
+                {errors.workEmail && <p className="mt-1 text-xs text-red-500">{errors.workEmail}</p>}
               </div>
 
               {/* Company Name */}
               <div>
                 <label className={labelClass}>Company Name</label>
                 <input
-                  className={inputClass}
+                  className={`${inputClass} ${errors.companyName ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="Acme Inc."
                   value={form.companyName}
                   onChange={(e) => update("companyName", e.target.value)}
                 />
+                {errors.companyName && <p className="mt-1 text-xs text-red-500">{errors.companyName}</p>}
               </div>
 
               {/* Phone No. */}
               <div>
                 <label className={labelClass}>Phone No.</label>
                 <input
-                  className={inputClass}
+                  className={`${inputClass} ${errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                   placeholder="+1 555 000 000"
                   value={form.phone}
                   onChange={(e) => update("phone", e.target.value)}
                 />
+                {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
               </div>
 
               {/* Company Size */}
@@ -278,7 +298,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 <label className={labelClass}>Company Size</label>
                 <div className="relative">
                   <select
-                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                    className={`${inputClass} cursor-pointer appearance-none pr-10 ${errors.companySize ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     value={form.companySize}
                     onChange={(e) => update("companySize", e.target.value)}
                   >
@@ -291,6 +311,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                   </select>
                   <SelectChevron />
                 </div>
+                {errors.companySize && <p className="mt-1 text-xs text-red-500">{errors.companySize}</p>}
               </div>
 
               {/* Industry */}
@@ -298,7 +319,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 <label className={labelClass}>Industry</label>
                 <div className="relative">
                   <select
-                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                    className={`${inputClass} cursor-pointer appearance-none pr-10 ${errors.industry ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     value={form.industry}
                     onChange={(e) => update("industry", e.target.value)}
                   >
@@ -311,6 +332,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                   </select>
                   <SelectChevron />
                 </div>
+                {errors.industry && <p className="mt-1 text-xs text-red-500">{errors.industry}</p>}
               </div>
 
               {/* Use Case / Interest – full width */}
@@ -318,7 +340,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 <label className={labelClass}>Use Case / Interest</label>
                 <div className="relative">
                   <select
-                    className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                    className={`${inputClass} cursor-pointer appearance-none pr-10 ${errors.interest ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
                     value={form.interest}
                     onChange={(e) => update("interest", e.target.value)}
                   >
@@ -331,6 +353,23 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                   </select>
                   <SelectChevron />
                 </div>
+                {errors.interest && <p className="mt-1 text-xs text-red-500">{errors.interest}</p>}
+              </div>
+              
+              {/* Security Check – full width */}
+              <div className="sm:col-span-2">
+                <label className={labelClass}>Security Check: What is {num1} + {num2}?</label>
+                <input
+                  type="number"
+                  className={`${inputClass} ${errors.security ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                  placeholder="Enter the answer"
+                  value={securityAnswer}
+                  onChange={(e) => {
+                    setSecurityAnswer(e.target.value);
+                    if (errors.security) setErrors((err) => ({ ...err, security: undefined }));
+                  }}
+                />
+                {errors.security && <p className="mt-1 text-xs text-red-500">{errors.security}</p>}
               </div>
             </div>
 
@@ -345,7 +384,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
 
             <button
               type="button"
-              disabled={!canSubmit() || submitting}
+              disabled={submitting}
               onClick={() => void handleConfirm()}
               className="mt-8 w-full rounded-xl bg-[#E8F4FD] py-3.5 text-[15px] font-semibold text-[#16B2C3] transition hover:bg-[#d6edfa] disabled:cursor-not-allowed disabled:opacity-50"
             >
