@@ -107,7 +107,7 @@ function SelectChevron() {
   );
 }
 
-type FormErrors = Partial<Record<keyof FormState | 'security', string>>;
+type FormErrors = Partial<Record<keyof FormState, string>>;
 
 export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   const titleId = useId();
@@ -116,9 +116,6 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [securityAnswer, setSecurityAnswer] = useState("");
   const copy = modalCopy[mode];
 
   useEffect(() => {
@@ -128,9 +125,6 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
       setSubmitting(false);
       setSubmitError(null);
       setErrors({});
-      setNum1(Math.floor(Math.random() * 10) + 1);
-      setNum2(Math.floor(Math.random() * 10) + 1);
-      setSecurityAnswer("");
     }
   }, [open]);
 
@@ -143,11 +137,6 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     if (!form.companySize) newErrors.companySize = "Please select a company size";
     if (!form.industry) newErrors.industry = "Please select an industry";
     if (!form.interest) newErrors.interest = "Please select an interest";
-
-    const expectedAnswer = num1 + num2;
-    if (parseInt(securityAnswer) !== expectedAnswer) {
-      newErrors.security = "Incorrect security answer";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -355,22 +344,6 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 </div>
                 {errors.interest && <p className="mt-1 text-xs text-red-500">{errors.interest}</p>}
               </div>
-              
-              {/* Security Check – full width */}
-              <div className="sm:col-span-2">
-                <label className={labelClass}>Security Check: What is {num1} + {num2}?</label>
-                <input
-                  type="number"
-                  className={`${inputClass} ${errors.security ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
-                  placeholder="Enter the answer"
-                  value={securityAnswer}
-                  onChange={(e) => {
-                    setSecurityAnswer(e.target.value);
-                    if (errors.security) setErrors((err) => ({ ...err, security: undefined }));
-                  }}
-                />
-                {errors.security && <p className="mt-1 text-xs text-red-500">{errors.security}</p>}
-              </div>
             </div>
 
             {submitError ? (
@@ -381,6 +354,12 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
                 {submitError}
               </p>
             ) : null}
+
+            <p className="mt-4 text-[11px] text-[#9CA3AF] leading-tight text-center">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="underline hover:text-[#16B2C3]">Privacy Policy</a> and{" "}
+              <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer" className="underline hover:text-[#16B2C3]">Terms of Service</a> apply.
+            </p>
 
             <button
               type="button"
