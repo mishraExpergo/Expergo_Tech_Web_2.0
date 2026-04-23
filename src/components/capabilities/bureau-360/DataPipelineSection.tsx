@@ -64,7 +64,7 @@ export default function DataPipelineSection() {
         </div>
 
         {/* Right Step List */}
-        <div className="flex-1 w-full pl-0 md:pl-12 flex flex-col gap-6">
+        <div className="flex-1 w-full pl-0 md:pl-10 flex flex-col gap-6">
            {steps.map((step, idx) => (
               <motion.div
                 key={step.id}
@@ -72,16 +72,22 @@ export default function DataPipelineSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.1, type: "spring", stiffness: 60 }}
-                className={`relative pl-8 ${idx !== steps.length - 1 ? 'pb-8' : ''}`}
+               className={`relative pl-12 md:pl-8 p-4 md:p-0 rounded-xl border border-gray-200 md:border-none ${idx !== steps.length - 1 ? 'mb-4 md:mb-0 pb-0 md:pb-8' : ''}`}
               >
-                <Image src="/line.svg" alt="Data Pipeline" width={500} height={500} className="absolute" />
+                <Image
+                  src="/line.svg"
+                  alt="Data Pipeline"
+                  width={500}
+                  height={500}
+                  className="hidden md:block absolute"
+                />
                 
-                 <div className="absolute left-0 top-1 text-5xl font-bold text-gray-300 leading-none -ml-4 z-0 pointer-events-none">
+                 <div className="absolute left-6 md:left-2 top-1 text-5xl font-bold text-gray-300 leading-none -ml-4 z-0 pointer-events-none">
                    {step.id}
                  </div>
                  
                  <div className="relative z-10 flex flex-col pt-1">
-                   <h3 className="text-[16px] font-semibold mb-1 inline-block w-fit tracking-wide text-[#01AEE4]">
+                   <h3 className="text-[14px] font-semibold mb-1 inline-block w-fit tracking-wide text-[#01AEE4]">
                      {step.title}
                    </h3>
                    <p className="text-gray-500 font-medium text-sm">

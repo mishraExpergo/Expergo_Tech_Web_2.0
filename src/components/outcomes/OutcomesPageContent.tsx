@@ -134,12 +134,12 @@ export function OutcomesPageContent() {
         <div className="mx-auto max-w-6xl text-left">
           <h1
             id="outcomes-hero-heading"
-            className="text-[52px] font-semibold "
+            className="md:text-[52px] text-[30px] font-semibold "
           >
             Measurable Portfolio{" "}
             <span className="text-[#15B5C1]">Outcomes</span>
           </h1>
-          <p className="mt-6 max-w-4xl text-[20px] leading-relaxed text-[#101828] sm:text-xl">
+          <p className="mt-6 max-w-4xl md:text-[20px] text-[16px] leading-relaxed text-[#101828] sm:text-xl">
             EarlySafe is designed to influence portfolio trajectory not simply observe delinquency. Structured
             controls produce measurable institutional impact.
           </p>
@@ -166,12 +166,11 @@ export function OutcomesPageContent() {
       {/* Detail outcome cards */}
       <section className="border-t  border-[#E4E7EC] px-4 py-16 sm:px-6 lg:px-8" aria-label="Detailed outcomes">
         <div className="mx-auto max-w-6xl">
-          <div className="flex  gap-4">
+         <div className="flex flex-col md:flex-row gap-4">
             {outcomeDetailCards.map((card) => (
               <article
                 key={card.title}
-                className="flex flex-col overflow-hidden rounded-xl border border-[#000000]/21 bg-[#F8FBFC] shadow-sm"
-              >
+                className="flex flex-col w-full overflow-hidden rounded-xl border border-[#000000]/21 bg-[#F8FBFC] shadow-sm">
                 <div className="flex flex-1 flex-col p-6 pb-5 ">
                   <h2 className="text-[24px] font-poppins font-medium leading-snug text-[#16B2C3]">
                     {card.title}
@@ -202,11 +201,11 @@ export function OutcomesPageContent() {
           </p>
           <h2
             id="outcomes-cta-heading"
-            className="text-[36px]  font-semibold  text-[#1F1F1F]"
+            className="md:text-[36px] text-[24px]  font-semibold  text-[#1F1F1F]"
           >
             Capital resilience requires structural discipline.
           </h2>
-          <p className="mx-auto text-[16px] mt-5 max-w-2xl tracking-wider text-base font-poppins  leading-relaxed text-[#1F1F1F] ">
+          <p className="mx-auto md:text-[16px] text-[14px] mt-5 max-w-2xl tracking-wider text-base font-poppins  leading-relaxed text-[#1F1F1F] ">
             Institutions that manage risk formation early preserve stability and unlock measured growth. EarlySafe.
             Continuous Portfolio Risk Control.
           </p>

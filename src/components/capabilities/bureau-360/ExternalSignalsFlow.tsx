@@ -30,12 +30,12 @@ export default function ExternalSignalsFlow() {
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <motion.h4
              initial={{ opacity: 0, y: 10 }}
              whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true, margin: "-50px" }}
-             className="text-[#01AEE4] font-bold text-xs tracking-wider uppercase mb-3"
+             viewport={{ once: true, margin: "-10px" }}
+             className="text-[#01AEE4] my-[-44] font-bold text-xs tracking-wider uppercase mb-3"
           >
             OVERVIEW
           </motion.h4>
@@ -44,7 +44,7 @@ export default function ExternalSignalsFlow() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-[40px] font-black text-[#1D2B3D] leading-tight"
+            className="text-3xl md:text-4xl  lg:text-[40px] font-black text-[#1D2B3D] leading-tight"
           >
             External signals that bring <span className="text-[#01AEE4]">borrower</span><br/>
             <span className="text-[#01AEE4]">behaviour</span> into focus

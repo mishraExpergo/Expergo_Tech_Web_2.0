@@ -124,11 +124,13 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     }
   }, [open]);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const canSubmit = useCallback(
     () =>
       Boolean(
         form.fullName.trim() &&
-          form.workEmail.trim() &&
+           emailRegex.test(form.workEmail) &&
           form.companyName.trim() &&
           form.phone.trim() &&
           form.companySize &&

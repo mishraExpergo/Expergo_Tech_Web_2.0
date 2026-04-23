@@ -61,15 +61,18 @@ export default function ComplianceSection() {
                <div className="absolute  text-[50px] left-1 py-2 leading-none font-bold text-gray-400/40  pointer-events-none select-none tracking-tighter">
                  {feature.id}
               </div>
-                <img
-                  src="/line.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none z-50 absolute left-11 top-12  h-[20rem] w-auto  -translate-y-1/2 object-contain object-left"
-                />
-                <div className="relative z-10 pl-4 ">
-                  <h3 className="text-[20px] font-bold text-[#15B5C1] transition-colors group-hover:text-[#01AEE4]">{feature.title}</h3>
-                  <p className="text-gray-500 text-sm">{feature.desc}</p>
+                <div className="relative z-10 pl-4"> </div>
+               <img
+                src="/line.svg"
+                alt=""
+                aria-hidden="true"
+                className=" hidden md:block pointer-events-none absolute left-[70px] w-[350px] opacity-70 z-0"
+              />
+              
+            
+                <div className="relative z-10 pl-4  ">
+                  <h3 className="text-[14px] font-bold text-[#15B5C1] transition-colors group-hover:text-[#01AEE4]">{feature.title}</h3>
+                  <p className="text-gray-500 text-[12px]">{feature.desc}</p>
                 </div>
               </motion.div>
             ))}
