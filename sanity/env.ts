@@ -1,23 +1,13 @@
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION?.trim() || '2024-04-22'
 
-export const dataset = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_DATASET,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_DATASET'
-)
+/** Trimmed dataset from env, or empty string if unset (e.g. Vercel preview without env). */
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET?.trim() ?? ''
 
-export const projectId = assertValue(
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
-)
+/** Trimmed project id from env, or empty string if unset. */
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim() ?? ''
 
 export const useCdn = false
 
-function assertValue(v: string | undefined, errorMessage: string): string {
-  const trimmed = v?.trim()
-  if (!trimmed) {
-    throw new Error(errorMessage)
-  }
-
-  return trimmed
-}
+/** True when both public Sanity env vars are set — required for API and /insights. */
+export const isSanityConfigured = dataset.length > 0 && projectId.length > 0

@@ -1,7 +1,7 @@
 import type { Image } from 'sanity'
 import type { PortableTextBlock } from '@portabletext/types'
 
-import { client } from './client'
+import { getSanityClient } from './client'
 import {
   postBySlugQuery,
   postSlugsQuery,
@@ -29,17 +29,25 @@ export type SanityPostDetail = {
 }
 
 export async function getPostsForCarousel(): Promise<SanityPostCard[]> {
+  const client = getSanityClient()
+  if (!client) return []
   return client.fetch(postsForCarouselQuery)
 }
 
 export async function getPostsForListing(): Promise<SanityPostListItem[]> {
+  const client = getSanityClient()
+  if (!client) return []
   return client.fetch(postsForListingQuery)
 }
 
 export async function getPostBySlug(slug: string): Promise<SanityPostDetail | null> {
+  const client = getSanityClient()
+  if (!client) return null
   return client.fetch(postBySlugQuery, { slug })
 }
 
 export async function getPostSlugs(): Promise<string[]> {
+  const client = getSanityClient()
+  if (!client) return []
   return client.fetch(postSlugsQuery)
 }
