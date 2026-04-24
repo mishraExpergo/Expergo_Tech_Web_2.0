@@ -1,5 +1,5 @@
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-04-22'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION?.trim() || '2024-04-22'
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
@@ -13,10 +13,11 @@ export const projectId = assertValue(
 
 export const useCdn = false
 
-function assertValue<T>(v: T | undefined, errorMessage: string): T {
-  if (v === undefined) {
+function assertValue(v: string | undefined, errorMessage: string): string {
+  const trimmed = v?.trim()
+  if (!trimmed) {
     throw new Error(errorMessage)
   }
 
-  return v
+  return trimmed
 }

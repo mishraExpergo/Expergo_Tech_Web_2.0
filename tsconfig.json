@@ -15,7 +15,10 @@
     "jsxImportSource": "react",
     "incremental": true,
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": {
+      "@/*": ["./src/*"],
+      "@sanity/*": ["./sanity/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
