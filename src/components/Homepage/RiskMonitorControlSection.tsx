@@ -97,7 +97,7 @@ export function RiskMonitorControlSection() {
     >
       <motion.h2
         id="risk-monitor-control-heading"
-        className="es-heading-hero mx-auto max-w-4xl text-center font-bold text-[#111827]"
+        className="es-heading-hero mx-5 mt-[-80px] max-w-4xl text-center font-bold text-[#111827] sm:mx-6 md:mx-auto md:mt-4"
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
@@ -107,11 +107,11 @@ export function RiskMonitorControlSection() {
       </motion.h2>
 
       {/* Mobile: stacked */}
-      <div className="mt-10 space-y-4 md:hidden">
+      <div className="mt-[30px] space-y-4 px-5 sm:px-6 md:hidden">
         <div className="relative mx-auto flex max-w-sm flex-col items-center justify-center py-8">
           <ConcentricShieldGraphic className="scale-90" />
         </div>
-        <div className="mx-auto grid max-w-md gap-4">
+        <div className="mx-auto grid max-w-md gap-4 px-2 py-[-80] sm:px-3 md:px-0 md:py-0">
           {cards.map((c, i) => (
             <InsightCard
               key={c.num}
@@ -163,7 +163,7 @@ export function RiskMonitorControlSection() {
 
 function ConcentricShieldGraphic({ className }: { className?: string }) {
   return (
-    <div className={`relative flex h-[280px] w-[280px] items-center justify-center ${className ?? ""}`}>
+    <div className={`relative flex h-[280px] w-[280px] md:mt-0 mt-[-70px] items-center justify-center ${className ?? ""}`}>
       <svg
         className="absolute inset-0 h-full w-full text-sky-200"
         viewBox="0 0 400 400"

@@ -128,7 +128,7 @@ export function OutcomesPageContent() {
     <main className="bg-white text-[#101828]">
       {/* Hero */}
       <section
-        className=" px-4 pb-16 pt-14 sm:px-6 lg:px-8"
+        className=" px-4 pb-16 md:pt-14 pt-4 sm:px-6 lg:px-8"
         aria-labelledby="outcomes-hero-heading"
       >
         <div className="mx-auto max-w-6xl text-left">
@@ -147,7 +147,7 @@ export function OutcomesPageContent() {
       </section>
 
       {/* Stakeholder row */}
-      <section className="px-4 py-14 sm:px-6 lg:px-8" aria-label="Stakeholder outcomes">
+      <section className="px-4 md:py-14 py-4 sm:px-6 lg:px-8" aria-label="Stakeholder outcomes">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {stakeholderCards.map((card) => (

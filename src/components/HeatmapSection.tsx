@@ -143,7 +143,7 @@ const HeatmapSection = () => {
 
   return (
     <section ref={sectionRef} className="py-20 md:py-28 bg-card">
-      <div className="container max-w-[1200px] mx-auto px-6 md:px-10">
+      <div className="container max-w-[1200px] mx-auto md:my-0 my-[-70px] px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -317,33 +317,69 @@ const narrativeCaptions: Record<Phase, string> = {
 };
 
 // --- Detect View ---
-const DetectView = ({ accounts, hoveredId, setHoveredId }: { accounts: AccountNode[]; hoveredId: number | null; setHoveredId: (id: number | null) => void }) => (
-  <div className="relative">
-    <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${GRID}, 1fr)` }}>
+const DetectView = ({
+  accounts,
+  hoveredId,
+  setHoveredId,
+}: {
+  accounts: AccountNode[];
+  hoveredId: number | null;
+  setHoveredId: (id: number | null) => void;
+}) => (
+  <div className="relative flex items-center justify-center w-full h-full">
+    <div
+      className="grid gap-[6px] w-full h-[320px]"
+      style={{
+        gridTemplateColumns: `repeat(${GRID}, 1fr)`,
+        gridTemplateRows: `repeat(${GRID}, 1fr)`,
+      }}
+    >
       {accounts.map((a) => {
         const isSignal = a.riskState !== "stable";
+
         return (
           <motion.div
             key={a.id}
-            className={`aspect-square rounded-sm cursor-pointer relative ${isSignal ? (a.riskState === "high" ? "bg-risk-accelerating" : "bg-primary/30") : "bg-muted"}`}
-            animate={isSignal ? { opacity: [0.5, 1, 0.5] } : { opacity: 1 }}
-            transition={isSignal ? { duration: 2.505, repeat: Infinity, ease: "easeInOut", delay: a.id * 0.03 } : {}}
+            className={`w-full h-full rounded-sm cursor-pointer relative ${
+              isSignal
+                ? a.riskState === "high"
+                  ? "bg-risk-accelerating"
+                  : "bg-primary/30"
+                : "bg-muted"
+            }`}
+            animate={
+              isSignal
+                ? { opacity: [0.5, 1, 0.5] }
+                : { opacity: 1 }
+            }
+            transition={
+              isSignal
+                ? {
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: a.id * 0.03,
+                  }
+                : {}
+            }
             onMouseEnter={() => setHoveredId(a.id)}
             onMouseLeave={() => setHoveredId(null)}
           />
         );
       })}
     </div>
+
     <AnimatePresence>
       {hoveredId !== null && (() => {
         const a = accounts[hoveredId];
         if (!a || a.riskState === "stable") return null;
+
         return (
           <motion.div
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.205 }}
+            transition={{ duration: 0.2 }}
             className="absolute top-0 right-0 -mr-2 -mt-2 bg-foreground text-primary-foreground text-xs rounded-lg p-3 shadow-lg min-w-[180px] z-10"
           >
             <p className="font-medium mb-1">Account #{a.id}</p>
@@ -441,18 +477,17 @@ const ControlView = ({ accounts }: { accounts: AccountNode[] }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.305 }}
-        className="p-4 border border-primary/20 rounded-lg bg-primary/5"
+        className="p-3 border border-primary/20 rounded-lg bg-primary/5"
       >
         <p className="text-xs font-semibold text-primary mb-3">Priority Intervention Queue</p>
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {priorityQueue.map((a, i) => (
             <motion.div
               key={a.id}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05, duration: 0.305 }}
-              className="flex items-center justify-between py-2 px-3 rounded-md bg-background border border-border"
-            >
+             className="flex items-center justify-between py-1.5 px-3 rounded-md bg-background border border-border">
               <div className="flex items-center gap-3">
                 <span className="text-xs font-medium text-muted-foreground w-5">#{i + 1}</span>
                 <div>
@@ -472,7 +507,7 @@ const ControlView = ({ accounts }: { accounts: AccountNode[] }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.305 }}
-        className="grid grid-cols-2 gap-3"
+        className="grid grid-cols-2 gap-2"
       >
         <div className="p-4 border border-border rounded-lg">
           <p className="text-[11px] text-muted-foreground mb-1">Accounts Prioritised</p>
@@ -513,7 +548,7 @@ const ScrollNarrative = () => {
 
   return (
     <section ref={sectionRef} className="relative" style={{ minHeight: "300vh" }}>
-      <div className="sticky top-0 flex min-h-screen items-center py-12">
+    <div className="sticky top-0 flex min-h-[auto] lg:min-h-screen items-start lg:items-center py-6 lg:py-12">
         <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10">
           {/* Phase tabs */}
           <div className="mb-10 flex w-fit gap-1 rounded-lg bg-muted p-1">
@@ -530,7 +565,7 @@ const ScrollNarrative = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">
+          <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-12 lg:items-start lg:gap-8">
             {/* Left - copy; aligns to vertical center of visual on large screens */}
             <div className="flex min-h-0 w-full flex-col lg:col-span-5">
               <AnimatePresence mode="wait">
@@ -541,9 +576,11 @@ const ScrollNarrative = () => {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.355 }}
                 >
-                  <h2 className="text-[52px] text-[#15B5C1] mb-3  font-bold">{phaseContent[phase].heading}</h2>
-                  <p className="es-heading-sub text-muted-foreground mb-6">{phaseContent[phase].sub}</p>
-                  <ul className="space-y-3 mb-8">
+                  <h2 className="text-2xl sm:text-3xl lg:text-[52px] text-[#15B5C1] mb-1 font-bold">
+  {phaseContent[phase].heading}
+</h2>
+<p className="es-heading-sub text-muted-foreground mb-3">{phaseContent[phase].sub}</p>
+                  <ul className="space-y-2 mb-4">
                     {phaseContent[phase].bullets.map((b) => (
                       <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
@@ -557,8 +594,8 @@ const ScrollNarrative = () => {
             </div>
 
             {/* Right - visual panel */}
-            <div className="flex w-full min-h-[min(420px,55vh)] flex-col lg:col-span-7">
-              <div className="flex min-h-[min(420px,55vh)] w-full flex-1 flex-col rounded-xl border border-border bg-card p-6 shadow-sm">
+            <div className="flex w-full lg:col-span-7 justify-center">
+            <div className="w-full max-w-[500px] rounded-xl border border-border bg-card p-4 shadow-sm">
                 <AnimatePresence mode="wait">
                   {phase === "detect" && (
                     <motion.div

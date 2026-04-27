@@ -54,7 +54,7 @@ export function DetectDecideControlSection() {
 
   return (
     <section
-      className="font-heading bg-[#0B0E14] px-4 shadow-lg mt-12 py-12 md:mt-24 md:px-8 md:py-20 lg:px-16 lg:py-24"
+      className="font-heading mt-12 bg-[#0B0E14] px-5 py-12 shadow-lg sm:px-6 md:mt-24 md:px-8 md:py-20 lg:px-16 lg:py-24"
       aria-labelledby="detect-decide-control-heading"
     >
       <div className="mx-auto max-w-7xl">

@@ -68,7 +68,7 @@ export default function CommandHero() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
         
         {/* Left Text Content */}
-        <div className="flex-1 max-w-2xl">
+        <div className=" flex-1 max-w-2xl">
           <motion.div
             initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
             whileInView={{ opacity: 1 }}
@@ -81,7 +81,7 @@ export default function CommandHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[52px] mb-6 font-bold tracking-tight text-[#15B5C1]"
+            className="md:text-[52px] text-[44px] md:mt-0px mt-[-80px] mb-6 font-bold tracking-tight text-[#15B5C1]"
           >
             Command Centre
           </motion.h1>

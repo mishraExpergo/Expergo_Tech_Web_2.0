@@ -6,7 +6,7 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 export default function LighthouseCTA() {
   return (
     <section className="py-32 bg-[#F9FAFB] text-center border-t border-gray-100">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-6 md:my-0 my-[-90px]">
         
         <motion.h2 
           initial={{ opacity: 0, y: 10 }}

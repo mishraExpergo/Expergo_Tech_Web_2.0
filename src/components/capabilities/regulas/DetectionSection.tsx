@@ -31,7 +31,7 @@ const detectionFeatures = [
 export default function DetectionSection() {
   return (
     <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center  border-gray-200 py-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center  border-gray-200 md:py-16 py-[-40px]">
         <motion.h4
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

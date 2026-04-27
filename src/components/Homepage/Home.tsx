@@ -31,11 +31,11 @@ const Index = () => {
       <Hero />
         <RiskMonitorControlSection />
         <DetectDecideControlSection />
-      <div className="bg-background  mx-24">
-      <div className=" max-w-full">
+        <div className="mx-5 bg-background sm:mx-6 md:mx-24">
+        <div className="mx-auto mt-6 max-w-full md:mx-0 md:mt-0 md:max-w-full">
 
         <motion.div
-          className="mb-12 mt-24 text-center mx-auto max-w-7xl"
+          className="mb-12 mt-8 text-center mx-auto max-w-7xl lg:mt-24"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -62,11 +62,11 @@ const Index = () => {
           Bento (lg+): matches reference — row1: three tiles; row2: Governance (2 cols) + Control (tall right);
           row3: Predictive wide (2 cols) + Control continues.
         */}
-        <div className="flex flex-col gap-5 lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:items-stretch lg:gap-5">
-          <div className="lg:col-start-1 lg:row-start-1 lg:h-full lg:min-h-0">
-            <SignalFabricCard />
-          </div>
-          <div className="lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0">
+        <div className="flex flex-col gap-5 w-full lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:items-stretch lg:gap-5">
+        <div className="lg:col-start-1 lg:row-start-1 lg:h-full lg:min-h-0 w-full">
+  <SignalFabricCard />
+</div>
+          <div className="lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0 ">
             <RiskInterpretationCard />
           </div>
           <div className="lg:col-start-3 lg:row-start-1 lg:h-full lg:min-h-0">

@@ -3,20 +3,10 @@ import { motion } from "framer-motion";
 
 import { useState } from "react";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from "recharts";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+import { PlatformSizedChart } from "./PlatformSizedChart";
 
 const pieData = [
   { name: "Migration", value: 320 },
@@ -58,14 +48,14 @@ export const PredictiveTrajectoryCard = () => {
       className={`${platformCardClass} ${platformCardLayout}`}
     >
       <h3 className="text-base font-semibold text-brand-ink">Predictive Trajectory Intelligence</h3>
-      <p className="mt-1 mb-4 text-xs text-brand-muted">
+      <p className="mt-1 mb-2 text-xs text-brand-muted lg:mb-4">
         Forward migration & concentration modelling
       </p>
 
-      <div className="flex min-h-[12rem] flex-1 flex-col gap-6 lg:min-h-[14rem] lg:flex-row lg:items-stretch lg:gap-8">
-        {/* Reference: teal trajectory line on the left */}
-        <div className="min-h-[10rem] min-w-0 flex-1">
-          <ResponsiveContainer width="100%" height="100%">
+      <div className="flex min-h-[12rem] flex-1 flex-col gap-3 lg:min-h-[14rem] lg:flex-row lg:items-stretch lg:gap-8">
+        {/* Reference (lg+): teal trajectory line on the left; mobile: donut first to sit under the title */}
+        <div className="order-2 min-h-0 min-w-0 flex-1 lg:order-1">
+          <PlatformSizedChart className="h-[132px] w-full min-w-0 lg:h-auto lg:min-h-[10rem] lg:flex-1">
             <LineChart data={trajLineData} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
               <XAxis dataKey="t" tick={{ fontSize: 10, fill: "var(--color-brand-muted)" }} />
@@ -87,12 +77,12 @@ export const PredictiveTrajectoryCard = () => {
                 animationDuration={1200}
               />
             </LineChart>
-          </ResponsiveContainer>
+          </PlatformSizedChart>
         </div>
 
-        <div className="flex shrink-0 flex-col items-center gap-4 sm:flex-row sm:items-center lg:flex-col lg:items-center">
-          <div className="relative h-44 w-44 shrink-0 sm:h-48 sm:w-48">
-            <ResponsiveContainer width="100%" height="100%">
+        <div className="order-1 flex shrink-0 flex-col items-center gap-2 sm:flex-row sm:items-center sm:gap-4 lg:order-2 lg:flex-col lg:items-center lg:gap-4">
+          <div className="relative h-44 w-44 max-sm:h-40 max-sm:w-40 shrink-0 sm:h-48 sm:w-48">
+            <PlatformSizedChart className="h-full w-full min-h-0">
               <PieChart>
                 <Tooltip
                   contentStyle={{
@@ -125,7 +115,7 @@ export const PredictiveTrajectoryCard = () => {
                   ))}
                 </Pie>
               </PieChart>
-            </ResponsiveContainer>
+            </PlatformSizedChart>
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <motion.span
                 className="text-xl font-bold text-brand-ink sm:text-2xl"

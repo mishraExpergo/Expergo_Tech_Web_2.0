@@ -13,7 +13,7 @@ const features = [
 export default function ComplianceSection() {
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 md:my-0 my-[-60px]">
         <div className="text-center mb-16">
           <motion.h4
             initial={{ opacity: 0, y: 10 }}
@@ -43,7 +43,7 @@ export default function ComplianceSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-gray-600 text-[20px] leading-relaxed font-poppins">
+            <p className="text-gray-600 md:text-[20px] text-[16px] md:my-0 my-[-40px] leading-relaxed font-poppins">
             REGULUS is a compliance tool system designed for institutions operating under RBI and NHB supervision. It serves as the Statutory Early Warning Register, ensuring that every qualifying Early Warning Signal is formally recorded, reviewed, and closed with documented evidence.By capturing ownership, timelines, supporting documentation, and supervisory actions, REGULUS ensures that institutions can demonstrate how risks were handled — not just that they were detected.            </p>
           </motion.div>
 

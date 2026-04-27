@@ -3,18 +3,10 @@ import { motion } from "framer-motion";
 
 import { useState } from "react";
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recharts";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+import { PlatformSizedChart } from "./PlatformSizedChart";
 
 const data = [
   { name: "JAN", value: 45 },
@@ -44,8 +36,7 @@ export const PortfolioIntelligenceCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Portfolio Intelligence Interface</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Executive dashboards & heat maps</p>
-      <div className="min-h-[11rem] w-full flex-1">
-      <ResponsiveContainer width="100%" height="100%">
+      <PlatformSizedChart className="min-h-[11rem] h-[200px] w-full min-w-0 flex-1 shrink-0 lg:h-auto">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
@@ -75,8 +66,7 @@ export const PortfolioIntelligenceCard = () => {
             ))}
           </Bar>
         </BarChart>
-      </ResponsiveContainer>
-      </div>
+      </PlatformSizedChart>
     </motion.div>
   );
 };

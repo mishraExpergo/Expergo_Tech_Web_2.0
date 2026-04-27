@@ -3,17 +3,10 @@ import { motion } from "framer-motion";
 
 import { useState } from "react";
 
-import {
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip } from "recharts";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+import { PlatformSizedChart } from "./PlatformSizedChart";
 
 const data = [
   { subject: "Priority", coverage: 108, response: 92, fullMark: 120 },
@@ -42,8 +35,7 @@ export const ControlOrchestrationCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Control & Orchestration</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Prioritisation, allocation & intervention tracking</p>
-      <div className="min-h-[240px] w-full flex-1 lg:min-h-[320px]">
-      <ResponsiveContainer width="100%" height="100%">
+      <PlatformSizedChart className="min-h-[240px] h-[260px] w-full min-w-0 flex-1 shrink-0 lg:h-auto lg:min-h-[320px]">
         <RadarChart data={data}>
           <PolarGrid stroke={platformChart.cardBorder} />
           <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: "var(--color-brand-muted)" }} />
@@ -75,8 +67,7 @@ export const ControlOrchestrationCard = () => {
             animationDuration={1700}
           />
         </RadarChart>
-      </ResponsiveContainer>
-      </div>
+      </PlatformSizedChart>
     </motion.div>
   );
 };

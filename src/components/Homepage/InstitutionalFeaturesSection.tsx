@@ -17,7 +17,7 @@ const features = [
 export function InstitutionalFeaturesSection() {
   return (
     <section
-      className="font-heading bg-white px-4 py-16 md:px-8 md:py-20 lg:px-16 lg:py-24"
+      className="font-heading bg-white px-5 md:py-16 py-4 sm:px-6 md:px-8 md:py-20 lg:px-16 lg:py-24"
       aria-labelledby="institutional-features-heading"
     >
       <div className="mx-auto max-w-7xl">

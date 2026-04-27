@@ -559,7 +559,7 @@ export default function NewFile() {
   return (
     <section
       ref={assembleRef}
-      className="flex flex-col items-center justify-center overflow-hidden bg-transparent py-16 font-sans w-full"
+      className="flex flex-col items-center justify-center overflow-hidden bg-transparent md:py-16 py-2 font-sans w-full"
     >
       <div className="relative z-20 mb-8 flex flex-wrap justify-center gap-3 px-4">
         {tabs.map((tab, idx) => (
@@ -581,7 +581,7 @@ export default function NewFile() {
 
       <div className="relative mx-auto flex w-full max-w-[1200px] flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="w-full rounded-[24px] border-[1.5px] border-[#B6D1FF] bg-white pt-8 pb-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10 overflow-visible min-h-[560px]">
-          <h2 className="z-20 mb-8 text-center text-3xl font-extrabold text-gray-900 transition-all">
+          <h2 className="z-20 mb-8 text-center md:text-3xl text-2xl font-extrabold text-gray-900 transition-all">
             {tabs[activeTab].title}
           </h2>
 

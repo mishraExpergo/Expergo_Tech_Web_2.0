@@ -147,7 +147,7 @@ export function UseCasesPageContent() {
           
           <h1
             id="use-cases-hero-heading"
-            className="md:text-[52px] text-[32px] mt-4 font-semibold "
+            className="md:text-[52px] text-[32px] md:mt-4 mt-[-30px] font-semibold "
           >
             Secured <span className="text-[#16B2C3]">Lending Portfolios</span>
           </h1>

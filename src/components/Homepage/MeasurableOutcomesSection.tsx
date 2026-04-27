@@ -35,7 +35,7 @@ const items = [
 export function MeasurableOutcomesSection() {
   return (
     <section
-      className="font-heading bg-white px-4 py-16 md:px-8 md:py-20 lg:px-16 lg:py-24"
+      className="font-heading bg-white px-5 py-16 sm:px-6 md:px-8 md:py-20 lg:px-16 lg:py-24"
       aria-labelledby="measurable-outcomes-heading"
     >
       <div className="mx-auto max-w-7xl">

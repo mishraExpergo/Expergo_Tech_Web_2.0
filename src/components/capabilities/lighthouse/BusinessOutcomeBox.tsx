@@ -71,10 +71,10 @@ export default function BusinessOutcomeBox() {
     <section
       ref={sectionRef}
       className="relative bg-white"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "80vh" }}
     >
-      <div className="sticky top-0 flex items-center bg-white py-6 sm:py-10 lg:py-16">
-        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="sticky top-0 flex items-center bg-white py-6 sm:py-10 lg:py-16 ">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 md:mb-0 mb-[-900px] md:mt-0 mt-[-300px]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

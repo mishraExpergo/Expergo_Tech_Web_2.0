@@ -35,7 +35,7 @@ export default function DashboardPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[36px] font-bold text-gray-900"
+            className="md:text-[36px] text-[24px] font-bold text-gray-900 "
           >
             Dashboard <span className="text-[#01AEE4]">Lighthouse</span>
           </motion.h2>

@@ -100,7 +100,14 @@ function OrbitNode({
   );
 }
 
-export function ComplianceHubAssemble() {
+const baseShellClass = "relative mx-auto shrink-0 select-none";
+const defaultShellSize = "h-[min(400px,85vw)] w-[min(400px,85vw)]";
+
+type ComplianceHubAssembleProps = {
+  className?: string;
+};
+
+export function ComplianceHubAssemble({ className }: ComplianceHubAssembleProps = {}) {
   const uid = useId().replace(/:/g, "");
   const glowId = `compliance-hub-glow-${uid}`;
   const filterId = `compliance-soft-glow-${uid}`;
@@ -122,7 +129,11 @@ export function ComplianceHubAssemble() {
   return (
     <div
       ref={ref}
-      className="relative mx-auto h-[min(400px,85vw)] w-[min(400px,85vw)] shrink-0 select-none"
+      className={
+        className
+          ? `${baseShellClass} ${className}`
+          : `${baseShellClass} ${defaultShellSize}`
+      }
       role="img"
       aria-label="Compliance hub: peripheral controls move inward and connect to the center as this section scrolls into view."
     >

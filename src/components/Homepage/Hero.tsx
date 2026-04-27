@@ -33,7 +33,7 @@ export function Hero() {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative overflow-hidden bg-white pt-10 pb-20 font-sans mb-24"
+      className="relative overflow-hidden bg-white pt-10 pb-20 font-sans mb-12 lg:mb-24"
     >
       <div
         aria-hidden
@@ -67,17 +67,17 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16  lg:gap-8 items-center">
         
         {/* Left Side: Content */}
-        <div className="mt-10 lg:mt-0">
+        <div className="md:mt-10 mt-0 lg:mt-0">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#01AEE4]/30 bg-white shadow-[0_2px_10px_rgba(1,174,228,0.06)] mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5  rounded-full border border-[#01AEE4]/30 bg-white shadow-[0_2px_10px_rgba(1,174,228,0.06)] mb-8"
           >
             <Shield className="w-3.5 h-3.5 text-[#01AEE4]" strokeWidth={2.5} />
-            <span className="text-[#01AEE4] text-[10px] uppercase font-bold tracking-[0.16em] mt-px">
+            <span className="text-[#01AEE4] text-[10px] uppercase font-bold tracking-[0.16em]">
               Earlysafe by Expergo
             </span>
           </motion.div>
@@ -86,7 +86,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-[52px] sm:text-[52px] lg:text-[52px] font-extrabold text-[#1E293B] leading-[1.15] mb-10 tracking-tight"
+            className="md:text-[52px] text-[28px] sm:text-[52px]  lg:text-[52px] font-extrabold text-[#1E293B] leading-[1.15] mb-10 tracking-tight"
           >
             Continuous Portfolio Risk Control <br className="hidden lg:block"/>
             for <span className="text-[#1677FF] block mt-1">NBFCs, HFCs & Banks</span>
@@ -121,7 +121,7 @@ export function Hero() {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center gap-4"
           >
-            <BookDemoButton mode="demo" className="flex items-center justify-center gap-2 px-7 py-3 rounded-[10px] border-[1.5px] border-[#1677FF] text-[#1677FF] font-bold text-[15px] bg-white hover:shadow-lg transition-all active:scale-95 group hover:bg-blue-500 hover:border-blue-500 hover:text-white  ">
+            <BookDemoButton mode="demo" className=" flex items-center justify-center gap-2 px-7 py-3 rounded-[10px] border-[1.5px] border-[#1677FF] text-[#1677FF] font-bold text-[15px] bg-[#1677FF] text-white hover:shadow-lg transition-all active:scale-95 group hover:bg-blue-500 hover:border-blue-500 hover:text-white  ">
               Schedule Exective Brief
             </BookDemoButton>
             
@@ -129,7 +129,7 @@ export function Hero() {
         </div>
 
         {/* Right Side: Radar Animation */}
-        <div className="relative w-full h-[400px] lg:h-[550px] mt-10 lg:mt-0 rounded-[32px] overflow-hidden">
+        <div className="relative w-full md:h-[400px] h-[460px]  lg:h-[550px] mt-10 lg:mt-0 md:mb-0 mb-[-80px] rounded-[32px] overflow-hidden">
           {/* Main Radar Circle */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] lg:w-[400px] lg:h-[400px] rounded-full border border-[#1f3d4f] overflow-hidden flex items-center justify-center">
             

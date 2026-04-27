@@ -15,7 +15,7 @@ export default function CommandImpactTimeline() {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="md:py-24 py-8 bg-white relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
         <div className="text-center mb-24">

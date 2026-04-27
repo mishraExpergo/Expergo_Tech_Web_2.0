@@ -23,7 +23,7 @@ export default function ExecutionEngineSection() {
   ];
 
   return (
-    <section className="py-24 bg-white relative">
+    <section className="md:py-24 py-[-15px] bg-white relative">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">  
         {/* Header */}
         <div className="text-center mb-16">

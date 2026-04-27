@@ -67,7 +67,7 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
           : "bg-white px-4 py-20 sm:px-6 lg:px-8"
       }
     >
-      <div className="mx-auto max-w-6xl font-poppins">
+      <div className="md:py-10 py-0 mx-auto max-w-6xl font-poppins">
         <div className={isLeft ? "text-left" : "text-center"}>
           <p className="text-[16px] uppercase text-[#0B64F4]">
             Insights
