@@ -7,6 +7,7 @@ import {
   postSlugsQuery,
   postsForCarouselQuery,
   postsForListingQuery,
+  relatedPostsQuery,
 } from './queries'
 
 export type SanityPostCard = {
@@ -20,11 +21,20 @@ export type SanityPostListItem = SanityPostCard & {
   publishedAt: string | null
 }
 
+export type SanityPostPdf = {
+  asset: {
+    url: string | null
+    originalFilename: string | null
+  } | null
+} | null
+
 export type SanityPostDetail = {
   title: string
   publishedAt: string | null
   excerpt: string | null
   mainImage: Image | null
+  executiveSummary?: PortableTextBlock[] | null
+  pdf?: SanityPostPdf
   body: PortableTextBlock[] | null
 }
 
@@ -50,4 +60,10 @@ export async function getPostSlugs(): Promise<string[]> {
   const client = getSanityClient()
   if (!client) return []
   return client.fetch(postSlugsQuery)
+}
+
+export async function getRelatedPostsForInsight(slug: string): Promise<SanityPostCard[]> {
+  const client = getSanityClient()
+  if (!client) return []
+  return client.fetch(relatedPostsQuery, { slug })
 }

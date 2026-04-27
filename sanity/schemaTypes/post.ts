@@ -29,6 +29,20 @@ export const post = defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 3,
+      description: 'Short subhead under the hero title on the insight page.',
+    }),
+    defineField({
+      name: 'executiveSummary',
+      title: 'Executive summary',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Optional intro copy above the main article (separate from body).',
+    }),
+    defineField({
+      name: 'pdf',
+      title: 'PDF download',
+      type: 'file',
+      options: { accept: 'application/pdf' },
     }),
     defineField({
       name: 'mainImage',

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import { Header } from "@/components/Header";
 import BureauHero from "@/components/capabilities/bureau-360/BureauHero";
 import ExternalSignalsFlow from "@/components/capabilities/bureau-360/ExternalSignalsFlow";
@@ -8,18 +9,30 @@ import CoreCapabilitiesGrid from "@/components/capabilities/bureau-360/CoreCapab
 import MeasurableImpactSection from "@/components/capabilities/bureau-360/MeasurableImpactSection";
 import BureauCTA from "@/components/capabilities/bureau-360/BureauCTA";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { buildOpenGraphMetadata, mergeBureauPage } from "@/lib/sitePage/merges";
+import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
-export const metadata: Metadata = {
-  title: "Bureau 360° — EXPERGO",
-  description: "BUREAU 360° is a credit bureau aggregator and analysis engine",
-};
+export const revalidate = 60;
 
-export default function BureauPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const raw = await getSitePageByRoute("capabilities-bureau-360");
+  const { meta } = mergeBureauPage(raw);
+  return {
+    title: meta.title,
+    description: meta.description,
+    ...buildOpenGraphMetadata(meta.ogImageUrl),
+  };
+}
+
+export default async function BureauPage() {
+  const raw = await getSitePageByRoute("capabilities-bureau-360");
+  const { hero } = mergeBureauPage(raw);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-1 w-full overflow-hidden">
-        <BureauHero />
+        <BureauHero hero={hero} />
         <ExternalSignalsFlow />
         <DataPipelineSection />
         <BetterMonitoringSection />

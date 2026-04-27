@@ -7,76 +7,9 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { ComplianceHubAssemble } from "@/components/capabilities/ComplianceHubAssemble";
 import Image from "next/image";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+import type { CapabilityZigzagPanelRow } from "@/lib/sitePage/merges";
 
-const zigzagRows = [
-  {
-    title: "Lighthouse",
-    reversed: false,
-    route: "/capabilities/lighthouse",
-    image: "/tr-removebg-preview (1).png",
-    items: [
-      {
-        heading: "Early Stress Detection",
-        body: "Surface early warning signals across behavioural shifts, bureau movement, and emerging portfolio stress.",
-       
-      },
-      {
-        heading: "Portfolio Concentration Impact",
-        body: "Track vintage, segment, and geographic concentration to understand capital at risk build up",
-        
-      },
-    ],
-  },
-  {
-    title: "Regulus",
-    reversed: true,
-    route: "/capabilities/regulas",
-    graphic: "compliance-hub" as const,
-    items: [
-      {
-        heading: "Governance & Regulatory Alignment",
-        body: "Ensure structured, traceable, and defensible compliance aligned with regulatory expectations.",
-      },
-      {
-        heading: "Early Warning Signal Governance",
-        body: "Map signals to actions with clear ownership, timelines, and audit-ready documentation.",
-      },
-    ],
-  },
-  {
-    title: "Command Center",
-    reversed: false,
-    route: "/capabilities/command-center",
-    image: "/1 1.png",
-    items: [
-      {
-        heading: "Operational Risk Control",
-        body: "Translate insights into action through structured prioritisation, escalation, and execution workflows.",
-      },
-      {
-        heading: "Resolution & Escalation Control",
-        body: "Drive disciplined follow-through with SLA tracking, ownership clarity, and controlled case closure.",
-      },
-    ],
-  },
-  {
-    title: "Bureau 360°",
-    reversed: true,
-    route: "/capabilities/bureau-360",
-    image: "/Frame 3033 (1).svg",
-    items: [
-      {
-        heading: "External Risk Signals",
-        body: "Identify anomalies, exposure shifts, and emerging external signals across borrower profiles.",
-      },
-      {
-        heading: "Exposure & Behaviour Tracking",
-        body: "Monitor credit exposure, leverage patterns, enquiry activity, and cross-lender risk across segments.",
-      },
-    ],
-  },
-] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function CapabilityPanel({
   title,
@@ -89,7 +22,7 @@ function CapabilityPanel({
   reversed,
 }: {
   title: string;
-  items: readonly { heading: string; body: string }[];
+  items: { heading: string; body: string }[];
   reduce: boolean;
   index: number;
   route: string;
@@ -159,7 +92,13 @@ function CapabilityPanel({
   );
 }
 
-export function CapabilitiesPageContent() {
+type CapabilitiesPageContentProps = {
+  intro: { line1: string; accent: string; body: string };
+  zigzagRows: CapabilityZigzagPanelRow[];
+  cta: { kicker: string; title: string; body: string };
+};
+
+export function CapabilitiesPageContent({ intro, zigzagRows, cta }: CapabilitiesPageContentProps) {
   const reduceMotion = useReducedMotion();
   const reduce = Boolean(reduceMotion);
 
@@ -177,7 +116,8 @@ export function CapabilitiesPageContent() {
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.605, ease, delay: 0.04 }}
           >
-            Portfolio Risk <span className="text-[#14BACB]">Capabilities</span>
+            {intro.line1}
+            <span className="text-[#14BACB]">{intro.accent}</span>
           </motion.h1>
           <motion.p
             className="mt-4 max-w-3xl text-pretty text-[15px] leading-[1.65] text-brand-muted sm:text-base"
@@ -185,10 +125,7 @@ export function CapabilitiesPageContent() {
             animate={reduce ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.605, ease, delay: 0.12 }}
           >
-            EarlySafe provides an integrated framework for detecting, modelling,
-            and controlling portfolio risk across regulated lending
-            environments. Each capability operates within a unified risk
-            architecture — not as isolated modules.
+            {intro.body}
           </motion.p>
         </div>
       </section>
@@ -222,17 +159,16 @@ export function CapabilitiesPageContent() {
       >
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[13px] font-semibold uppercase tracking-widest text-[#0B64F4] sm:text-[16px]">
-            Institutionalize Control
+            {cta.kicker}
           </p>
           <h2
             id="outcomes-cta-heading"
             className="mt-4 text-[28px] font-semibold leading-tight text-[#1F1F1F] sm:text-[36px]"
           >
-            Capital resilience requires structural discipline.
+            {cta.title}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#1F1F1F] sm:text-[16px] sm:tracking-wider">
-            Institutions that manage risk formation early preserve stability and unlock measured growth. EarlySafe.
-            Continuous Portfolio Risk Control.
+            {cta.body}
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:mt-10">
             <BookDemoButton className="inline-flex min-h-11 w-full max-w-xs items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:bg-[#5F98F3] active:scale-[0.98] sm:w-auto sm:min-w-[220px]">

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ArticleBody } from "@/components/insights/ArticleBody";
+import { InsightDetailHero } from "@/components/insights/detail/InsightDetailHero";
+import { InsightExecutiveSummary } from "@/components/insights/detail/InsightExecutiveSummary";
+import { InsightRelatedPosts } from "@/components/insights/detail/InsightRelatedPosts";
+import { InsightToc } from "@/components/insights/detail/InsightToc";
 import { Header } from "@/components/Header";
-import { getPostBySlug, getPostSlugs } from "@sanity/lib/getPosts";
-import { postImageUrl } from "@sanity/lib/postImage";
+import { buildTocAndHeadingIds } from "@/lib/insights/toc";
+import { getPostBySlug, getPostSlugs, getRelatedPostsForInsight } from "@sanity/lib/getPosts";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -31,12 +33,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InsightArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const [post, relatedPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getRelatedPostsForInsight(slug),
+  ]);
+
   if (!post) {
     notFound();
   }
 
-  const date = post.publishedAt
+  const dateLabel = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-IN", {
         year: "numeric",
         month: "long",
@@ -44,44 +50,35 @@ export default async function InsightArticlePage({ params }: Props) {
       })
     : null;
 
+  const { toc, headingIdByKey } = buildTocAndHeadingIds(post.body ?? undefined);
+
+  const pdfUrl = post.pdf?.asset?.url ?? null;
+  const pdfFilename = post.pdf?.asset?.originalFilename ?? null;
+
+  const showExecutiveSummarySection = Boolean(post.executiveSummary?.length) || Boolean(pdfUrl);
+
   return (
     <>
       <Header />
-      <article className="bg-white px-6 pb-24 pt-12 sm:px-10">
-        <div className="mx-auto max-w-3xl">
-          <Link
-            href="/insights"
-            className="text-sm font-medium text-[#15B5C1] hover:underline"
-          >
-            ← All insights
-          </Link>
-          {date ? (
-            <time
-              dateTime={post.publishedAt ?? undefined}
-              className="mt-6 block text-sm text-[#64748B]"
-            >
-              {date}
-            </time>
-          ) : null}
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#1E293B] md:text-4xl">
-            {post.title}
-          </h1>
-          {post.excerpt ? (
-            <p className="mt-4 text-lg text-[#64748B]">{post.excerpt}</p>
-          ) : null}
-          <div className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-[#E4E7EC] bg-[#F8FAFC]">
-            <Image
-              src={postImageUrl(post.mainImage ?? undefined)}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 768px"
-              priority
-            />
+      <main>
+        <InsightDetailHero title={post.title} excerpt={post.excerpt} publishedLabel={dateLabel} />
+        <InsightExecutiveSummary
+          executiveSummary={post.executiveSummary}
+          pdfUrl={pdfUrl}
+          pdfFilename={pdfFilename}
+        />
+        <article className="bg-white px-4 pb-20 pt-10 sm:px-6 lg:px-8 lg:pb-24 lg:pt-12">
+          <div className="mx-auto max-w-6xl">
+            <div className="lg:grid lg:grid-cols-[minmax(200px,260px)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
+              <InsightToc items={toc} showExecutiveSummary={showExecutiveSummarySection} />
+              <div className="min-w-0 max-w-3xl border-t border-[#E4E7EC] pt-10 lg:border-t-0 lg:pt-0">
+                <ArticleBody value={post.body} headingIdByKey={headingIdByKey} />
+              </div>
+            </div>
           </div>
-          <ArticleBody value={post.body} />
-        </div>
-      </article>
+        </article>
+        <InsightRelatedPosts posts={relatedPosts} />
+      </main>
     </>
   );
 }

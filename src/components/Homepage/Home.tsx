@@ -24,11 +24,12 @@ const BlogCarousel = dynamic(
 import { CTASection } from "@/components/CTASection";
 import { RiskMonitorControlSection } from "@/components/Homepage/RiskMonitorControlSection";
 import { Hero } from "@/components/Homepage/Hero";
+import type { MergedHomeHero } from "@/lib/sitePage/merges";
 
-const Index = () => {
+const Index = ({ hero }: { hero: MergedHomeHero }) => {
   return (
     <div className="min-h-screen">
-      <Hero />
+      <Hero copy={hero} />
         <RiskMonitorControlSection />
         <DetectDecideControlSection />
       <div className="bg-background  mx-24">

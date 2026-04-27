@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import { Header } from "@/components/Header";
 import CommandHero from "@/components/capabilities/command-center/CommandHero";
 import ExecutionEngineSection from "@/components/capabilities/command-center/ExecutionEngineSection";
@@ -8,18 +9,30 @@ import EngineeredPrecisionTab from "@/components/capabilities/command-center/Eng
 import CommandImpactTimeline from "@/components/capabilities/command-center/CommandImpactTimeline";
 import CommandCTA from "@/components/capabilities/command-center/CommandCTA";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { buildOpenGraphMetadata, mergeCommandPage } from "@/lib/sitePage/merges";
+import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
-export const metadata: Metadata = {
-  title: "Command Centre — EXPERGO",
-  description: "The EarlySafe Command Centre translates millions of data points into a steady, unified dashboard.",
-};
+export const revalidate = 60;
 
-export default function CommandCenterPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const raw = await getSitePageByRoute("capabilities-command-center");
+  const { meta } = mergeCommandPage(raw);
+  return {
+    title: meta.title,
+    description: meta.description,
+    ...buildOpenGraphMetadata(meta.ogImageUrl),
+  };
+}
+
+export default async function CommandCenterPage() {
+  const raw = await getSitePageByRoute("capabilities-command-center");
+  const { hero } = mergeCommandPage(raw);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
       <main className="flex-1 w-full overflow-hidden">
-        <CommandHero />
+        <CommandHero hero={hero} />
         <ExecutionEngineSection />
         <ActionNoiseSection />
         <EverythingYouNeedGrid />

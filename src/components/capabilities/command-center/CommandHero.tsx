@@ -10,7 +10,15 @@ const GRID_BASE =
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-export default function CommandHero() {
+export type CommandHeroCopy = {
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  sideImageUrl: string | null;
+  sideImageAlt: string;
+};
+
+export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
 
@@ -83,7 +91,7 @@ export default function CommandHero() {
             transition={{ duration: 0.5 }}
             className="text-[52px] mb-6 font-bold tracking-tight text-[#15B5C1]"
           >
-            Command Centre
+            {hero.title}
           </motion.h1>
 
           <motion.p
@@ -92,7 +100,8 @@ export default function CommandHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-[20px] text-gray-600 font-medium mb-10 leading-relaxed max-w-lg"
           >
-EarlySafe Command Centre transforms how institutions execute early warning responses — converting signals into structured workflows with ownership, timelines, and accountability.          </motion.p>
+            {hero.subtitle}
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -100,15 +109,16 @@ EarlySafe Command Centre transforms how institutions execute early warning respo
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
-              Book Demo
+              {hero.ctaLabel}
             </BookDemoButton>
           </motion.div>
         </div>
 
-        {/* Right UI Visual Mockup */}
-       <div className="">
-        <img src="/1 1.png" alt="Command Center" width={600} height={600} />
-       </div>
+        <div className="">
+          {hero.sideImageUrl ? (
+            <img src={hero.sideImageUrl} alt={hero.sideImageAlt || "Command Center"} width={600} height={600} />
+          ) : null}
+        </div>
 
       </div>
     </section>

@@ -11,7 +11,14 @@ const GRID_BASE =
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-export default function BureauHero() {
+export type BureauHeroCopy = {
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  tags: string[];
+};
+
+export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
 
@@ -27,13 +34,6 @@ export default function BureauHero() {
   const onPointerLeave = useCallback(() => {
     setPointer({ xPct: 50, yPct: 42 });
   }, []);
-
-  const tags = [
-    "Trended Credit Data",
-    "Sector Geo Evidence",
-    "Borrower Financial Patterns",
-    "Co-lenders Momentum"
-  ];
 
   return (
     <section
@@ -82,7 +82,7 @@ export default function BureauHero() {
             transition={{ duration: 0.5 }}
             className="text-[52px] mb-6 font-bold  text-[#15B5C1]"
           >
-            BUREAU 360°
+            {hero.title}
           </motion.h1>
 
           <motion.p
@@ -91,11 +91,21 @@ export default function BureauHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className=" text-gray-800  mb-8 w-[30rem] text-[20px] font-medium"
           >
-            BUREAU 360° converts credit bureau signals into structured
-            borrower behaviour intelligence  giving lenders continuous,
-            cross-lender visibility into how credit activity, leverage, and
-            exposure evolve across the wider lending ecosystem.        
+            {hero.subtitle}
           </motion.p>
+
+          {hero.tags.length ? (
+            <div className="mb-8 flex max-w-xl flex-wrap gap-2">
+              {hero.tags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-cyan-200 bg-cyan-50/60 px-3 py-1 text-xs font-medium text-cyan-800"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          ) : null}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -104,7 +114,7 @@ export default function BureauHero() {
             className="mb-12"
           >
             <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
-              Book Demo
+              {hero.ctaLabel}
             </BookDemoButton>
           </motion.div>
         </div>

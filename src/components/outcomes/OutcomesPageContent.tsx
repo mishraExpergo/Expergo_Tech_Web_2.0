@@ -1,60 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BlogCarousel } from "@/components/BlogCarousel";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
+import type { SitePageOutcomeDetailCard, SitePageStakeholderCard } from "@sanity/lib/getSitePage";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-const stakeholderCards = [
-  {
-    title: "For CRO",
-    body: "Capital stability, early intervention.",
-  },
-  {
-    title: "For Head of Collections",
-    body: "Capacity optimization, better prioritisation.",
-  },
-  {
-    title: "For CEO",
-    body: "Predictable growth, risk-adjusted expansion.",
-  },
-  {
-    title: "For Board / Audit",
-    body: "Governance transparency and defensibility.",
-  },
-] as const;
-
-const outcomeDetailCards = [
-  {
-    title: "Early Identification of Deterioration",
-    body: "Stress rarely appears first in DPD. By detecting behavioural deviations and migration momentum early, institutions gain time to intervene before slippage compounds.",
-    bullets: [
-      "Reduced surprise deterioration",
-      "Improved vintage stability",
-      "Greater forward visibility",
-    ],
-  },
-  {
-    title: "Reduced Flow-Forward Volatility",
-    body: "Migration between buckets is rarely random. By modelling risk acceleration and concentration patterns, institutions stabilize forward movement across cohorts.",
-    bullets: [
-      "Lower roll-rate volatility",
-      "Reduced Stage migration",
-      "More predictable portfolio behaviour",
-    ],
-  },
-  {
-    title: "Improved Allocation of Capacity",
-    body: "Collections bandwidth is finite. By prioritising exposure based on trajectory and concentration risk, institutions allocate effort where capital impact is highest.",
-    bullets: [
-      "Higher intervention efficiency",
-      "Lower avoidable slippage",
-      "Improved recovery focus",
-    ],
-  },
-] as const;
 
 const listViewport = {
   once: true,
@@ -82,7 +33,7 @@ function OutcomeBulletList({
   bullets,
   reduce,
 }: {
-  bullets: readonly string[];
+  bullets: string[];
   reduce: boolean;
 }) {
   if (reduce) {
@@ -120,7 +71,19 @@ function OutcomeBulletList({
   );
 }
 
-export function OutcomesPageContent() {
+type OutcomesPageContentProps = {
+  hero: { prefix: string; accent: string; paragraph: string };
+  stakeholderCards: SitePageStakeholderCard[];
+  outcomeDetailCards: SitePageOutcomeDetailCard[];
+  cta: { kicker: string; title: string; body: string };
+};
+
+export function OutcomesPageContent({
+  hero,
+  stakeholderCards,
+  outcomeDetailCards,
+  cta,
+}: OutcomesPageContentProps) {
   const reduceMotion = useReducedMotion();
   const reduce = Boolean(reduceMotion);
 
@@ -136,12 +99,11 @@ export function OutcomesPageContent() {
             id="outcomes-hero-heading"
             className="text-[52px] font-semibold "
           >
-            Measurable Portfolio{" "}
-            <span className="text-[#15B5C1]">Outcomes</span>
+            {hero.prefix}{" "}
+            <span className="text-[#15B5C1]">{hero.accent}</span>
           </h1>
           <p className="mt-6 max-w-4xl text-[20px] leading-relaxed text-[#101828] sm:text-xl">
-            EarlySafe is designed to influence portfolio trajectory not simply observe delinquency. Structured
-            controls produce measurable institutional impact.
+            {hero.paragraph}
           </p>
         </div>
       </section>
@@ -182,7 +144,7 @@ export function OutcomesPageContent() {
                   <p className="text-[14px] font-medium uppercase tracking-[0.18em] text-[#637083]">
                     OUTCOME
                   </p>
-                  <OutcomeBulletList bullets={card.bullets} reduce={reduce} />
+                  <OutcomeBulletList bullets={[...card.bullets]} reduce={reduce} />
                 </div>
               </article>
             ))}
@@ -198,17 +160,16 @@ export function OutcomesPageContent() {
       >
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[16px] uppercase text-[#0B64F4]">
-            Institutionalize Control
+            {cta.kicker}
           </p>
           <h2
             id="outcomes-cta-heading"
             className="text-[36px]  font-semibold  text-[#1F1F1F]"
           >
-            Capital resilience requires structural discipline.
+            {cta.title}
           </h2>
           <p className="mx-auto text-[16px] mt-5 max-w-2xl tracking-wider text-base font-poppins  leading-relaxed text-[#1F1F1F] ">
-            Institutions that manage risk formation early preserve stability and unlock measured growth. EarlySafe.
-            Continuous Portfolio Risk Control.
+            {cta.body}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <BookDemoButton className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:bg-[#5F98F3] active:scale-[0.98]">

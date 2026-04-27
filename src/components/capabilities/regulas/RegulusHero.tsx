@@ -17,7 +17,14 @@ const GRID_BASE =
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-export default function RegulusHero() {
+export type RegulusHeroCopy = {
+  title: string;
+  subtitle: string;
+  supporting: string;
+  ctaLabel: string;
+};
+
+export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
   const [isHovered, setIsHovered] = useState(false);
@@ -94,7 +101,7 @@ export default function RegulusHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-[52px] mb-6 font-bold tracking-tight text-[#15B5C1]"
           >
-            REGULUS
+            {hero.title}
           </motion.h1>
 
           <motion.p
@@ -103,8 +110,7 @@ export default function RegulusHero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mb-4 w-2/3 text-base leading-snug text-gray-900"
           >
-            The Statutory Early Warning Compliance tool for RBI & NHB regulated
-            lenders.
+            {hero.subtitle}
           </motion.p>
 
           <motion.p
@@ -113,7 +119,7 @@ export default function RegulusHero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-lg text-gray-700 font-semibold mb-10"
           >
-            Action Tracked. Accountability Defined. Compliance Proven.
+            {hero.supporting}
           </motion.p>
 
           <motion.div
@@ -123,7 +129,7 @@ export default function RegulusHero() {
             className="flex flex-wrap items-center gap-4"
           >
             <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm hover:shadow-md">
-              Book Demo
+              {hero.ctaLabel}
             </BookDemoButton>
           </motion.div>
         </div>
