@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "next build"
+    "vercel-build": "next build",
+    "sanity": "sanity",
+    "sanity:dev": "sanity dev",
+    "sanity:login": "sanity login",
+    "sanity:deploy": "sanity deploy",
+    "sanity:schema:deploy": "sanity schema deploy"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.1",

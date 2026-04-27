@@ -1,0 +1,738 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published at"
+      },
+      {
+        "rows": 3,
+        "description": "Short subhead under the hero title on the insight page.",
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "description": "Optional intro copy above the main article (separate from body).",
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "executiveSummary",
+        "type": "array",
+        "title": "Executive summary"
+      },
+      {
+        "options": {
+          "accept": "application/pdf"
+        },
+        "name": "pdf",
+        "type": "file",
+        "title": "PDF download"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "mainImage",
+        "type": "image",
+        "title": "Main image"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      }
+    ],
+    "name": "post",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "home",
+              "value": "home"
+            },
+            {
+              "title": "platform",
+              "value": "platform"
+            },
+            {
+              "title": "capabilities",
+              "value": "capabilities"
+            },
+            {
+              "title": "capabilities-lighthouse",
+              "value": "capabilities-lighthouse"
+            },
+            {
+              "title": "capabilities-regulas",
+              "value": "capabilities-regulas"
+            },
+            {
+              "title": "capabilities-command-center",
+              "value": "capabilities-command-center"
+            },
+            {
+              "title": "capabilities-bureau-360",
+              "value": "capabilities-bureau-360"
+            },
+            {
+              "title": "outcomes",
+              "value": "outcomes"
+            },
+            {
+              "title": "use-cases",
+              "value": "use-cases"
+            },
+            {
+              "title": "insights",
+              "value": "insights"
+            }
+          ],
+          "layout": "dropdown"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "home",
+                  "platform",
+                  "capabilities",
+                  "capabilities-lighthouse",
+                  "capabilities-regulas",
+                  "capabilities-command-center",
+                  "capabilities-bureau-360",
+                  "outcomes",
+                  "use-cases",
+                  "insights"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "route",
+        "type": "string",
+        "title": "Page route"
+      },
+      {
+        "name": "metaTitle",
+        "type": "string",
+        "title": "Meta title"
+      },
+      {
+        "rows": 4,
+        "name": "metaDescription",
+        "type": "text",
+        "title": "Meta description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "ogImage",
+        "type": "image",
+        "title": "Open Graph image"
+      },
+      {
+        "name": "heroEyebrow",
+        "type": "string",
+        "title": "Hero eyebrow / badge"
+      },
+      {
+        "name": "heroTitle",
+        "type": "string",
+        "title": "Hero main title (line 1 or full title)"
+      },
+      {
+        "name": "heroTitleHighlight",
+        "type": "string",
+        "title": "Hero title accent (span)"
+      },
+      {
+        "rows": 5,
+        "name": "heroSubtitle",
+        "type": "text",
+        "title": "Hero subtitle / paragraph"
+      },
+      {
+        "rows": 3,
+        "name": "heroSupportingText",
+        "type": "text",
+        "title": "Hero supporting line (e.g. Regulus tagline)"
+      },
+      {
+        "name": "heroCtaLabel",
+        "type": "string",
+        "title": "Primary CTA label"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "heroIllustration",
+        "type": "image",
+        "title": "Hero illustration (replaces default art when set)"
+      },
+      {
+        "name": "heroIllustrationAlt",
+        "type": "string",
+        "title": "Hero illustration alt"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "homeValueBullets",
+        "type": "array",
+        "title": "Home: value bullets (one per line)"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "value",
+                "type": "string"
+              },
+              {
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "type": "object",
+            "name": "statPair"
+          }
+        ],
+        "name": "lighthouseStats",
+        "type": "array",
+        "title": "Lighthouse-style stat pairs"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "bureauHeroTags",
+        "type": "array",
+        "title": "Bureau 360: tag pills"
+      },
+      {
+        "name": "capabilitiesIntroTitle",
+        "type": "string",
+        "title": "Capabilities index: H1 before accent"
+      },
+      {
+        "name": "capabilitiesIntroAccent",
+        "type": "string",
+        "title": "Capabilities index: H1 accent"
+      },
+      {
+        "rows": 4,
+        "name": "capabilitiesIntroBody",
+        "type": "text",
+        "title": "Capabilities index: intro paragraph"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Product name"
+              },
+              {
+                "name": "reversed",
+                "type": "boolean",
+                "title": "Reverse layout (image left)"
+              },
+              {
+                "description": "e.g. /capabilities/lighthouse",
+                "name": "linkPath",
+                "type": "string",
+                "title": "Explore button path"
+              },
+              {
+                "initialValue": false,
+                "name": "useComplianceHubGraphic",
+                "type": "boolean",
+                "title": "Use Regulus compliance hub animation"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "name": "rowImage",
+                "type": "image",
+                "title": "Panel image"
+              },
+              {
+                "of": [
+                  {
+                    "fields": [
+                      {
+                        "name": "heading",
+                        "type": "string"
+                      },
+                      {
+                        "name": "body",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "object",
+                    "name": "zigzagItemBlock"
+                  }
+                ],
+                "name": "items",
+                "type": "array",
+                "title": "Text items"
+              }
+            ],
+            "type": "object",
+            "name": "capabilitiesZigzagRow"
+          }
+        ],
+        "name": "capabilitiesRows",
+        "type": "array",
+        "title": "Capabilities index: zig-zag rows"
+      },
+      {
+        "name": "capabilitiesCtaKicker",
+        "type": "string"
+      },
+      {
+        "name": "capabilitiesCtaTitle",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "capabilitiesCtaBody",
+        "type": "text"
+      },
+      {
+        "name": "outcomesHeroPrefix",
+        "type": "string",
+        "title": "Outcomes: H1 prefix"
+      },
+      {
+        "name": "outcomesHeroAccent",
+        "type": "string",
+        "title": "Outcomes: H1 accent"
+      },
+      {
+        "rows": 4,
+        "name": "outcomesHeroParagraph",
+        "type": "text",
+        "title": "Outcomes: hero paragraph"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "body",
+                "type": "text"
+              }
+            ],
+            "type": "object",
+            "name": "outcomesStakeholderCard"
+          }
+        ],
+        "name": "outcomesStakeholderCards",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "body",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "bullets",
+                "type": "array"
+              }
+            ],
+            "type": "object",
+            "name": "outcomesDetailCard"
+          }
+        ],
+        "name": "outcomesDetailCards",
+        "type": "array"
+      },
+      {
+        "name": "outcomesCtaKicker",
+        "type": "string"
+      },
+      {
+        "name": "outcomesCtaTitle",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "name": "outcomesCtaBody",
+        "type": "text"
+      },
+      {
+        "name": "useCasesHeroPrefix",
+        "type": "string",
+        "title": "Use cases: H1 prefix"
+      },
+      {
+        "name": "useCasesHeroAccent",
+        "type": "string",
+        "title": "Use cases: H1 accent"
+      },
+      {
+        "rows": 4,
+        "name": "useCasesHeroParagraph",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "tracks",
+                "type": "array",
+                "title": "EarlySafe tracks"
+              },
+              {
+                "name": "outcome",
+                "type": "text",
+                "title": "Outcome line"
+              }
+            ],
+            "type": "object",
+            "name": "useCaseCard"
+          }
+        ],
+        "name": "useCasesCards",
+        "type": "array"
+      },
+      {
+        "name": "insightsListEyebrow",
+        "type": "string"
+      },
+      {
+        "name": "insightsListTitle",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "name": "insightsListEmptyMessage",
+        "type": "text"
+      }
+    ],
+    "name": "sitePage",
+    "type": "document",
+    "title": "Site page"
+  }
+]
