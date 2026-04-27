@@ -13,7 +13,7 @@ const features = [
 export default function ComplianceSection() {
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 md:my-0 my-[-60px]">
         <div className="text-center mb-16">
           <motion.h4
             initial={{ opacity: 0, y: 10 }}
@@ -43,7 +43,7 @@ export default function ComplianceSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-gray-600 text-[20px] leading-relaxed font-poppins">
+            <p className="text-gray-600 md:text-[20px] text-[16px] md:my-0 my-[-40px] leading-relaxed font-poppins">
             REGULUS is a compliance tool system designed for institutions operating under RBI and NHB supervision. It serves as the Statutory Early Warning Register, ensuring that every qualifying Early Warning Signal is formally recorded, reviewed, and closed with documented evidence.By capturing ownership, timelines, supporting documentation, and supervisory actions, REGULUS ensures that institutions can demonstrate how risks were handled — not just that they were detected.            </p>
           </motion.div>
 
@@ -61,15 +61,18 @@ export default function ComplianceSection() {
                <div className="absolute  text-[50px] left-1 py-2 leading-none font-bold text-gray-400/40  pointer-events-none select-none tracking-tighter">
                  {feature.id}
               </div>
-                <img
-                  src="/line.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none z-50 absolute left-11 top-12  h-[20rem] w-auto  -translate-y-1/2 object-contain object-left"
-                />
-                <div className="relative z-10 pl-4 ">
-                  <h3 className="text-[20px] font-bold text-[#15B5C1] transition-colors group-hover:text-[#01AEE4]">{feature.title}</h3>
-                  <p className="text-gray-500 text-sm">{feature.desc}</p>
+                <div className="relative z-10 pl-4"> </div>
+               <img
+                src="/line.svg"
+                alt=""
+                aria-hidden="true"
+                className=" hidden md:block pointer-events-none absolute left-[70px] w-[350px] opacity-70 z-0"
+              />
+              
+            
+                <div className="relative z-10 pl-4  ">
+                  <h3 className="text-[14px] font-bold text-[#15B5C1] transition-colors group-hover:text-[#01AEE4]">{feature.title}</h3>
+                  <p className="text-gray-500 text-[12px]">{feature.desc}</p>
                 </div>
               </motion.div>
             ))}

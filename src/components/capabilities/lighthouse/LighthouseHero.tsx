@@ -84,12 +84,15 @@ export default function LighthouseHero({
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8 pt-0 mt-0 lg:-mt-8">
-        <div className="flex-1 max-w-2xl mt-4 lg:mt-0">
+        
+        {/* Left Text Content */}
+        <div className="flex-1 max-w-2xl md:mt-4 mt-[-60px] lg:mt-0">
+         
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-5xl md:text-6xl font-black tracking-tight text-gray-900 mb-2 leading-tight"
+            className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 mb-2 leading-tight"
           >
             {hero.titleLine1}
             <br />
@@ -100,7 +103,7 @@ export default function LighthouseHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-gray-500 font-medium mb-12 leading-relaxed max-w-xl"
+            className="md:text-lg text-m  md:pt-0 pt-10 text-gray-500 font-medium mb-12 leading-relaxed max-w-xl"
           >
             {hero.subtitle}
           </motion.p>
@@ -120,7 +123,7 @@ export default function LighthouseHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex gap-6 md:gap-10  pt-8"
+            className="flex gap-6 md:gap-10  md:pt-8 pt-20"
           >
             {stats.map((stat, idx) => (
               <div key={`${stat.value}-${idx}`} className="flex flex-col">
@@ -133,7 +136,8 @@ export default function LighthouseHero({
           </motion.div>
         </div>
 
-        <div className="flex w-full max-w-[520px] flex-1 items-center justify-center -mt-8 lg:-mt-12">
+        {/* Right: Lighthouse SVG + cyan ripple overlay */}
+        <div className="flex w-full max-w-[520px] flex-1 items-center justify-center mt-80 lg:-mt-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

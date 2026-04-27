@@ -66,6 +66,7 @@ const panelId = "seven-pillars-detail-panel";
 
 export default function SevenPillarsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileOpenIndex, setMobileOpenIndex] = useState<number | null>(0);
   const active = pillars[activeIndex];
   const ActiveIcon = active.icon;
 
@@ -75,8 +76,101 @@ export default function SevenPillarsSection() {
         {/* Title area */}
        
 
-        {/* Layout */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:items-stretch">
+        {/* Mobile accordion layout */}
+        <div className="lg:hidden">
+          <div className="md:text-left text-center mb-8">
+            <motion.h4
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[16px] mb-2 uppercase text-[#1677FF]"
+            >
+              Core Capabilities
+            </motion.h4>
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="es-heading-hero font-bold text-gray-900"
+            >
+              Seven pillars of <br /> regulatory{" "}
+              <span className="text-[#15B5C1]">discipline</span>
+            </motion.h2>
+          </div>
+
+          <div className="flex flex-col gap-3" aria-label="Seven pillars">
+            {pillars.map(({ title, icon: Icon, description }, idx) => {
+              const selected = idx === mobileOpenIndex;
+              return (
+                <div key={title} className="rounded-md">
+                  <motion.button
+                    type="button"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.05, duration: 0.4 }}
+                    onClick={() => {
+                      setMobileOpenIndex((prev) => (prev === idx ? null : idx));
+                      if (mobileOpenIndex !== idx) {
+                        setActiveIndex(idx);
+                      }
+                    }}
+                    className={`w-full text-left bg-[#1a2b3c] text-white py-4 px-6 rounded-md flex items-center gap-3 transition-colors shadow-sm cursor-pointer border-2 ${
+                      selected
+                        ? "border-cyan-400/70 bg-[#20374e] ring-1 ring-cyan-400/30"
+                        : "border-transparent hover:bg-[#20374e]"
+                    }`}
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white/10">
+                      <Icon
+                        className="h-5 w-5 text-[#188B6E]"
+                        strokeWidth={2}
+                        aria-hidden
+                      />
+                    </span>
+                    <span className="font-medium text-sm md:text-base">
+                      {title}
+                    </span>
+                  </motion.button>
+
+                  <AnimatePresence>
+                    {selected && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-2 bg-[#1a2b3c] text-white p-6 relative overflow-hidden rounded-md">
+                          <div className="absolute -top-24 -right-24 w-64 h-44 bg-[#01AEE4]/10 rounded-full blur-3xl pointer-events-none" />
+                          <div className="absolute -bottom-24 -left-24 w-64 h-44 bg-[#1677FF]/10 rounded-full blur-3xl pointer-events-none" />
+                          <div className="relative z-10">
+                            <Icon
+                              className="w-14 h-14 text-[#188B6E] mb-6"
+                              strokeWidth={1.5}
+                              aria-hidden
+                            />
+                            <h3 className="text-[22px] mb-3 font-bold text-balance">
+                              {title}
+                            </h3>
+                            <p className="text-gray-300 leading-relaxed">
+                              {description}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Desktop layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-8 lg:items-stretch">
           {/* Left Column (Pillars list) */}
           <div className="flex flex-col gap-3" role="tablist" aria-label="Seven pillars">
             {pillars.map(({ title, icon: Icon }, idx) => {

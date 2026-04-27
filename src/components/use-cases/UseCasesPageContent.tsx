@@ -91,18 +91,20 @@ export function UseCasesPageContent({ hero, cards }: UseCasesPageContentProps) {
           
           <h1
             id="use-cases-hero-heading"
-            className="text-[52px] mt-4 font-semibold "
+            className="md:text-[52px] text-[32px] md:mt-4 mt-[-30px] font-semibold "
           >
             {hero.prefix}
             <span className="text-[#16B2C3]">{hero.accent}</span>
           </h1>
-          <p className="mt-2 max-w-4xl text-lg leading-relaxed text-[#667085] sm:text-xl">
-            {hero.paragraph}
+          <p className="mt-2 max-w-4xl md:text-lg text-[16px] leading-relaxed text-[#667085] sm:text-xl">
+            EarlySafe supports structured risk control across asset-backed lending portfolios where
+            collateral value, cash-flow stability, and migration discipline determine capital
+            resilience.
           </p>
         </div>
       </section>
 
-      <section className="px-4 py-16 sm:px-6 lg:px-8" aria-label="Secured lending use cases">
+      <section className="px-4 md:py-16 py-4 sm:px-6 lg:px-8" aria-label="Secured lending use cases">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {cards.map((card) => (

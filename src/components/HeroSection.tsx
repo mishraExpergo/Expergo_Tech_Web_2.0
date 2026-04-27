@@ -39,7 +39,7 @@ const HeroSection = ({ copy }: { copy: PlatformHeroCopy }) => {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative overflow-hidden bg-white md:py-12"
+className="relative overflow-hidden bg-white pt-0 pb-8 md:pt-8 md:pb-12 min-h-[55vh] md:min-h-[auto]"
     >
       {/* Interactive grid background */}
       <div
@@ -75,20 +75,20 @@ const HeroSection = ({ copy }: { copy: PlatformHeroCopy }) => {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="flex flex-col items-start text-left"
+          className="flex flex-col items-start text-left pt-1 md:pt-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-[52px] font-semibold text-[#101828]">
-            {copy.titleLine1}
-            <span className="text-[#26b9c1]">{copy.titleAccent}</span>
+          <h1 className="md:text-[52px] text-[32px] md:text-center text-left lg:text-left font-semibold text-[#101828]">
+            Continuous Portfolio <span className="text-[#26b9c1]">Risk Control</span>
           </h1>
-          <p className="mt-2 text-base w-2/3 leading-relaxed text-[#101828] sm:text-[20px]">
-            {copy.subtitle}
+          <p className="mt-2 text-base md:text-center text-left lg:text-left w-full lg:w-2/3 leading-relaxed text-[#101828] sm:text-[20px]">
+            Detect emerging stress, model trajectory, and guide disciplined intervention before
+            deterioration accelerates
           </p>
           <BookDemoButton mode="brief"
-            className="mt-10 inline-flex items-center justify-center rounded-lg bg-[#15B5C1] px-7 py-3.5 text-sm text-white transition hover:opacity-90"
+            className="mt-10 inline-flex items-center justify-center rounded-lg bg-[#15B5C1] px-7 py-3.5 text-sm text-white transition hover:opacity-90 mx-[-2px] lg:mx-0"
           >
             {copy.ctaLabel}
           </BookDemoButton >

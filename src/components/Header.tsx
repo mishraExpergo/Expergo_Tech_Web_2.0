@@ -214,9 +214,18 @@ export function Header() {
                 if (l.href === "/capabilities") {
                   return (
                     <div key={l.href} className="py-2">
-                      <div className="flex items-center justify-between px-3 text-base font-semibold text-[#344054]">
-                        {l.label}
-                      </div>
+                      <button
+                     onClick={() => setCapabilitiesOpen(!capabilitiesOpen)}
+                    className="flex w-full items-center justify-between px-3 text-base font-semibold text-[#344054]"
+>
+                    {l.label}
+                    <ChevronDown
+                    className={`h-4 w-4 transition-transform ${
+                    capabilitiesOpen ? "rotate-180" : ""
+                   }`}
+                  />
+                  </button>
+                      {capabilitiesOpen && (
                       <div className="mt-2 space-y-1 pl-4">
                         {capabilityLinks.map((item) => {
                           const itemActive = pathname === item.href;
@@ -234,7 +243,9 @@ export function Header() {
                             </Link>
                           );
                         })}
+                        
                       </div>
+                      )}
                     </div>
                   );
                 }

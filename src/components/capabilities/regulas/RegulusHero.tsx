@@ -48,7 +48,7 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative overflow-hidden pt-10 bg-white pb-32"
+      className="relative overflow-hidden bg-white pt-6 pb-6 lg:pt-10 lg:pb-32"
     >
       <div
         aria-hidden
@@ -83,7 +83,7 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
       {/* Background gradients that align with the design */}
       <div className="pointer-events-none absolute top-0 right-0 z-1 h-full w-1/2 bg-linear-to-l from-cyan-50/50 to-transparent" />
 
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col-reverse items-center justify-between gap-16 px-6 lg:flex-row lg:gap-8 lg:px-8">
+      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 lg:flex-row lg:gap-8 lg:px-8">
         {/* Left Text Content */}
         <div className="flex-1 max-w-2xl">
           {/* <motion.div
@@ -99,7 +99,7 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[52px] mb-6 font-bold tracking-tight text-[#15B5C1]"
+            className="mb-3 text-4xl font-bold tracking-tight text-[#15B5C1] lg:mb-6 lg:text-[52px]"
           >
             {hero.title}
           </motion.h1>
@@ -108,7 +108,7 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-4 w-2/3 text-base leading-snug text-gray-900"
+            className="mb-3 w-full max-w-md text-base leading-snug text-gray-900 lg:mb-4 lg:w-2/3"
           >
             {hero.subtitle}
           </motion.p>
@@ -117,7 +117,7 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-lg text-gray-700 font-semibold mb-10"
+            className="mb-5 text-base font-semibold text-gray-700 lg:mb-10 lg:text-lg"
           >
             {hero.supporting}
           </motion.p>
@@ -134,8 +134,8 @@ export default function RegulusHero({ hero }: { hero: RegulusHeroCopy }) {
           </motion.div>
         </div>
 
-        {/* Right Hex/Radial Visual — overflow-hidden + inset layer keeps hover cards on-screen */}
-       <ComplianceHubAssemble/>
+        {/* Right Hex/Radial Visual — compact on small screens so hero fits one viewport */}
+        <ComplianceHubAssemble className="h-[min(320px,calc(100vw-3rem))] w-[min(320px,calc(100vw-3rem))] lg:h-[min(400px,85vw)] lg:w-[min(400px,85vw)]" />
       </div>
     </section>
   );

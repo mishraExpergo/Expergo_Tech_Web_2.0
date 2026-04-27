@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 export default function WhatIsLighthouse() {
   return (
     <section className="py-24 bg-white relative">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 md:my-0 my-[-90px]">
         
-        <div className="text-center mb-16">
+        <div className="text-center mb-16  ">
           <motion.div
              initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
              whileInView={{ opacity: 1 }}
@@ -38,7 +38,7 @@ export default function WhatIsLighthouse() {
              transition={{ duration: 0.5 }}
              className="flex-1 max-w-xl"
            >
-              <p className="text-gray-600 text-[20px] leading-relaxed font-medium">
+              <p className="md:pt-0 pt-6 text-gray-600 md:text-[20px] text-[16px] leading-relaxed font-medium">
               EarlySafe Lighthouse is a risk control dashboard designed for credit portfolios.It provides structured visibility into how risk builds, moves across delinquency buckets, and is handled through operational actions.By bringing together payment behaviour, bureau signals, and operational data, Lighthouse enables institutions 
               to monitor triggers, track ownership, and measure resolution in one unified view. It transforms portfolio monitoring from static reporting into a controlled, accountable process. 
               </p>

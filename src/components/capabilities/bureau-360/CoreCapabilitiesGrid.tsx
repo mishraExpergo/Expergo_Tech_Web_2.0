@@ -76,12 +76,12 @@ export default function CoreCapabilitiesGrid() {
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 md:my-0 my-[-90px]">
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-black text-[#1E293B]"
+            className="text-3xl md:text-5xl font-black text-[#1E293B]"
           >
             Core <span className="text-[#01AEE4]">Capabilities</span>
           </motion.h2>

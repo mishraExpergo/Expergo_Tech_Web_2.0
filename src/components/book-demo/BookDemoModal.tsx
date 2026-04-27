@@ -128,19 +128,21 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     }
   }, [open]);
 
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {};
-    if (!form.fullName.trim() || form.fullName.trim().length < 2) newErrors.fullName = "Full name must be at least 2 characters";
-    if (!/^\S+@\S+\.\S+$/.test(form.workEmail)) newErrors.workEmail = "Please enter a valid work email";
-    if (!form.companyName.trim() || form.companyName.trim().length < 2) newErrors.companyName = "Company name must be at least 2 characters";
-    if (!form.phone.trim() || form.phone.trim().length < 6) newErrors.phone = "Phone number is too short";
-    if (!form.companySize) newErrors.companySize = "Please select a company size";
-    if (!form.industry) newErrors.industry = "Please select an industry";
-    if (!form.interest) newErrors.interest = "Please select an interest";
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const canSubmit = useCallback(
+    () =>
+      Boolean(
+        form.fullName.trim() &&
+           emailRegex.test(form.workEmail) &&
+          form.companyName.trim() &&
+          form.phone.trim() &&
+          form.companySize &&
+          form.industry &&
+          form.interest
+      ),
+    [form]
+  );
 
   const update = (k: keyof FormState, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));

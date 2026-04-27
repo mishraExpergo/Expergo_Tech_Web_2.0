@@ -15,7 +15,7 @@ export default function MeasurableImpactSection() {
    ];
 
    return (
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="md:py-24 py-4 bg-white overflow-hidden">
          <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row gap-16 items-center lg:items-start">
 

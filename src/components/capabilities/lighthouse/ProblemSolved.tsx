@@ -197,11 +197,11 @@ export default function ProblemSolved() {
                     </svg>
                     
                     {/* Axis Labels */}
-                    <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Faster Resolution</span>
-                    <span className="absolute top-[25%] -right-16 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap text-right">Visibility<br/>Scaling</span>
-                    <span className="absolute -bottom-6 -right-6 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Continuous<br/>Analysis</span>
-                    <span className="absolute -bottom-6 -left-6 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap text-right">Cost<br/>Reduction</span>
-                    <span className="absolute top-[25%] -left-16 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Integration<br/>Ease</span>
+                    <span className="md:px-0 px-4 absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Faster Resolution</span>
+                    <span className="md:px-0 px-4 absolute top-[25%] -right-16 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap text-right">Visibility<br/>Scaling</span>
+                    <span className="md:px-0 px-4 absolute -bottom-6 -right-6 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Continuous<br/>Analysis</span>
+                    <span className="md:px-0 px-4 absolute -bottom-6 -left-6 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap text-right">Cost<br/>Reduction</span>
+                    <span className="md:px-0 px-4 absolute top-[25%] -left-16 text-[10px] font-bold text-gray-500 uppercase tracking-tight whitespace-nowrap">Integration<br/>Ease</span>
                  </div>
 
                  {/* Legend */}

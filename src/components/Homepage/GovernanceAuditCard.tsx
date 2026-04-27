@@ -1,18 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+import { PlatformSizedChart } from "./PlatformSizedChart";
 
 const data = [
   { name: "Jan", y2020: 48, y2021: 55, y2022: 62 },
@@ -37,8 +29,7 @@ export const GovernanceAuditCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Governance & Audit</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Traceability, explainability & compliance</p>
-      <div className="min-h-[11rem] w-full flex-1">
-      <ResponsiveContainer width="100%" height="100%">
+      <PlatformSizedChart className="min-h-[11rem] h-[220px] w-full min-w-0 flex-1 shrink-0 lg:h-auto lg:min-h-0">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
@@ -80,8 +71,7 @@ export const GovernanceAuditCard = () => {
             animationDuration={1600}
           />
         </LineChart>
-      </ResponsiveContainer>
-      </div>
+      </PlatformSizedChart>
     </motion.div>
   );
 };

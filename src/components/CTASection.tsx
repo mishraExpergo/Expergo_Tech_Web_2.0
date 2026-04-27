@@ -11,10 +11,10 @@ export function CTASection() {
     >
        <section
         id="briefing"
-        className=" bg-white px-4 py-20 sm:px-6 lg:px-8"
+        className=" bg-white px-4 md:py-20 py-0 sm:px-6 lg:px-8"
         aria-labelledby="outcomes-cta-heading"
       >
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl md:my-0 my-[-70px] text-center">
           <p className="text-[16px] uppercase  text-[#0B64F4]">
             Institutionalize Control
           </p>

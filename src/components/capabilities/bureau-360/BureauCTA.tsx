@@ -5,7 +5,7 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 
 export default function BureauCTA() {
   return (
-    <section className="py-32 bg-white text-center">
+    <section className="md:py-32 py-16 bg-white text-center">
       <div className="max-w-4xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}

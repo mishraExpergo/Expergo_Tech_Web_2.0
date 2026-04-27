@@ -3,17 +3,10 @@ import { motion } from "framer-motion";
 
 import { useState } from "react";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
+import { PlatformSizedChart } from "./PlatformSizedChart";
 
 const data = [
   { name: "Jan", risk: 85, threshold: 85, baseline: 85 },
@@ -40,8 +33,7 @@ export const RiskInterpretationCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Risk Interpretation</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Structured state classification & EWS mapping</p>
-      <div className="min-h-[10rem] w-full flex-1">
-      <ResponsiveContainer width="100%" height="100%">
+      <PlatformSizedChart className="min-h-[10rem] h-[200px] w-full min-w-0 flex-1 shrink-0 lg:h-auto lg:min-h-0">
         <LineChart
           data={data}
           onMouseMove={(e) => {
@@ -85,8 +77,7 @@ export const RiskInterpretationCard = () => {
             animationDuration={2100}
           />
         </LineChart>
-      </ResponsiveContainer>
-      </div>
+      </PlatformSizedChart>
     </motion.div>
   );
 };

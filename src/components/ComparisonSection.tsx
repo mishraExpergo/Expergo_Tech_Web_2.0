@@ -104,12 +104,12 @@ export function ComparisonSection() {
       variant="slide-left"
       className=" px-4 py-20 sm:px-6 lg:px-8"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto md:my-0 my-[-80px] max-w-6xl">
         <div className="text-center flex flex-col items-center">
           <p className="text-[16px] font-poppins  text-[#1D68D5]">
             THE SHIFT
           </p>
-          <h2 className="text-[36px]  mt-3 w-[50vw] font-bold leading-tight text-brand-ink">
+          <h2 className="md:text-[36px] text-[24px]  mt-3 md:w-[50vw] w-full font-bold leading-tight text-brand-ink">
             From Periodic Risk Monitoring to Continuous Portfolio Intelligence
           </h2>
           <p className="mt-4 max-w-3xl  text-base leading-relaxed text-[#1F1F1F]">

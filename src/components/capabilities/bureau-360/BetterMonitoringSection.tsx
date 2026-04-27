@@ -5,8 +5,8 @@ import { Users, CreditCard, RefreshCw, Activity, PieChart, Clock, Radar } from "
 
 export default function BetterMonitoringSection() {
   return (
-    <section className="bg-white">
-      <div className="max-w-[1440px] mx-auto  2xl:rounded-3xl overflow-hidden relative  my-12">
+    <section className="bg-white md:pb-12 pb-[-100px]">
+      <div className="max-w-[1440px] mx-auto  2xl:rounded-3xl overflow-hidden relative  my-12 ">
         
         {/* ROW 1 */}
         <div className="relative flex   bg-[#1E293B] flex-col lg:flex-row min-h-[500px]">
@@ -14,7 +14,7 @@ export default function BetterMonitoringSection() {
           <div className="absolute inset-0 pointer-events-none z-0 flex flex-col lg:flex-row">
             {/* <div className="w-full lg:w-[55%] " /> */}
             {/* <div className="w-[65%] lg:flex-1 bg-[#1E293B] border-4 border-blue-500 absolute lg:relative inset-0" /> */}
-            <div className="w-full h-full bg-blue-50 w-[70%]  lg:w-[75%] translate-x-[35rem] rounded-l-[120px]"></div>
+            <div className="hidden lg:block w-full h-full bg-blue-50 w-[70%] lg:w-[75%] translate-x-[35rem] rounded-l-[120px]"></div>
           </div>
           
           {/* Content Left */}
@@ -30,7 +30,7 @@ export default function BetterMonitoringSection() {
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-[1.15]">
                 Better <span className="text-[#01AEE4]">Portfolio<br/> Monitoring</span> with<br/> External Signals
               </h2>
-              <p className="text-[#94A3B8] text-[15px] leading-relaxed max-w-md mt-6">
+              <p className="text-[#94A3B8] text-[15px] leading-relaxed max-w-md mt-6 mb-20%">
                 Most institutions use bureau data at specific points in the credit lifecycle, but lack a structured way to monitor how borrower behaviour evolves across lenders over time. This creates gaps such as:
               </p>
             </motion.div>
@@ -43,7 +43,7 @@ export default function BetterMonitoringSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 w-full lg:-ml-12 border border-gray-100/50"
+              className="hidden md:block bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 w-full max-w-[700px] lg:-mr-12 border border-gray-100/50"
             >
               <div className="grid md:grid-cols-2 gap-x-12 gap-y-12">
                 <div className="flex items-start gap-4">
@@ -76,12 +76,12 @@ export default function BetterMonitoringSection() {
         </div>
 
         {/* ROW 2 */}
-        <div className="relative flex flex-col-reverse  bg-[#1E293B] lg:flex-row min-h-[450px]">
+        <div className="relative flex flex-col-reverse  bg-[#1E293B] lg:flex-row min-h-[450px] md:mb-12 mb-[-200px]">
           {/* Backgrounds */}
           <div className="absolute inset-0 pointer-events-none z-0 flex flex-col-reverse lg:flex-row">
             {/* <div className="w-full lg:w-[45%] bg-[#F4F5F7] absolute lg:relative inset-0" />
             <div className="w-full lg:flex-1 bg-[#1E293B] rounded-t-[100px] lg:rounded-t-none lg:rounded-tl-[250px] relative z-10 lg:z-20 shadow-[-10px_0_40px_rgba(0,0,0,0.1)]" /> */}
-             <div className="w-full h-full bg-blue-50 w-[70%]  lg:w-[75%] -translate-x-[15rem] rounded-r-[190px]"></div>
+             <div className="hidden lg:block w-full h-full bg-blue-50 w-[70%] lg:w-[75%] -translate-x-[15rem] rounded-r-[190px]"></div>
           </div>
 
           {/* Content Left (White Card) */}
@@ -91,7 +91,7 @@ export default function BetterMonitoringSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 w-full max-w-[700px] lg:-mr-12 border border-gray-100/50"
+              className="hidden md:block bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-8 md:p-12 w-full lg:-ml-12 border border-gray-100/50"
             >
               <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
                 <div className="flex items-center gap-4">
@@ -129,19 +129,19 @@ export default function BetterMonitoringSection() {
           </div>
 
           {/* Content Right */}
-          <div className="flex-1 relative z-30 p-10 lg:p-20 xl:p-24 pl-10 lg:pl-32 flex flex-col justify-center">
+          <div className="flex-1 relative z-30 p-10 lg:p-20 xl:p-24  pl-10 lg:pl-32 flex flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              <p className="text-[#E2E8F0] text-[15px] leading-relaxed max-w-sm mb-8 font-medium">
+              <p className="text-[#94A3B8] text-[15px] leading-relaxed max-w-sm md:mt-5 mt-[-220] mb-8 font-medium">
                 As a result, bureau signals often remain isolated observations rather than part of a continuous monitoring framework.
                 <br/><br/>
                 BUREAU 360° solves this by converting raw bureau activity into structured borrower behaviour intelligence, enabling institutions to monitor:
               </p>
-              <p className="text-[#94A3B8] text-xs italic leading-relaxed max-w-sm font-medium border-l-[3px] border-[#01AEE4] pl-4">
+              <p className="text-[#ffffff] text-xs italic leading-relaxed max-w-sm font-medium border-l-[3px] border-[#01AEE4] pl-4">
                 This helps lenders move from static bureau review to continuous bureau-led portfolio visibility.
               </p>
             </motion.div>

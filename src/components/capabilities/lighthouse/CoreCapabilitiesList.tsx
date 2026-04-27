@@ -35,14 +35,14 @@ export default function CoreCapabilitiesList() {
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 md:my-0 my-[-90px]">
           <motion.div
              initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
              className="mb-4"
           >
-             <span className=" px-3 py-1  text-blue-500">
+             <span className=" px-3 py-1 text-blue-500">
                 CAPABILITIES
              </span>
           </motion.div>

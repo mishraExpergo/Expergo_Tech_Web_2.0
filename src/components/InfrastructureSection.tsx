@@ -37,11 +37,11 @@ export function InfrastructureSection() {
       className="bg-white px-4 py-20 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col md:my-0 my-[-60px] items-center">
           <p className="text-[16px] uppercase  text-[#1D68D5]">
             Infrastructure
           </p>
-          <h2 className="text-[36px] mt-3 font-semibold">
+          <h2 className="md:text-[36px] text-[24px]  text-center md:text-center  mt-3 md:w-[50vw] w-full font-semibold">
             Built for institutional risk environments
           </h2>
           <p className="mt-4 text-center max-w-3xl text-base leading-relaxed text-[#667085]">
