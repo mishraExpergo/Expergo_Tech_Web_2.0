@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BlogCarousel } from "@/components/BlogCarousel";
 import type { SitePageUseCaseCard } from "@sanity/lib/getSitePage";
+import { BookDemoButton } from "../book-demo/BookDemoProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -147,12 +148,12 @@ export function UseCasesPageContent({ hero, cards }: UseCasesPageContentProps) {
             EarlySafe. Continuous Portfolio Risk Control.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="mailto:info@earlysafe.com?subject=Executive%20briefing%20request"
+            <BookDemoButton
               className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] hover:bg-[#1557b8] active:scale-[0.98]"
+              mode="brief"
             >
               Request Executive Brief
-            </Link>
+            </BookDemoButton>
            
           </div>
         </div>
