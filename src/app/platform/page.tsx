@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import { Header } from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import { ComparisonSection } from "@/components/ComparisonSection";
@@ -7,18 +8,29 @@ import HeatmapSection from "@/components/HeatmapSection";
 import { InfrastructureSection } from "@/components/InfrastructureSection";
 import { CTASection } from "@/components/CTASection";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { buildOpenGraphMetadata, mergePlatformPage } from "@/lib/sitePage/merges";
+import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
-export const metadata: Metadata = {
-  title: "EXPERGO — Continuous Portfolio Risk Control",
-  description:
-    "EarlySafe by Expergo: detect risk early, influence portfolio outcomes, and quantify trajectory for NBFCs, HFCs, and banks.",
-};
+export const revalidate = 60;
 
-export default function HomePage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const raw = await getSitePageByRoute("platform");
+  const { meta } = mergePlatformPage(raw);
+  return {
+    title: meta.title,
+    description: meta.description,
+    ...buildOpenGraphMetadata(meta.ogImageUrl),
+  };
+}
+
+export default async function PlatformPage() {
+  const raw = await getSitePageByRoute("platform");
+  const { hero } = mergePlatformPage(raw);
+
   return (
     <>
       <Header />
-      <HeroSection />
+      <HeroSection copy={hero} />
       <ComparisonSection />
       <ScrollNarrative />
       <HeatmapSection />

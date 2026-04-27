@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
+
 import { Header } from "@/components/Header";
 import { UseCasesPageContent } from "@/components/use-cases/UseCasesPageContent";
+import { buildOpenGraphMetadata, mergeUseCasesPage } from "@/lib/sitePage/merges";
+import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
-export const metadata: Metadata = {
-  title: "Use Cases — Secured Lending Portfolios | EXPERGO",
-  description:
-    "EarlySafe for residential mortgage, CRE, auto, equipment, inventory, and project finance—structured risk control across secured lending portfolios.",
-};
+export const revalidate = 60;
 
-export default function UseCasesPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const raw = await getSitePageByRoute("use-cases");
+  const { meta } = mergeUseCasesPage(raw);
+  return {
+    title: meta.title,
+    description: meta.description,
+    ...buildOpenGraphMetadata(meta.ogImageUrl),
+  };
+}
+
+export default async function UseCasesPage() {
+  const raw = await getSitePageByRoute("use-cases");
+  const merged = mergeUseCasesPage(raw);
+
   return (
     <>
       <Header />
-      <UseCasesPageContent />
+      <UseCasesPageContent hero={merged.hero} cards={merged.cards} />
     </>
   );
 }

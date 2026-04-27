@@ -4,13 +4,30 @@ import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent }
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
 
+import type { SitePageStatPair } from "@sanity/lib/getSitePage";
+
 const GRID_TILE = 32;
 const GRID_BASE =
   "linear-gradient(to right, rgb(226 232 240) 1px, transparent 1px), linear-gradient(to bottom, rgb(226 232 240) 1px, transparent 1px)";
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-export default function LighthouseHero() {
+export type LighthouseHeroCopy = {
+  titleLine1: string;
+  titleAccent: string;
+  subtitle: string;
+  ctaLabel: string;
+  illustrationUrl: string | null;
+  illustrationAlt: string;
+};
+
+export default function LighthouseHero({
+  hero,
+  stats,
+}: {
+  hero: LighthouseHeroCopy;
+  stats: SitePageStatPair[];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
 
@@ -27,12 +44,7 @@ export default function LighthouseHero() {
     setPointer({ xPct: 50, yPct: 42 });
   }, []);
 
-  const stats = [
-    { value: "500+", label: "risk and control views" },
-    { value: "50+", label: "risk signal  " },
-    // { value: "10+", label: "PAYMENT BEHAVIOUR SIGNALS" },
-    { value: "Real Time", label: "STRESS MONITORING" }
-  ];
+  const artSrc = hero.illustrationUrl ?? "/Lighthousee.svg";
 
   return (
     <section
@@ -41,7 +53,6 @@ export default function LighthouseHero() {
       onPointerLeave={onPointerLeave}
       className="relative pb-16 pt-24 overflow-hidden bg-[#F9FAFB] pt-0"
     >
-      {/* Interactive grid background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 select-none"
@@ -83,8 +94,9 @@ export default function LighthouseHero() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 mb-2 leading-tight"
           >
-            Risk Dashboard <br/>
-            <span className="text-[#15B5C1]">Lighthouse</span>
+            {hero.titleLine1}
+            <br />
+            <span className="text-[#15B5C1]">{hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -93,7 +105,7 @@ export default function LighthouseHero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="md:text-lg text-m  md:pt-0 pt-10 text-gray-500 font-medium mb-12 leading-relaxed max-w-xl"
           >
-Transforms how institutions monitor and control portfolio risk. A risk control dashboard that reveals how stress forms,moves,and is acted upon across the credit life cycle.
+            {hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -102,9 +114,8 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-wrap items-center gap-4"
           >
-            <BookDemoButton
-             className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm hover:shadow-md">
-              Book Demo
+            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm hover:shadow-md">
+              {hero.ctaLabel}
             </BookDemoButton>
           </motion.div>
 
@@ -114,12 +125,14 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex gap-6 md:gap-10  md:pt-8 pt-20"
           >
-             {stats.map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
-                   <span className="text-2xl md:text-3xl font-black text-[#01AEE4] mb-1">{stat.value}</span>
-                   <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wide leading-tight max-w-[80px]">{stat.label}</span>
-                </div>
-             ))}
+            {stats.map((stat, idx) => (
+              <div key={`${stat.value}-${idx}`} className="flex flex-col">
+                <span className="text-2xl md:text-3xl font-black text-[#01AEE4] mb-1">{stat.value}</span>
+                <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wide leading-tight max-w-[80px]">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </motion.div>
         </div>
 
@@ -131,7 +144,6 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
             className="relative flex w-full items-center justify-center p-8"
           >
-            {/* Cyan ripples — drawn behind the art */}
             <div
               className="pointer-events-none absolute left-[49%] top-[35%] z-0 flex h-0 w-0 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
               aria-hidden
@@ -159,14 +171,13 @@ Transforms how institutions monitor and control portfolio risk. A risk control d
             </div>
 
             <img
-              src="/Lighthousee.svg"
-              alt="Lighthouse"
+              src={artSrc}
+              alt={hero.illustrationAlt || "Lighthouse"}
               className="relative z-10 w-full max-w-[100rem] h-auto max-h-[100vh] object-contain select-none transform translate-y-30"
               decoding="async"
             />
           </motion.div>
         </div>
-
       </div>
     </section>
   );

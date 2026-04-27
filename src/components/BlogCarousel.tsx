@@ -1,31 +1,43 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
 import { MotionSection } from "./MotionSection";
 
-const posts = [
+type CarouselPost = {
+  slug: string;
+  tag: string;
+  title: string;
+  image: string;
+};
+
+const FALLBACK_POSTS: CarouselPost[] = [
   {
+    slug: "",
     tag: "LENDING",
     title: "Why Early Warning Systems Are No Longer Optional for Lenders",
     image:
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80",
   },
   {
+    slug: "",
     tag: "STRATEGY",
     title: "From Spreadsheets to Signals: Operating Models for Risk Teams",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
   },
   {
+    slug: "",
     tag: "RISK",
     title: "Portfolio Heatmaps That Executives Actually Use",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
   },
   {
+    slug: "",
     tag: "COMPLIANCE",
     title: "Controls and Evidence Trails for Modern Risk Workflows",
     image:
@@ -53,9 +65,26 @@ type BlogCarouselProps = {
 
 export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselProps) {
   const [activeDot, setActiveDot] = useState(0);
+  const [posts, setPosts] = useState<CarouselPost[]>(FALLBACK_POSTS);
+  const [fromSanity, setFromSanity] = useState(false);
   const reduce = useReducedMotion();
   const isDark = theme === "dark";
   const isLeft = align === "left";
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/insights")
+      .then((r) => r.json() as Promise<{ posts?: CarouselPost[] }>)
+      .then((data) => {
+        if (cancelled || !data.posts?.length) return;
+        setPosts(data.posts);
+        setFromSanity(true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <MotionSection
@@ -69,9 +98,7 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
     >
       <div className="md:py-10 py-0 mx-auto max-w-6xl font-poppins">
         <div className={isLeft ? "text-left" : "text-center"}>
-          <p className="text-[16px] uppercase text-[#0B64F4]">
-            Insights
-          </p>
+          <p className="text-[16px] uppercase text-[#0B64F4]">Insights</p>
           <h2
             className={`mt-3 text-[36px] font-semibold tracking-tight ${
               isDark ? "text-white" : "text-[#101828]"
@@ -90,7 +117,7 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
         >
           {posts.map((post) => (
             <motion.article
-              key={post.title}
+              key={post.slug ? post.slug : post.title}
               variants={reduce ? undefined : item}
               transition={{ duration: 0.455, ease: [0.22, 1, 0.36, 1] }}
               whileHover={reduce ? undefined : { y: -5 }}
@@ -113,7 +140,7 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
                   {post.title}
                 </h3>
                 <Link
-                  href="#"
+                  href={post.slug ? `/insights/${post.slug}` : "/insights"}
                   className="mt-4 inline-flex text-sm font-semibold text-[#1D68D5] transition hover:underline"
                 >
                   Read more →
@@ -122,6 +149,17 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
             </motion.article>
           ))}
         </motion.div>
+
+        {fromSanity ? (
+          <div className={`mt-8 ${isLeft ? "text-left" : "text-center"}`}>
+            <Link
+              href="/insights"
+              className="text-sm font-semibold text-[#1D68D5] hover:underline"
+            >
+              View all insights →
+            </Link>
+          </div>
+        ) : null}
 
         <div className={`mt-8 flex gap-2 ${isLeft ? "justify-start" : "justify-center"}`}>
           {posts.map((_, i) => (

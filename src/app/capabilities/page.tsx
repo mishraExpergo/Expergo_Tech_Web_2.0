@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
+
 import { CapabilitiesPageContent } from "@/components/capabilities/CapabilitiesPageContent";
 import { Header } from "@/components/Header";
+import { buildOpenGraphMetadata, mergeCapabilitiesPage } from "@/lib/sitePage/merges";
+import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
-export const metadata: Metadata = {
-  title: "Capabilities — EXPERGO",
-  description:
-    "Explore Lighthouse, Regulus, Command Center, and Bureau 360°—the EarlySafe capabilities stack for continuous portfolio risk control.",
-};
+export const revalidate = 60;
 
-export default function CapabilitiesPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const raw = await getSitePageByRoute("capabilities");
+  const { meta } = mergeCapabilitiesPage(raw);
+  return {
+    title: meta.title,
+    description: meta.description,
+    ...buildOpenGraphMetadata(meta.ogImageUrl),
+  };
+}
+
+export default async function CapabilitiesPage() {
+  const raw = await getSitePageByRoute("capabilities");
+  const merged = mergeCapabilitiesPage(raw);
+
   return (
     <>
       <Header />
-      <CapabilitiesPageContent />
+      <CapabilitiesPageContent intro={merged.intro} zigzagRows={merged.zigzagRows} cta={merged.cta} />
     </>
   );
 }

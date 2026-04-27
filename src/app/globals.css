@@ -196,5 +196,21 @@ html {
     line-height: 1.4;
     @apply font-semibold uppercase tracking-[0.15em] text-primary;
   }
+
+  /* Insight detail: number top-level H2 sections (portable text body) */
+  .insight-article-body {
+    counter-reset: insight-section;
+  }
+
+  .insight-article-body h2 {
+    counter-increment: insight-section;
+  }
+
+  .insight-article-body h2::before {
+    content: counter(insight-section) ". ";
+    font-weight: 800;
+    margin-right: 0.35rem;
+    color: #1e293b;
+  }
 }
 

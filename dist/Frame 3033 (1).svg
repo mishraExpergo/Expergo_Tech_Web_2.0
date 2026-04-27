@@ -1,0 +1,21 @@
+<svg width="475" height="523" viewBox="0 0 475 523" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3916_3414)">
+<g filter="url(#filter0_f_3916_3414)">
+<rect x="7" y="56" width="319" height="319" rx="159.5" fill="#15B5C1" fill-opacity="0.1"/>
+</g>
+<rect x="68.5" y="92.5" width="338" height="338" rx="169" stroke="#15B5C1"/>
+<rect x="84.5" y="108.5" width="306" height="306" rx="153" stroke="#15B5C1"/>
+<rect x="100" y="124" width="275" height="275" rx="137.5" fill="#15B5C1" fill-opacity="0.05"/>
+<path d="M264.169 264.833C264.169 281.5 252.503 289.833 238.636 294.667C237.91 294.913 237.121 294.901 236.403 294.633C222.503 289.833 210.836 281.5 210.836 264.833V241.5C210.836 240.616 211.187 239.768 211.812 239.143C212.437 238.518 213.285 238.167 214.169 238.167C220.836 238.167 229.169 234.167 234.969 229.1C235.675 228.497 236.574 228.165 237.503 228.165C238.431 228.165 239.33 228.497 240.036 229.1C245.869 234.2 254.169 238.167 260.836 238.167C261.72 238.167 262.568 238.518 263.193 239.143C263.818 239.768 264.169 240.616 264.169 241.5V264.833Z" stroke="#15B5C1" stroke-opacity="0.6" stroke-width="6.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<filter id="filter0_f_3916_3414" x="-33" y="16" width="399" height="399" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="20" result="effect1_foregroundBlur_3916_3414"/>
+</filter>
+<clipPath id="clip0_3916_3414">
+<rect width="475" height="523" fill="white"/>
+</clipPath>
+</defs>
+</svg>

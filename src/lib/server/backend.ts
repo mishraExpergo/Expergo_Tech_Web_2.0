@@ -107,7 +107,7 @@ function assertBackendConfigured(webhookUrl?: string) {
   }
 
   if (process.env.NODE_ENV === "production") {
-    throw new Error("No backend storage is configured.");
+    console.warn("WARNING: No backend storage (DATABASE_URL or WEBHOOK_URL) is configured. Form submission will not be saved.");
   }
 }
 

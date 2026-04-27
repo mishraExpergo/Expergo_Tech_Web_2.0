@@ -4,13 +4,20 @@ import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent }
 import { motion } from "framer-motion";
 import { BookDemoButton } from "./book-demo/BookDemoProvider";
 
+export type PlatformHeroCopy = {
+  titleLine1: string;
+  titleAccent: string;
+  subtitle: string;
+  ctaLabel: string;
+};
+
 const GRID_TILE = 32;
 const GRID_BASE =
   "linear-gradient(to right, rgb(226 232 240) 1px, transparent 1px), linear-gradient(to bottom, rgb(226 232 240) 1px, transparent 1px)";
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-const HeroSection = () => {
+const HeroSection = ({ copy }: { copy: PlatformHeroCopy }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
 
@@ -83,7 +90,7 @@ className="relative overflow-hidden bg-white pt-0 pb-8 md:pt-8 md:pb-12 min-h-[5
           <BookDemoButton mode="brief"
             className="mt-10 inline-flex items-center justify-center rounded-lg bg-[#15B5C1] px-7 py-3.5 text-sm text-white transition hover:opacity-90 mx-[-2px] lg:mx-0"
           >
-            Request Executive Briefing
+            {copy.ctaLabel}
           </BookDemoButton >
         </motion.div>
       </div>

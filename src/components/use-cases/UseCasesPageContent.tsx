@@ -3,71 +3,10 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import type { SitePageUseCaseCard } from "@sanity/lib/getSitePage";
+import { BookDemoButton } from "../book-demo/BookDemoProvider";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-const useCaseCards = [
-  {
-    title: "Residential Mortgage Loans",
-    description:
-      "Loans secured by residential property. Risk drivers extend beyond payment behaviour.",
-    tracks: [
-      "LTV movement",
-      "Delinquency progression",
-      "Property valuation shifts",
-      "Localised market stress",
-    ],
-    outcome: "Earlier identification of deterioration regimes before collateral stress.",
-  },
-  {
-    title: "Commercial Real Estate (CRE)",
-    description:
-      "Loans secured by income-generating property. Risk concentration forms through occupancy decline.",
-    tracks: [
-      "Occupancy & rent roll",
-      "DSCR shifts",
-      "Cap rate movements",
-      "Valuation stress signals",
-    ],
-    outcome: "Structured monitoring of income-based collateral before capital volatility.",
-  },
-  {
-    title: "Auto Finance",
-    description:
-      "Loans secured by vehicles. Asset depreciation and behavioural shift intersect.",
-    tracks: [
-      "Payment irregularities",
-      "Vehicle depreciation curves",
-      "Credit event indicators",
-      "Migration velocity",
-    ],
-    outcome: "Reduced flow-forward acceleration in high-volume secured portfolios.",
-  },
-  {
-    title: "Equipment Financing",
-    description:
-      "Loans secured by machinery. Operational utilisation influences credit stability.",
-    tracks: ["Maintenance indicators", "Resale value trends", "Business exposure signals"],
-    outcome: "Improved early stress detection in asset-backed business lending.",
-  },
-  {
-    title: "Inventory & Working Capital",
-    description: "Collateral value fluctuates with turnover and seasonality.",
-    tracks: ["Inventory ageing", "Seasonal demand patterns", "Receivable concentration"],
-    outcome: "Better anticipation of liquidity-driven migration risk.",
-  },
-  {
-    title: "Project & Construction Finance",
-    description:
-      "Exposure secured by project assets. Completion risk often precedes payment disruption.",
-    tracks: [
-      "Milestone deviation signals",
-      "Cost overrun indicators",
-      "Cash flow shortfalls",
-    ],
-    outcome: "Forward visibility into execution risk before structural impairment.",
-  },
-] as const;
 
 const listViewport = {
   once: true,
@@ -95,7 +34,7 @@ function TracksList({
   items,
   reduce,
 }: {
-  items: readonly string[];
+  items: string[];
   reduce: boolean;
 }) {
   if (reduce) {
@@ -133,7 +72,12 @@ function TracksList({
   );
 }
 
-export function UseCasesPageContent() {
+type UseCasesPageContentProps = {
+  hero: { prefix: string; accent: string; paragraph: string };
+  cards: SitePageUseCaseCard[];
+};
+
+export function UseCasesPageContent({ hero, cards }: UseCasesPageContentProps) {
   const reduceMotion = useReducedMotion();
   const reduce = Boolean(reduceMotion);
 
@@ -149,7 +93,8 @@ export function UseCasesPageContent() {
             id="use-cases-hero-heading"
             className="md:text-[52px] text-[32px] md:mt-4 mt-[-30px] font-semibold "
           >
-            Secured <span className="text-[#16B2C3]">Lending Portfolios</span>
+            {hero.prefix}
+            <span className="text-[#16B2C3]">{hero.accent}</span>
           </h1>
           <p className="mt-2 max-w-4xl md:text-lg text-[16px] leading-relaxed text-[#667085] sm:text-xl">
             EarlySafe supports structured risk control across asset-backed lending portfolios where
@@ -162,7 +107,7 @@ export function UseCasesPageContent() {
       <section className="px-4 md:py-16 py-4 sm:px-6 lg:px-8" aria-label="Secured lending use cases">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {useCaseCards.map((card) => (
+            {cards.map((card) => (
               <article
                 key={card.title}
                 className="flex flex-col z-10 p-2   overflow-hidden rounded-2xl border border-[#E4E7EC] relative"
@@ -171,7 +116,7 @@ export function UseCasesPageContent() {
                   <h2 className="text-[20px] font-semibold text-[#16B2C3]">{card.title}</h2>
                   <p className="mt-3 text-[14px]leading-relaxed text-[#101828]">{card.description}</p>
                   <p className="mt-5 text-sm font-semibold text-[#637083]">EarlySafe Tracks:</p>
-                  <TracksList items={card.tracks} reduce={reduce} />
+                  <TracksList items={[...card.tracks]} reduce={reduce} />
                 </div>
                 <div className=" border-[#C5EEF3]/80 bg-[#D6EDF2] px-6 py-4 m-4 rounded-lg">
                   <p className="text-sm font-medium flex flex-col leading-relaxed text-[#101828]">
@@ -205,12 +150,12 @@ export function UseCasesPageContent() {
             EarlySafe. Continuous Portfolio Risk Control.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="mailto:info@earlysafe.com?subject=Executive%20briefing%20request"
+            <BookDemoButton
               className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-[#1D68D5] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] hover:bg-[#1557b8] active:scale-[0.98]"
+              mode="brief"
             >
               Request Executive Brief
-            </Link>
+            </BookDemoButton>
            
           </div>
         </div>

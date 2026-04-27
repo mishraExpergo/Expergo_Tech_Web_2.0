@@ -1,9 +1,12 @@
 "use client";
 
 import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Shield, Eye, BarChart2, Target } from "lucide-react";
 import { BookDemoButton } from "../book-demo/BookDemoProvider";
+
+import type { MergedHomeHero } from "@/lib/sitePage/merges";
 
 const GRID_TILE = 32;
 const GRID_BASE =
@@ -11,7 +14,7 @@ const GRID_BASE =
 const GRID_ACCENT =
   "linear-gradient(to right, rgb(148 163 184) 1px, transparent 1px), linear-gradient(to bottom, rgb(148 163 184) 1px, transparent 1px)";
 
-export function Hero() {
+export function Hero({ copy }: { copy: MergedHomeHero }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [pointer, setPointer] = useState({ xPct: 50, yPct: 42 });
 
@@ -27,6 +30,8 @@ export function Hero() {
   const onPointerLeave = useCallback(() => {
     setPointer({ xPct: 50, yPct: 42 });
   }, []);
+
+  const [b0, b1, b2] = copy.bullets;
 
   return (
     <section
@@ -88,8 +93,9 @@ export function Hero() {
             transition={{ delay: 0.1 }}
             className="md:text-[52px] text-[28px] sm:text-[52px]  lg:text-[52px] font-extrabold text-[#1E293B] leading-[1.15] mb-10 tracking-tight"
           >
-            Continuous Portfolio Risk Control <br className="hidden lg:block"/>
-            for <span className="text-[#1677FF] block mt-1">NBFCs, HFCs & Banks</span>
+            {copy.titleLine1}
+            <br className="hidden lg:block"/>
+            for <span className="text-[#1677FF] block mt-1">{copy.titleAccent}</span>
           </motion.h1>
 
           <motion.div 
@@ -100,18 +106,15 @@ export function Hero() {
           >
             <div className="flex items-center gap-3">
               <Eye className="w-[18px] h-[18px] text-[#01AEE4]" strokeWidth={2.5} />
-              <span className="text-[#334155] font-semibold text-[15px]">Detect risk early</span>
+              <span className="text-[#334155] font-semibold text-[15px]">{b0}</span>
             </div>
             <div className="flex items-center gap-3">
               <BarChart2 className="w-[18px] h-[18px] text-[#01AEE4]" strokeWidth={2.5} />
-              <span className="text-[#334155] font-semibold text-[15px]">
-                Quantify trajectory
-
-              </span>
+              <span className="text-[#334155] font-semibold text-[15px]">{b1}</span>
             </div>
             <div className="flex items-center gap-3">
               <Target className="w-[18px] h-[18px] text-[#01AEE4]" strokeWidth={2.5} />
-              <span className="text-[#334155] font-semibold text-[15px]">Influence portfolio outcomes</span>
+              <span className="text-[#334155] font-semibold text-[15px]">{b2}</span>
             </div>
           </motion.div>
 
@@ -133,7 +136,6 @@ export function Hero() {
           {/* Main Radar Circle */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] lg:w-[400px] lg:h-[400px] rounded-full border border-[#1f3d4f] overflow-hidden flex items-center justify-center">
             
-            {/* Sweeping Radar Arm */}
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
@@ -143,20 +145,18 @@ export function Hero() {
               }}
             />
 
-            {/* Faint Inner Distance Rings */}
             <div className="absolute w-[180px] h-[180px] lg:w-[260px] lg:h-[260px] rounded-full border border-[#1f3d4f]/60" />
             <div className="absolute w-[100px] h-[100px] lg:w-[140px] lg:h-[140px] rounded-full border border-[#1f3d4f]/60" />
 
           </div>
 
-          {/* Dots on the radar (Green, Gray, Orange) */}
           <div className="absolute top-[32%] left-[38%] w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.9)] z-10" />
           <div className="absolute top-[50%] left-[24%] w-1.5 h-1.5 rounded-full bg-gray-400 shadow-[0_0_10px_rgba(156,163,175,0.7)] z-10" />
           <div className="absolute bottom-[38%] right-[32%] w-2.5 h-2.5 rounded-full bg-[#F59E0B] shadow-[0_0_12px_rgba(245,158,11,0.9)] z-10" />
 
-          {/* Center Glowing White Ring */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[52px] h-[52px] lg:w-[68px] lg:h-[68px] rounded-full border-[8px] lg:border-[10px] border-white bg-[#0f545a] shadow-[0_0_30px_rgba(255,255,255,0.7)] z-20" />
-
+            </>
+          )}
         </div>
 
       </div>
