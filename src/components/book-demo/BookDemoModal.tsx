@@ -194,7 +194,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
         placement="right"
         onClose={onClose}
         open={open}
-        width={480}
+        size={480}
         closable={true}
         closeIcon={
           <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]">
