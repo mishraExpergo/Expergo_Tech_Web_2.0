@@ -22,6 +22,6 @@ export default defineCliConfig({
     ? { studioHost: process.env.SANITY_STUDIO_HOSTNAME }
     : {}),
   ...(process.env.SANITY_STUDIO_APP_ID
-    ? { deployment: { appId: process.env.SANITY_STUDIO_APP_ID } }
+    ? { deployment: { appId: process.env.SANITY_STUDIO_APP_ID ,autoUpdates: true  } }
     : {}),
 })

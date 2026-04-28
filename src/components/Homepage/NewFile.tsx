@@ -237,6 +237,7 @@ function DelinquencyTrend({ assemble }: { assemble: AssembleMotion }) {
                 itemStyle={{ fontSize: 11, color: MUTED }}
               />
               {STACK_LAYERS.map(({ key, fill, stroke }) => (
+                // closure
                 <Area
                   key={key}
                   type="linear"
@@ -544,7 +545,7 @@ export default function NewFile() {
     { title: "Delinquency Trends", Comp: DelinquencyTrend },
     { title: "Risk Concentration", Comp: RiskConcentration },
     { title: "External Internal Risk", Comp: ExternalInternalRisk },
-    { title: "Trigger Clouser Time", Comp: TriggerCloserTime },
+    { title: "Trigger Closure Time", Comp: TriggerCloserTime },
   ] as const;
 
   useEffect(() => {
