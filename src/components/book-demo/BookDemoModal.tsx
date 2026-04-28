@@ -38,6 +38,8 @@ const USE_CASE_OPTIONS = [
   "Compliance & inspection readiness",
 ] as const;
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 type FormState = {
   fullName: string;
   workEmail: string;
@@ -128,21 +130,24 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     }
   }, [open]);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const validate = useCallback(() => {
+    const nextErrors: FormErrors = {};
 
-  const canSubmit = useCallback(
-    () =>
-      Boolean(
-        form.fullName.trim() &&
-           emailRegex.test(form.workEmail) &&
-          form.companyName.trim() &&
-          form.phone.trim() &&
-          form.companySize &&
-          form.industry &&
-          form.interest
-      ),
-    [form]
-  );
+    if (!form.fullName.trim()) nextErrors.fullName = "Full name is required.";
+    if (!form.workEmail.trim()) {
+      nextErrors.workEmail = "Work email is required.";
+    } else if (!EMAIL_REGEX.test(form.workEmail)) {
+      nextErrors.workEmail = "Enter a valid work email.";
+    }
+    if (!form.companyName.trim()) nextErrors.companyName = "Company name is required.";
+    if (!form.phone.trim()) nextErrors.phone = "Phone number is required.";
+    if (!form.companySize) nextErrors.companySize = "Company size is required.";
+    if (!form.industry) nextErrors.industry = "Industry is required.";
+    if (!form.interest) nextErrors.interest = "Please select a use case.";
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  }, [form]);
 
   const update = (k: keyof FormState, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
@@ -178,7 +183,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [copy.source, form, submitting]);
+  }, [copy.source, form, submitting, validate]);
 
   return (
     <ConfigProvider
