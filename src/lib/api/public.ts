@@ -36,17 +36,46 @@ let recaptchaScriptPromise: Promise<void> | null = null;
 
 function getApiUrl(path: string) {
   const origin = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "");
+
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return path;
+    }
+  }
+
   return origin ? `${origin}${path}` : path;
 }
 
 async function postJson(path: string, payload: unknown) {
-  const response = await fetch(getApiUrl(path), {
+  const requestInit: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
-  });
+  };
+  const configuredUrl = getApiUrl(path);
+  let response: Response;
+
+  try {
+    response = await fetch(configuredUrl, requestInit);
+  } catch {
+    if (configuredUrl === path) {
+      throw new Error(
+        "Unable to submit the form right now. Please check your connection and try again."
+      );
+    }
+
+    // If configured absolute origin is unreachable from this environment, fallback to same-origin API path.
+    try {
+      response = await fetch(path, requestInit);
+    } catch {
+      throw new Error(
+        "Unable to submit the form right now. Please check your connection and try again."
+      );
+    }
+  }
 
   const data = (await response.json().catch(() => ({}))) as ApiResponse;
 

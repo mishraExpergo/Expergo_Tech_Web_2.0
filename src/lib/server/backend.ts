@@ -20,7 +20,7 @@ export const bookDemoInputSchema = z.object({
   fullName: z.string().trim().min(2).max(120),
   workEmail: z.string().trim().email().max(254).toLowerCase(),
   companyName: z.string().trim().min(2).max(160),
-  phone: z.string().trim().min(6).max(40),
+  phone: z.string().trim().min(7).max(20),
   companySize: z.string().trim().max(80).optional(),
   country: z.string().trim().max(80).optional(),
   industry: z.string().trim().min(1).max(80),
@@ -29,6 +29,17 @@ export const bookDemoInputSchema = z.object({
   source: sourceSchema,
   recaptchaToken: z.string().optional(),
 }).superRefine((input, ctx) => {
+  const hasIntlPhone = /^\+\d{7,15}$/.test(input.phone);
+  const hasLocalPhone = /^\d{7,15}$/.test(input.phone);
+
+  if (!hasIntlPhone && !hasLocalPhone) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["phone"],
+      message: "Enter a valid phone number (7 to 15 digits).",
+    });
+  }
+
   if (!input.country && !input.companySize) {
     ctx.addIssue({
       code: "custom",
@@ -37,12 +48,17 @@ export const bookDemoInputSchema = z.object({
     });
   }
 }).transform((input) => {
-  const country = input.country || input.companySize || "Not specified";
+  const country = (input.country || "").trim();
+  const isCountryCallingCode = /^\+\d{1,4}$/.test(country);
+  const isLocalPhone = /^\d{7,15}$/.test(input.phone);
+  const normalizedPhone =
+    isCountryCallingCode && isLocalPhone ? `${country}${input.phone}` : input.phone;
 
   return {
     ...input,
+    phone: normalizedPhone,
     companySize: input.companySize || country,
-    country,
+    country: country || "Not specified",
     projectDetails: input.projectDetails || "",
   };
 });

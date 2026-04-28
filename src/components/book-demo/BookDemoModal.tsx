@@ -38,12 +38,21 @@ const USE_CASE_OPTIONS = [
   "Compliance & inspection readiness",
 ] as const;
 
+const COUNTRY_CODES = [
+  { code: "+91", label: "IN (+91)" },
+  { code: "+1", label: "US (+1)" },
+  { code: "+44", label: "UK (+44)" },
+  { code: "+61", label: "AU (+61)" },
+  { code: "+971", label: "UAE (+971)" },
+] as const;
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type FormState = {
   fullName: string;
   workEmail: string;
   companyName: string;
+  countryCode: string;
   phone: string;
   companySize: string;
   industry: string;
@@ -54,6 +63,7 @@ const initialForm: FormState = {
   fullName: "",
   workEmail: "",
   companyName: "",
+  countryCode: "+91",
   phone: "",
   companySize: "",
   industry: "",
@@ -140,7 +150,13 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
       nextErrors.workEmail = "Enter a valid work email.";
     }
     if (!form.companyName.trim()) nextErrors.companyName = "Company name is required.";
-    if (!form.phone.trim()) nextErrors.phone = "Phone number is required.";
+    if (!form.phone.trim()) {
+      nextErrors.phone = "Phone number is required.";
+    } else if (!/^\d+$/.test(form.phone)) {
+      nextErrors.phone = "Phone number can contain digits only.";
+    } else if (form.phone.length < 7 || form.phone.length > 15) {
+      nextErrors.phone = "Enter a valid phone number (7 to 15 digits).";
+    }
     if (!form.companySize) nextErrors.companySize = "Company size is required.";
     if (!form.industry) nextErrors.industry = "Industry is required.";
     if (!form.interest) nextErrors.interest = "Please select a use case.";
@@ -166,9 +182,9 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
         fullName: form.fullName,
         workEmail: form.workEmail,
         companyName: form.companyName,
-        phone: form.phone,
+        phone: `${form.countryCode}${form.phone}`,
         companySize: form.companySize,
-        country: "",
+        country: form.countryCode,
         industry: form.industry,
         projectDetails: "",
         useCase: form.interest,
@@ -280,13 +296,41 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
               {/* Phone No. */}
               <div>
                 <label className={labelClass}>Phone No.</label>
-                <input
-                  className={`${inputClass} ${errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
-                  placeholder="+1 555 000 000"
-                  value={form.phone}
-                  onChange={(e) => update("phone", e.target.value)}
-                />
-                {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
+                <div className="flex gap-2">
+                  <div className="relative w-[130px]">
+                    <select
+                      className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                      value={form.countryCode}
+                      onChange={(e) => update("countryCode", e.target.value)}
+                    >
+                      {COUNTRY_CODES.map((country) => (
+                        <option key={country.code} value={country.code}>
+                          {country.label}
+                        </option>
+                      ))}
+                    </select>
+                    <SelectChevron />
+                  </div>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={15}
+                    className={`${inputClass} ${errors.phone ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                    placeholder="9876543210"
+                    value={form.phone}
+                    onChange={(e) =>
+                      update("phone", e.target.value.replace(/\D/g, "").slice(0, 15))
+                    }
+                    aria-invalid={Boolean(errors.phone)}
+                    aria-describedby={errors.phone ? "book-demo-phone-error" : undefined}
+                  />
+                </div>
+                {errors.phone && (
+                  <p id="book-demo-phone-error" className="mt-1 text-xs text-red-500">
+                    {errors.phone}
+                  </p>
+                )}
               </div>
 
               {/* Company Size */}
