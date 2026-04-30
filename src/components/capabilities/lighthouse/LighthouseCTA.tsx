@@ -35,7 +35,7 @@ export default function LighthouseCTA() {
           className="flex flex-wrap justify-center items-center gap-4"
         >
           <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
-          Request Expergo Brief
+          Request Executive Brief
           </BookDemoButton>
         </motion.div>
         

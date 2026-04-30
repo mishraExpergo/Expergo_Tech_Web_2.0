@@ -264,3 +264,4 @@ export function buildOpenGraphMetadata(ogImageUrl: string | null): Pick<Metadata
     twitter: { card: 'summary_large_image', images: [ogImageUrl] },
   }
 }
+
