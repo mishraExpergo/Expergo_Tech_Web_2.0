@@ -3,9 +3,9 @@ import { defineField, defineType } from 'sanity'
 import { getContentWorkflowStatusTitle } from '../constants/contentWorkflow'
 import { CONTENT_WORKFLOW_FIELDS } from './workflowFields'
 
-export const post = defineType({
-  name: 'post',
-  title: 'Post',
+export const blogPost = defineType({
+  name: 'blogPost',
+  title: 'Blog post',
   type: 'document',
   fields: [
     ...CONTENT_WORKFLOW_FIELDS,
@@ -33,14 +33,12 @@ export const post = defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 3,
-      description: 'Short subhead under the hero title on the insight page.',
     }),
     defineField({
       name: 'executiveSummary',
       title: 'Executive summary',
       type: 'array',
       of: [{ type: 'block' }],
-      description: 'Optional intro copy above the main article (separate from body).',
     }),
     defineField({
       name: 'pdf',

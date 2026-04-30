@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { OutcomesPageContent } from "@/components/outcomes/OutcomesPageContent";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeOutcomesPage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("outcomes");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("outcomes", { preview });
   const { meta } = mergeOutcomesPage(raw);
   return {
     title: meta.title,
@@ -18,7 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function OutcomesPage() {
-  const raw = await getSitePageByRoute("outcomes");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("outcomes", { preview });
   const merged = mergeOutcomesPage(raw);
 
   return (

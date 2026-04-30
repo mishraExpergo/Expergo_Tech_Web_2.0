@@ -10,13 +10,15 @@ import RegulatoryRigourSection from "@/components/capabilities/regulas/Regulator
 import InspectionReadySection from "@/components/capabilities/regulas/InspectionReadySection";
 import CallToActionSection from "@/components/capabilities/regulas/CallToActionSection";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeRegulusPage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("capabilities-regulas");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-regulas", { preview });
   const { meta } = mergeRegulusPage(raw);
   return {
     title: meta.title,
@@ -26,7 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RegulusPage() {
-  const raw = await getSitePageByRoute("capabilities-regulas");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-regulas", { preview });
   const { hero } = mergeRegulusPage(raw);
 
   return (
