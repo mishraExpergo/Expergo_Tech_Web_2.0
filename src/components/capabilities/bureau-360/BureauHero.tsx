@@ -94,7 +94,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
             {hero.subtitle}
           </motion.p>
 
-          {hero.tags.length ? (
+          {/* {hero.tags.length ? (
             <div className="mb-8 flex max-w-xl flex-wrap gap-2">
               {hero.tags.map((t) => (
                 <span
@@ -105,7 +105,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
                 </span>
               ))}
             </div>
-          ) : null}
+          ) : null} */}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -138,7 +138,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
                 delay: i * 0.5,
                 ease: "easeInOut",
               }}
-              className="absolute rounded-full border border-cyan-400/30"
+              className="absolute rounded-full border border-cyan-400/30 lg:inset-0 lg:m-auto"
               style={{
                 width: `${(i + 1) * 20}%`,
                 height: `${(i + 1) * 20}%`,
@@ -150,14 +150,14 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
          <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="hidden lg:block absolute rounded-full border-2 border-dashed border-cyan-200"
+          className="hidden lg:block absolute inset-0 m-auto rounded-full border-2 border-dashed border-cyan-200"
           style={{ width: '85%', height: '85%' }}
         />
           
           <motion.div 
             animate={{ rotate: -360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="hidden lg:block absolute rounded-full border border-cyan-300/40"
+            className="hidden lg:block absolute inset-0 m-auto rounded-full border border-cyan-300/40"
             style={{ width: '95%', height: '95%' }}
           />
 
@@ -209,8 +209,8 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
                     scale: { duration: 0.3 } 
                   }}
                className="relative order-2 lg:absolute
-                lg:top-[35%] lg:-right-24
-                w-[260px] max-w-[85vw]
+                lg:top-[30%] lg:-right-10
+                w-[220px] max-w-[85vw]
                 bg-white rounded-xl shadow-lg px-4 py-2 flex items-center gap-3 z-30">
                 
                   <span className="text-4xl font-bold text-gray-200 uppercase" style={{ fontFamily: "Arial, sans-serif" }}>2</span>
@@ -218,7 +218,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
                 </motion.div>
 
                  {/* Center Shield Container */}
-          <div className="relative order-3 z-10 my-2 lg:my-0 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110">
+          <div className="relative order-3  z-10 my-2 lg:my-0 rounded-full p-8 border border-cyan-100 flex items-center justify-center transition-all duration-500 bg-white shadow-[0_0_60px_rgba(1,174,228,0.3)] shadow-[#01AEE4]/40 scale-110">
              <Shield className="w-28 h-28 text-cyan-500" strokeWidth={1.5} />
           </div>
 
@@ -264,8 +264,8 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
                     scale: { duration: 0.3 } 
                   }}
                className="relative order-5 mb-6 lg:absolute
-              lg:bottom-[26%] lg:-right-20
-              w-[260px] max-w-[85vw]
+              lg:bottom-[28%] lg:-right-10
+              w-[210px] max-w-[85vw]
               bg-white rounded-xl shadow-lg px-4 py-2 flex items-center gap-3 z-30">
                   <span className="text-4xl font-bold text-gray-200 uppercase" style={{ fontFamily: "Arial, sans-serif" }}>4</span>
                   <span className="text-[#01AEE4] font-semibold text-sm leading-snug">Cross-lender <span className="border-b-[3px] border-[#01AEE4] pb-1">exposure & leverage</span></span>

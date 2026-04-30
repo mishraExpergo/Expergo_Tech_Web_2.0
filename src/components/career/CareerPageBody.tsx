@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -87,6 +88,30 @@ const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export default function CareerPageBody() {
   const reduceMotion = useReducedMotion();
+  const [processHoveredIndex, setProcessHoveredIndex] = useState<number | null>(null);
+  const [processSelectedIndex, setProcessSelectedIndex] = useState(0);
+
+  const processActiveIndex =
+    processHoveredIndex !== null ? processHoveredIndex : processSelectedIndex;
+
+  const processProgress =
+    processSteps.length <= 1 ? 1 : processActiveIndex / (processSteps.length - 1);
+
+  const onProcessKeyDown = useCallback((e: React.KeyboardEvent, idx: number) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      setProcessSelectedIndex(Math.min(processSteps.length - 1, idx + 1));
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setProcessSelectedIndex(Math.max(0, idx - 1));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setProcessSelectedIndex(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setProcessSelectedIndex(processSteps.length - 1);
+    }
+  }, []);
 
   const fadeUp = reduceMotion
     ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
@@ -129,24 +154,30 @@ export default function CareerPageBody() {
     ? {}
     : {
         whileHover: {
-          y: -6,
-          transition: { type: "spring" as const, stiffness: 350, damping: 22 },
+          y: -8,
+          transition: { type: "spring" as const, stiffness: 380, damping: 24 },
         },
       };
+
+  const processCardInactive =
+    "border border-transparent bg-transparent shadow-none hover:border-brand-teal/25 hover:bg-white/60 hover:shadow-[0_12px_36px_-20px_rgba(15,23,42,0.12)]";
+
+  const processCardActive =
+    "border border-brand-teal/40 bg-[linear-gradient(165deg,rgba(22,178,195,0.14)_0%,rgba(255,255,255,0.92)_42%,rgba(241,248,250,0.95)_100%)] shadow-[0_20px_56px_-24px_rgba(22,178,195,0.42),inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-brand-teal/25";
 
   return (
     <motion.main
       initial={reduceMotion ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.45, ease: easeOut }}
-      className="bg-background pb-16 pt-8 sm:pb-20 sm:pt-12"
+      className="bg-background pb-12 pt-8 sm:pb-16 sm:pt-12"
     >
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         <motion.section
           initial="hidden"
           animate="visible"
           variants={staggerParent}
-          className="grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
+          className="grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12"
         >
           <motion.div variants={fadeUp} className="will-change-transform">
             <h1 className="mt-2 max-w-[528px] text-[38px] font-semibold leading-[1.2] tracking-[-0.03em] text-brand-footer sm:mt-3 sm:text-[46px] lg:[font-size:var(--text-site-display)] lg:leading-[1.21] lg:tracking-[-0.035em]">
@@ -192,7 +223,7 @@ export default function CareerPageBody() {
         </motion.section>
 
         <motion.section
-          className="mt-14 sm:mt-20"
+          className="mt-8 pb-8 sm:mt-10 sm:pb-10 lg:mt-12 lg:pb-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -203,22 +234,22 @@ export default function CareerPageBody() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mt-2 [font-size:var(--text-site-sub)] font-bold leading-[1.12] tracking-tight text-brand-footer"
+            className="md:mt-2 mt-6 [font-size:var(--text-site-sub)] font-bold leading-[1.12] tracking-tight text-brand-footer"
           >
             What we hold ourselves to.
           </motion.h2>
-          <motion.p variants={fadeUp} className="es-paragraph mt-2 max-w-[62ch] text-brand-muted">
+          <motion.p variants={fadeUp} className="md:es-paragraph text-md mt-2 max-w-[62ch] text-brand-muted">
             Six principles that shape how we build, how we hire, and how we make decisions every single day.
           </motion.p>
           <motion.div
             variants={staggerParent}
-            className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-3.5"
+            className="md:mt-6 mt-10 grid gap-3 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-3.5"
           >
-            {values.map((value) => (
+            {values.map((value) => (    
               <motion.article
                 key={value.title}
                 variants={fadeUp}
-                {...cardLift}
+                {...cardLift} 
                 className="group relative cursor-pointer overflow-hidden rounded-2xl border border-[#E1E7EF] bg-[linear-gradient(180deg,rgba(13,162,231,0.06)_0%,rgba(13,162,231,0.02)_100%)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-[4px] transition-[border-color,box-shadow] duration-300 hover:border-brand-blue/35 hover:shadow-[0_16px_48px_-16px_rgba(13,162,231,0.28)] sm:min-h-[148px] sm:px-5"
               >
                 <span
@@ -314,7 +345,7 @@ export default function CareerPageBody() {
 
         <motion.section
           id="hiring-process"
-          className="mt-14 sm:mt-16"
+          className="mt-14 sm:mt-16 py-10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
@@ -329,57 +360,197 @@ export default function CareerPageBody() {
           >
             Straight forward. <span className="text-brand-blue">No surprises</span>
           </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="mx-auto mt-3 max-w-[52ch] text-center text-sm text-brand-muted sm:text-[15px]"
+          >
+            Hover or tap a step to explore. Use arrow keys when a step is focused.
+          </motion.p>
+
           <motion.div
             variants={fadeUp}
-            className="relative mt-10 hidden items-start justify-between gap-3 lg:flex"
+            className="relative mt-8 overflow-hidden rounded-[28px] border border-brand-border/90 bg-[linear-gradient(165deg,rgba(13,162,231,0.06)_0%,rgba(22,178,195,0.08)_38%,rgba(248,250,252,0.97)_100%)] shadow-[0_24px_80px_-48px_rgba(22,178,195,0.55),inset_0_1px_0_rgba(255,255,255,0.85)] sm:mt-10"
           >
-            <div className="pointer-events-none absolute left-[10%] right-[10%] top-5 h-px bg-border" aria-hidden />
-            {processSteps.map((step, idx) => (
-              <motion.div
-                key={step.title}
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.07, duration: 0.4, ease: easeOut }}
-                {...processStepHover}
-                className="relative z-[1] w-[19%] cursor-default rounded-xl px-1 pb-2 pt-1 text-center transition-colors duration-300 hover:bg-brand-surface/80"
+            <span
+              className="pointer-events-none absolute -left-24 top-1/2 h-[min(420px,55vw)] w-[min(420px,55vw)] -translate-y-1/2 rounded-full bg-brand-teal/[0.09] blur-3xl"
+              aria-hidden
+            />
+            <span
+              className="pointer-events-none absolute -right-16 -top-28 h-72 w-72 rounded-full bg-brand-blue/[0.06] blur-3xl"
+              aria-hidden
+            />
+
+            <motion.ol
+              className="relative hidden list-none flex-row items-start justify-between gap-3 px-4 pb-10 pt-12 sm:px-6 lg:flex"
+              aria-label="Hiring process steps"
+            >
+              <li
+                className="pointer-events-none absolute inset-x-[9%] top-[calc(3rem+0.75rem+1.375rem-2.5px)] z-0 list-none sm:inset-x-[10%]"
+                aria-hidden
               >
-                <motion.div
-                  whileInView={reduceMotion ? undefined : { scale: [0.92, 1], transition: { duration: 0.35 } }}
-                  viewport={{ once: true }}
-                  whileHover={reduceMotion ? undefined : { scale: 1.08 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className="mx-auto flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-brand-teal text-xs font-bold tracking-[0.02em] text-white shadow-md shadow-brand-teal/25 ring-4 ring-transparent transition-shadow hover:shadow-lg hover:ring-brand-teal/15"
-                >
-                  {(idx + 1).toString().padStart(2, "0")}
-                </motion.div>
-                <p className="mx-auto mt-4 max-w-[19ch] text-sm font-semibold leading-[1.3] text-brand-footer">
-                  {step.title}
-                </p>
-                <p className="mx-auto mt-2 max-w-[24ch] text-sm leading-[1.55] text-brand-muted">{step.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-          <motion.div variants={fadeUp} className="mt-6 grid gap-3 sm:grid-cols-2 lg:hidden">
-            {processSteps.map((step, idx) => (
-              <motion.article
-                key={step.title}
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.05, duration: 0.38, ease: easeOut }}
-                {...cardLift}
-                className="cursor-pointer rounded-xl border border-brand-border bg-white p-4 transition-[border-color,box-shadow] duration-300 hover:border-brand-teal/35 hover:shadow-md"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-surface text-xs font-bold text-brand-teal">
-                    {(idx + 1).toString().padStart(2, "0")}
-                  </div>
-                  <p className="text-sm font-semibold text-brand-ink">{step.title}</p>
-                </div>
-                <p className="mt-2 text-xs leading-5 text-brand-muted">{step.description}</p>
-              </motion.article>
-            ))}
+                <span className="absolute inset-0 h-[5px] rounded-full bg-border/90 shadow-[inset_0_1px_2px_rgba(15,23,42,0.06)]" />
+                <motion.span
+                  className="absolute left-0 top-0 h-[5px] rounded-full bg-gradient-to-r from-brand-teal via-[#2dd4bf] to-brand-teal shadow-[0_0_24px_rgba(45,212,191,0.55),0_2px_12px_-2px_rgba(22,178,195,0.45)]"
+                  initial={false}
+                  animate={{
+                    width: `${processProgress * 100}%`,
+                  }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.48,
+                    ease: easeOut,
+                  }}
+                />
+              </li>
+              {processSteps.map((step, idx) => {
+                const isActive = processActiveIndex === idx;
+                return (
+                  <motion.li
+                    key={step.title}
+                    initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.07, duration: 0.4, ease: easeOut }}
+                    className="relative z-[1] w-[19%] list-none text-center"
+                  >
+                    <motion.button
+                      type="button"
+                      {...processStepHover}
+                      onMouseEnter={() => setProcessHoveredIndex(idx)}
+                      onMouseLeave={() => setProcessHoveredIndex(null)}
+                      onFocus={() => setProcessHoveredIndex(idx)}
+                      onBlur={() => setProcessHoveredIndex(null)}
+                      onClick={() => setProcessSelectedIndex(idx)}
+                      onKeyDown={(e) => onProcessKeyDown(e, idx)}
+                      aria-current={isActive ? "step" : undefined}
+                      aria-label={`Step ${idx + 1} of ${processSteps.length}: ${step.title}`}
+                      className="group/step relative w-full px-2 pt-3 text-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/55 focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(248,250,252,0.97)]"
+                    >
+                      <motion.span
+                        whileInView={reduceMotion ? undefined : { scale: [0.92, 1], transition: { duration: 0.35 } }}
+                        viewport={{ once: true }}
+                        animate={
+                          reduceMotion ? {} : isActive ? { scale: 1.07, y: -1 } : { scale: 1, y: 0 }
+                        }
+                        transition={{ type: "spring", stiffness: 420, damping: 22 }}
+                        whileHover={reduceMotion ? undefined : { scale: isActive ? 1.1 : 1.07 }}
+                        className={`relative mx-auto flex h-11 w-11 items-center justify-center rounded-full text-[13px] font-bold tracking-[0.02em] text-white transition-[filter,box-shadow] duration-300 ${
+                          isActive
+                            ? "bg-gradient-to-br from-[#2dd4bf] via-brand-teal to-[#0e9aa8] shadow-[0_12px_36px_-8px_rgba(45,212,191,0.55),0_4px_14px_-4px_rgba(22,178,195,0.45)] ring-[3px] ring-white ring-offset-2 ring-offset-[#e8f8fa]"
+                            : "bg-gradient-to-br from-brand-teal/90 to-[#12929e] shadow-md shadow-brand-teal/20 ring-2 ring-white/40 hover:shadow-lg hover:ring-brand-teal/25"
+                        }`}
+                      >
+                        {(idx + 1).toString().padStart(2, "0")}
+                      </motion.span>
+                      <div
+                        className={`relative mt-4 overflow-hidden rounded-2xl px-2 pb-4 pt-3 transition-all duration-300 ${
+                          isActive ? processCardActive : processCardInactive
+                        }`}
+                      >
+                        {!isActive ? (
+                          <span
+                            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/step:opacity-100"
+                            aria-hidden
+                          >
+                            <span className="absolute -right-8 top-0 h-28 w-28 rounded-full bg-brand-teal/[0.07] blur-2xl" />
+                          </span>
+                        ) : (
+                          <span
+                            className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-brand-teal/[0.18] blur-2xl"
+                            aria-hidden
+                          />
+                        )}
+                        <p
+                          className={`relative mx-auto max-w-[19ch] text-sm leading-[1.3] transition-colors duration-300 ${
+                            isActive
+                              ? "font-bold text-brand-footer"
+                              : "font-semibold text-brand-footer/85 group-hover/step:text-brand-footer"
+                          }`}
+                        >
+                          {step.title}
+                        </p>
+                        <p
+                          className={`relative mx-auto mt-2 max-w-[24ch] text-sm leading-[1.55] transition-colors duration-300 ${
+                            isActive ? "text-brand-ink/90" : "text-brand-muted/80 group-hover/step:text-brand-muted"
+                          }`}
+                        >
+                          {step.description}
+                        </p>
+                      </div>
+                    </motion.button>
+                  </motion.li>
+                );
+              })}
+            </motion.ol>
+
+            <motion.ul
+              className="relative grid list-none gap-3 px-4 pb-8 pt-2 sm:grid-cols-2 sm:gap-4 sm:px-6 lg:hidden"
+              aria-label="Hiring process steps"
+            >
+              {processSteps.map((step, idx) => {
+                const isActive = processActiveIndex === idx;
+                return (
+                  <motion.li
+                    key={step.title}
+                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.05, duration: 0.38, ease: easeOut }}
+                    className="list-none"
+                  >
+                    <motion.button
+                      type="button"
+                      {...cardLift}
+                      onClick={() => setProcessSelectedIndex(idx)}
+                      onKeyDown={(e) => onProcessKeyDown(e, idx)}
+                      aria-current={isActive ? "step" : undefined}
+                      aria-label={`Step ${idx + 1} of ${processSteps.length}: ${step.title}`}
+                      className={`group/m relative w-full cursor-pointer overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/55 focus-visible:ring-offset-2 ${
+                        isActive ? processCardActive : `${processCardInactive} border-brand-border/90 bg-white/90`
+                      }`}
+                    >
+                      {isActive ? (
+                        <span
+                          className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_100%_0%,rgba(45,212,191,0.12),transparent_45%)]"
+                          aria-hidden
+                        />
+                      ) : null}
+                      <div className="relative flex items-start gap-3">
+                        <div
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white shadow-md transition-all duration-300 ${
+                            isActive
+                              ? "bg-gradient-to-br from-[#2dd4bf] via-brand-teal to-[#0e9aa8] ring-2 ring-white/80 ring-offset-2 ring-offset-transparent shadow-brand-teal/35"
+                              : "bg-gradient-to-br from-brand-teal/88 to-[#12929e] ring-1 ring-white/50"
+                          }`}
+                        >
+                          {(idx + 1).toString().padStart(2, "0")}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p
+                            className={`text-sm font-semibold leading-snug transition-colors ${
+                              isActive ? "text-brand-footer" : "text-brand-ink/90 group-hover/m:text-brand-footer"
+                            }`}
+                          >
+                            {step.title}
+                          </p>
+                          <p
+                            className={`mt-2 text-xs leading-5 transition-colors ${
+                              isActive ? "text-brand-ink/85" : "text-brand-muted/85 group-hover/m:text-brand-muted"
+                            }`}
+                          >
+                            {step.description}
+                          </p>
+                          {isActive ? (
+                            <span className="mt-3 inline-flex rounded-full bg-brand-teal/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-brand-teal">
+                              Current step
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+                    </motion.button>
+                  </motion.li>
+                );
+              })}
+            </motion.ul>
           </motion.div>
         </motion.section>
 

@@ -64,7 +64,7 @@ export default function DataPipelineSection() {
         </div>
 
         {/* Right Step List */}
-        <div className="flex-1 w-full pl-0 md:pl-10 flex flex-col gap-6">
+        <div className="flex w-full flex-1 flex-col gap-4 md:gap-8 md:pl-10">
            {steps.map((step, idx) => (
               <motion.div
                 key={step.id}
@@ -72,28 +72,33 @@ export default function DataPipelineSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.1, type: "spring", stiffness: 60 }}
-               className={`relative pl-12 md:pl-8 p-4 md:p-0 rounded-xl border border-gray-200 md:border-none ${idx !== steps.length - 1 ? 'mb-4 md:mb-0 pb-0 md:pb-8' : ''}`}
+               className="relative rounded-xl border-2 border-[#01AEE4]/35 bg-white p-4 shadow-[0_2px_14px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow,background-color] duration-200 hover:border-[#01AEE4] hover:bg-[#F6FBFF] hover:shadow-[0_14px_40px_-12px_rgba(1,174,228,0.28)] md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:shadow-none"
               >
                 <Image
                   src="/line.svg"
-                  alt="Data Pipeline"
+                  alt=""
                   width={500}
                   height={500}
-                  className="hidden md:block absolute"
+                  className="pointer-events-none absolute hidden md:block"
+                  aria-hidden
                 />
-                
-                 <div className="absolute left-6 md:left-2 top-1 text-5xl font-bold text-gray-300 leading-none -ml-4 z-0 pointer-events-none">
-                   {step.id}
-                 </div>
-                 
-                 <div className="relative z-10 flex flex-col pt-1">
-                   <h3 className="text-[14px] font-semibold mb-1 inline-block w-fit tracking-wide text-[#01AEE4]">
-                     {step.title}
-                   </h3>
-                   <p className="text-gray-500 font-medium text-sm">
-                     {step.desc}
-                   </p>
-                 </div>
+
+                <div className="relative z-10 flex items-start gap-3 sm:gap-4 md:gap-5">
+                  <span
+                    className="select-none text-4xl font-bold leading-none tabular-nums text-gray-300 sm:text-5xl md:text-6xl"
+                    aria-hidden
+                  >
+                    {step.id}
+                  </span>
+                  <div className="min-w-0 flex-1 flex flex-col pt-0.5">
+                    <h3 className="mb-1 inline-block w-fit text-[14px] font-semibold tracking-wide text-[#01AEE4]">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm font-medium leading-relaxed text-gray-500">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
                  
                  {/* Connection horizontal line */}
                  {/* <div className="absolute -left-12 top-6 w-16 h-px from-transparent to-cyan-100 pointer-events-none" /> */}

@@ -142,8 +142,8 @@ const HeatmapSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 bg-card">
-      <div className="container max-w-[1200px] mx-auto md:my-0 my-[-70px] px-6 md:px-10">
+    <section ref={sectionRef} className="bg-card pt-20 pb-8 md:py-28">
+      <div className="container mx-auto max-w-[1200px] px-6 md:my-0 md:px-10 max-md:my-[-70px]">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -207,13 +207,17 @@ const HeatmapSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Heatmap */}
           <div className="lg:col-span-2">
-            <div className="border border-border rounded-xl p-6 bg-background">
+            <div className="border border-border rounded-xl bg-background px-4 py-6 sm:p-6">
               {/* Legend */}
-              <div className="flex gap-4 mb-6">
+              <div className="mb-6 flex flex-nowrap items-center justify-between gap-0.5 sm:gap-2 md:justify-start md:gap-4">
                 {levelLabels.map((label, i) => (
-                  <div key={label} className="flex items-center gap-1.5">
-                    <div className={`w-3 h-3 rounded-sm ${levelColors[i]}`} />
-                    <span className="es-caption">{label}</span>
+                  <div key={label} className="flex shrink-0 items-center gap-0.5 sm:gap-1.5">
+                    <div
+                      className={`h-2.5 w-2.5 shrink-0 rounded-sm sm:h-3 sm:w-3 ${levelColors[i]}`}
+                    />
+                    <span className="whitespace-nowrap text-[9px] leading-none text-muted-foreground sm:text-[11px] md:text-xs md:leading-snug lg:text-sm">
+                      {label}
+                    </span>
                   </div>
                 ))}
               </div>

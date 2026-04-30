@@ -155,9 +155,8 @@ export function Hero({ copy }: { copy: MergedHomeHero }) {
           <div className="absolute bottom-[38%] right-[32%] w-2.5 h-2.5 rounded-full bg-[#F59E0B] shadow-[0_0_12px_rgba(245,158,11,0.9)] z-10" />
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[52px] h-[52px] lg:w-[68px] lg:h-[68px] rounded-full border-[8px] lg:border-[10px] border-white bg-[#0f545a] shadow-[0_0_30px_rgba(255,255,255,0.7)] z-20" />
-            </>
-          )}
         </div>
+
 
       </div>
     </section>

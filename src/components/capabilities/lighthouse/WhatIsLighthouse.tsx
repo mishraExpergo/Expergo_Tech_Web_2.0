@@ -7,12 +7,12 @@ export default function WhatIsLighthouse() {
     <section className="py-24 bg-white relative">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 md:my-0 my-[-90px]">
         
-        <div className="text-center mb-16  ">
+        <div className="mb-5 text-center md:mb-10">
           <motion.div
              initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
-             className="mb-1"
+             className="mb-2 md:mb-1"
           >
              <span className="text-[16px] uppercase px-3 py-1 tracking-widest text-blue-500 ">
                 OVERVIEW
@@ -23,9 +23,10 @@ export default function WhatIsLighthouse() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[36px] mb-6 font-bold text-gray-900"
+            className="mb-0 text-[30px] font-bold leading-[1.1] tracking-tight text-gray-900 md:text-[36px] md:leading-snug"
           >
-            What is <span className="text-[#15B5C1]">Lighthouse?</span>
+            What is{" "}
+            <span className="text-[#15B5C1]">Lighthouse?</span>
           </motion.h2>
         </div>
 
@@ -38,7 +39,7 @@ export default function WhatIsLighthouse() {
              transition={{ duration: 0.5 }}
              className="flex-1 max-w-xl"
            >
-              <p className="md:pt-0 pt-6 text-gray-600 md:text-[20px] text-[16px] leading-relaxed font-medium">
+              <p className="pt-1 text-gray-600 text-[16px] font-medium leading-relaxed md:pt-0 md:text-[20px]">
               EarlySafe Lighthouse is a risk control dashboard designed for credit portfolios.It provides structured visibility into how risk builds, moves across delinquency buckets, and is handled through operational actions.By bringing together payment behaviour, bureau signals, and operational data, Lighthouse enables institutions 
               to monitor triggers, track ownership, and measure resolution in one unified view. It transforms portfolio monitoring from static reporting into a controlled, accountable process. 
               </p>

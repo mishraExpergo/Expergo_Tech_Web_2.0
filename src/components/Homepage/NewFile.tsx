@@ -156,23 +156,58 @@ function InsightShell({
   right,
   lineColor,
   children,
+  mobileNumberedListBelow = true,
 }: {
   assemble: AssembleMotion;
   left: [string, string];
   right: [string, string];
   lineColor?: string;
   children: React.ReactNode;
+  /** Below `md`: hide line/dot callouts; show numbered list under the chart instead. */
+  mobileNumberedListBelow?: boolean;
 }) {
+  const numberedLines = [left[0], left[1], right[0], right[1]];
+  const asideBase =
+    "flex flex-col justify-between gap-6 md:order-none md:min-h-[14rem] md:gap-8 md:py-1 lg:min-h-[16rem] lg:gap-10 opacity-90";
+  const asideMobileHidden = mobileNumberedListBelow ? "hidden md:flex" : "";
+
   return (
-    <div className="mx-auto flex h-full min-h-0 w-full max-w-[1060px] flex-col px-6 py-1 md:px-12 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-y-0 lg:gap-x-0">
-      <aside className="order-2 flex flex-col justify-between gap-6 md:order-none md:min-h-[14rem] md:gap-8 md:py-1 lg:min-h-[16rem] lg:gap-10 opacity-90">
+    <div className="mx-auto flex h-full min-h-0 w-full min-w-0 max-w-[1060px] flex-col px-6 py-1 max-md:overflow-x-hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-y-0 md:px-12 lg:gap-x-0">
+      <aside className={`order-2 ${asideBase} ${asideMobileHidden}`}>
         <DataPointCallout side="left" text={left[0]} assemble={assemble} color={lineColor} />
         <DataPointCallout side="left" text={left[1]} assemble={assemble} color={lineColor} />
       </aside>
-      <main className="relative z-[1] order-1 min-w-0 md:order-none mx-2 my-8 md:mx-0 md:my-0 scale-95 md:scale-100 flex items-center justify-center">
+      <main
+        className={`relative z-[1] order-1 min-w-0 md:order-none mx-2 my-8 md:mx-0 md:my-0 scale-95 md:scale-100 flex ${
+          mobileNumberedListBelow
+            ? "w-full max-md:flex-col max-md:items-stretch max-md:justify-start max-md:mx-0 md:items-center md:justify-center"
+            : "items-center justify-center"
+        }`}
+      >
         {children}
+        {mobileNumberedListBelow ? (
+          <ol className="mt-5 flex w-full flex-col gap-2.5 text-left md:hidden">
+            {numberedLines.map((line, idx) => (
+              <li
+                key={idx}
+                className="flex gap-3 rounded-xl border border-[#E4E7EC] bg-white px-3 py-3 shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow,transform] hover:border-[#15B5C1]/50 hover:shadow-[0_6px_20px_-4px_rgba(21,181,193,0.18)] active:scale-[0.99]"
+              >
+                <span
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[13px] font-bold tabular-nums text-white shadow-sm sm:h-9 sm:w-9 sm:text-[14px]"
+                  style={{ backgroundColor: BRAND }}
+                  aria-hidden
+                >
+                  {idx + 1}
+                </span>
+                <span className="min-w-0 flex-1 pt-0.5 text-[11px] font-semibold leading-snug tracking-tight text-[#101828] sm:text-[12px]">
+                  {line}
+                </span>
+              </li>
+            ))}
+          </ol>
+        ) : null}
       </main>
-      <aside className="order-3 flex flex-col justify-between gap-6 md:order-none md:min-h-[14rem] md:gap-8 md:py-1 lg:min-h-[16rem] lg:gap-10 opacity-90">
+      <aside className={`order-3 ${asideBase} ${asideMobileHidden}`}>
         <DataPointCallout side="right" text={right[0]} assemble={assemble} color={lineColor} />
         <DataPointCallout side="right" text={right[1]} assemble={assemble} color={lineColor} />
       </aside>
@@ -202,7 +237,7 @@ function DelinquencyTrend({ assemble }: { assemble: AssembleMotion }) {
       ]}
     >
       <div
-        className="w-[calc(100vw-4rem)] md:w-[500px] xl:w-[520px] rounded-[20px] bg-white p-5 sm:p-6 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] relative"
+        className="relative w-full min-w-0 max-w-full overflow-x-hidden rounded-[20px] bg-white p-5 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:p-6 md:w-[500px] md:max-w-none md:overflow-visible xl:w-[520px]"
       >
         <div className="absolute top-6 left-6 flex items-center gap-2">
           <div className="h-2 w-2 rounded-full border border-[#A5C7FF]" />
@@ -291,7 +326,7 @@ function RiskConcentration({ assemble }: { assemble: AssembleMotion }) {
       ]}
     >
       <div
-        className="w-[calc(100vw-4rem)] md:w-[500px] xl:w-[520px] rounded-2xl bg-white p-5 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:p-7"
+        className="w-full min-w-0 max-w-full overflow-x-hidden rounded-2xl bg-white p-5 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:p-7 md:w-[500px] md:max-w-none md:overflow-visible xl:w-[520px]"
       >
         <p className="mb-2 text-[11px] font-bold text-gray-800">Concentration%</p>
         <div className="h-[220px] w-full sm:h-[260px]">
@@ -350,7 +385,7 @@ function ExternalInternalRisk({ assemble }: { assemble: AssembleMotion }) {
       right={["High-risk segments clearly identified.", "Enables targeted risk intervention."]}
     >
       <div
-        className="w-[calc(100vw-4rem)] md:w-[480px] xl:w-[500px] rounded-2xl bg-white p-6 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:p-8"
+        className="w-full min-w-0 max-w-full overflow-x-hidden rounded-2xl bg-white p-6 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:p-8 md:w-[480px] md:max-w-none md:overflow-visible xl:w-[500px]"
       >
         <div className="mx-auto flex w-full flex-col items-center gap-3">
           <div className="flex w-full items-stretch justify-center gap-3 sm:gap-4">
@@ -480,7 +515,7 @@ function TriggerCloserTime({ assemble }: { assemble: AssembleMotion }) {
       ]}
     >
       <div
-        className="w-[calc(100vw-4rem)] md:w-[500px] xl:w-[540px] rounded-2xl bg-white px-5 pb-12 pt-6 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:px-8"
+        className="w-full min-w-0 max-w-full overflow-x-hidden rounded-2xl bg-white px-4 pb-12 pt-6 shadow-[0px_0px_50px_rgba(75,198,211,0.25)] sm:px-8 md:w-[500px] md:max-w-none md:overflow-visible xl:w-[540px]"
       >
         <p className="text-left text-[12px] font-bold text-gray-900 mb-6">Risk Categories</p>
         
@@ -580,7 +615,7 @@ export default function NewFile() {
       </div>
 
       <div className="relative mx-auto flex w-full max-w-[1200px] flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="w-full rounded-[24px] border-[1.5px] border-[#B6D1FF] bg-white pt-8 pb-10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative z-10 overflow-visible min-h-[560px]">
+        <div className="relative z-10 min-h-[560px] w-full overflow-x-clip rounded-[24px] border-[1.5px] border-[#B6D1FF] bg-white pb-10 pt-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] md:overflow-visible">
           <h2 className="z-20 mb-8 text-center md:text-3xl text-2xl font-extrabold text-gray-900 transition-all">
             {tabs[activeTab].title}
           </h2>
@@ -593,7 +628,7 @@ export default function NewFile() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full"
+                className="w-full min-w-0"
               >
                 <Active assemble={assemble} />
               </motion.div>

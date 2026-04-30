@@ -7,6 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
 import { PlatformSizedChart } from "./PlatformSizedChart";
+import { useIsBelowLg } from "@/hooks/useIsBelowLg";
 
 const data = [
   { name: "Jan", risk: 85, threshold: 85, baseline: 85 },
@@ -19,6 +20,10 @@ const data = [
 
 export const RiskInterpretationCard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const compactChart = useIsBelowLg();
+  const chartMargin = compactChart
+    ? { top: 6, right: 6, bottom: 6, left: 0 }
+    : { top: 5, right: 5, bottom: 5, left: 5 };
 
   return (
     <motion.div
@@ -33,9 +38,10 @@ export const RiskInterpretationCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Risk Interpretation</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Structured state classification & EWS mapping</p>
-      <PlatformSizedChart className="min-h-[10rem] h-[200px] w-full min-w-0 flex-1 shrink-0 lg:h-auto lg:min-h-0">
+      <PlatformSizedChart className="min-h-[10rem] h-[200px] w-full min-w-0 flex-1 shrink-0 self-stretch text-left lg:h-auto lg:min-h-0">
         <LineChart
           data={data}
+          margin={chartMargin}
           onMouseMove={(e) => {
             if (e?.activeTooltipIndex !== undefined) setActiveIndex(Number(e.activeTooltipIndex));
           }}
@@ -43,7 +49,11 @@ export const RiskInterpretationCard = () => {
         >
           <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} domain={[0, 100]} />
+          <YAxis
+            domain={[0, 100]}
+            tick={{ fontSize: compactChart ? 10 : 11, fill: "var(--color-brand-muted)" }}
+            width={compactChart ? 28 : undefined}
+          />
           <Tooltip
             contentStyle={{
               background: "#fff",

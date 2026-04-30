@@ -8,17 +8,17 @@ export const revalidate = 60
  */
 export async function GET() {
   try {
-    const [{ getPostsForCarousel }, { postImageUrl }] = await Promise.all([
+    const [{ getPostsForListing }, { postImageUrl }] = await Promise.all([
       import('@sanity/lib/getPosts'),
       import('@sanity/lib/postImage'),
     ])
-    const rows = await getPostsForCarousel()
+    const rows = await getPostsForListing()
     const posts = rows.map((p) => ({
       slug: p.slug,
       title: p.title,
       tag: 'INSIGHTS',
       image: postImageUrl(p.mainImage ?? undefined),
-    }))
+    })).slice(0, 4)
     return NextResponse.json({ posts })
   } catch (err) {
     console.error('[api/insights]', err)

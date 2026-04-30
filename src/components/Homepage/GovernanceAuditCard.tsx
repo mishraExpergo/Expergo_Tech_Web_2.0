@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "r
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
 import { PlatformSizedChart } from "./PlatformSizedChart";
+import { useIsBelowLg } from "@/hooks/useIsBelowLg";
 
 const data = [
   { name: "Jan", y2020: 48, y2021: 55, y2022: 62 },
@@ -16,6 +17,11 @@ const data = [
 ];
 
 export const GovernanceAuditCard = () => {
+  const compactChart = useIsBelowLg();
+  const chartMargin = compactChart
+    ? { top: 6, right: 6, bottom: 22, left: 0 }
+    : { top: 5, right: 5, bottom: 5, left: 5 };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -29,11 +35,15 @@ export const GovernanceAuditCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Governance & Audit</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Traceability, explainability & compliance</p>
-      <PlatformSizedChart className="min-h-[11rem] h-[220px] w-full min-w-0 flex-1 shrink-0 lg:h-auto lg:min-h-0">
-        <LineChart data={data}>
+      <PlatformSizedChart className="min-h-[11rem] h-[220px] w-full min-w-0 flex-1 shrink-0 self-stretch text-left lg:h-auto lg:min-h-0">
+        <LineChart data={data} margin={chartMargin}>
           <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} domain={[0, 100]} />
+          <YAxis
+            domain={[0, 100]}
+            tick={{ fontSize: compactChart ? 10 : 11, fill: "var(--color-brand-muted)" }}
+            width={compactChart ? 28 : undefined}
+          />
           <Tooltip
             contentStyle={{
               background: "#fff",
@@ -42,7 +52,10 @@ export const GovernanceAuditCard = () => {
               fontSize: 12,
             }}
           />
-          <Legend wrapperStyle={{ fontSize: 11 }} />
+          <Legend
+            align={compactChart ? "left" : "center"}
+            wrapperStyle={{ fontSize: 11 }}
+          />
           <Line
             type="monotone"
             dataKey="y2020"

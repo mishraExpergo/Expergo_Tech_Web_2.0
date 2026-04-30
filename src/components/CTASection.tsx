@@ -18,7 +18,7 @@ export function CTASection() {
           <p className="text-[16px] uppercase  text-[#0B64F4]">
             Institutionalize Control
           </p>
-          <h2
+          <h2     
             id="outcomes-cta-heading"
             className="es-heading-hero mt-4 font-semibold tracking-wider text-[#1F1F1F]"
           >
@@ -35,7 +35,7 @@ export function CTASection() {
            
           </div>
         </div>
-      </section>
+        </section>
     </MotionSection>
   );
 }

@@ -67,10 +67,10 @@ const Index = ({ hero }: { hero: MergedHomeHero }) => {
         <div className="lg:col-start-1 lg:row-start-1 lg:h-full lg:min-h-0 w-full">
   <SignalFabricCard />
 </div>
-          <div className="lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0 ">
+          <div className="w-full lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0">
             <RiskInterpretationCard />
           </div>
-          <div className="lg:col-start-3 lg:row-start-1 lg:h-full lg:min-h-0">
+          <div className="w-full lg:col-start-3 lg:row-start-1 lg:h-full lg:min-h-0">
             <PortfolioIntelligenceCard />
           </div>
 
@@ -82,9 +82,8 @@ const Index = ({ hero }: { hero: MergedHomeHero }) => {
             <ControlOrchestrationCard />
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-1 lg:row-start-3 lg:h-full lg:min-h-0">
-              <GovernanceAuditCard />
-
+          <div className="w-full lg:col-span-2 lg:col-start-1 lg:row-start-3 lg:h-full lg:min-h-0">
+            <GovernanceAuditCard />
           </div>
         </div>
       </div>

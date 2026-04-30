@@ -83,9 +83,11 @@ export default function InspectionQuestionsSection() {
                 onClick={() => toggleOpen(q.id)}
                 className="w-full flex items-center justify-between text-left py-4 hover:text-[#01AEE4] transition-colors group"
               >
-                <div className="flex items-center gap-6">
-                  <div className={`w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-colors ${openIds.has(q.id) ? 'bg-[#1677FF] text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-cyan-50 group-hover:text-[#01AEE4]'}`}>
-                    {q.id}.
+                <div className="flex min-w-0 items-center gap-4 sm:gap-6">
+                  <div
+                    className={`flex h-10 w-10 min-h-10 min-w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold tabular-nums leading-none transition-colors ${openIds.has(q.id) ? "bg-[#1677FF] text-white" : "bg-gray-100 text-gray-500 group-hover:bg-cyan-50 group-hover:text-[#01AEE4]"}`}
+                  >
+                    {q.id}
                   </div>
                   <span className={`text-xl font-medium ${openIds.has(q.id) ? 'text-[#01AEE4]' : 'text-gray-900 group-hover:text-[#01AEE4]'}`}>
                     {q.title}

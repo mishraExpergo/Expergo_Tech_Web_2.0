@@ -34,10 +34,10 @@ export function InfrastructureSection() {
     <MotionSection
       id="company"
       variant="fade"
-      className="bg-white px-4 py-20 sm:px-6 lg:px-8"
+      className="bg-white px-4 pt-6 pb-20 sm:px-6 md:py-20 lg:px-8"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col md:my-0 my-[-60px] items-center">
+        <div className="flex flex-col items-center max-md:-mt-14 md:my-0">
           <p className="text-[16px] uppercase  text-[#1D68D5]">
             Infrastructure
           </p>
@@ -49,7 +49,7 @@ export function InfrastructureSection() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:mt-10 md:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map(({ icon: Icon, title, body }) => (
             <article
               key={title}

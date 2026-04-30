@@ -18,7 +18,7 @@ export default function CommandImpactTimeline() {
     <section className="md:py-24 py-8 bg-white relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         
-        <div className="text-center mb-24">
+        <div className="mb-8 text-center md:mb-24">
           <motion.div
              initial={{ opacity: 0, textShadow: "0px 0px 0px rgba(0,0,0,0)" }}
              whileInView={{ opacity: 1 }}
@@ -34,39 +34,53 @@ export default function CommandImpactTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[36px] font-bold text-gray-900"
+            className="text-balance text-[28px] font-bold leading-[1.06] tracking-tight text-gray-900 md:text-[36px] md:leading-snug"
           >
-            <span className="text-[#15B5C1]">Measurable</span> Impact
+            <span className="text-[#15B5C1]">Measurable</span>
+            {" "}
+            Impact
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-gray-500 font-medium text-sm mt-4 tracking-wide"
+            className="mt-2 text-sm font-medium tracking-wide text-gray-500 md:mt-4"
           >
             Seven pillars driving measurable impact across your portfolio.
           </motion.p>
         </div>
 
         <div className="relative">
-           {/* Center Flow Line */}
-           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-100 via-blue-200 to-transparent -translate-x-1/2 ml-0" />
+           {/* Center flow line — desktop / tablet only */}
+           <div
+             className="absolute bottom-0 left-1/2 top-0 hidden w-[2px] -translate-x-1/2 bg-gradient-to-b from-cyan-100 via-blue-200 to-transparent md:block"
+             aria-hidden
+           />
 
            {elements.map((item, idx) => (
-             <div key={idx} className={`relative flex items-center mb-16 md:mb-2 ${item.side === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'} flex-row`}>
+             <div
+               key={idx}
+               className={`relative mb-10 flex flex-row items-center justify-center md:mb-2 md:justify-start ${item.side === "left" ? "md:flex-row-reverse" : "md:flex-row"}`}
+             >
+                {/* Connector dot — md+ */}
+                <div
+                  className="absolute left-1/2 top-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#1677FF] bg-white md:block"
+                  aria-hidden
+                />
                 
-                {/* Connector Dot */}
-                <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-[#1677FF] bg-white z-10 hidden md:block" />
-                
-                {/* Connecting Line from dot to card */}
-                <div 
-                   className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[1px] bg-cyan-200 w-16
-                   ${item.side === 'left' ? 'right-1/2 mr-2' : 'left-1/2 ml-2'}`}
+                {/* Connector from timeline to card — md+ */}
+                <div
+                  className={`absolute top-1/2 hidden h-px w-16 -translate-y-1/2 bg-cyan-200 md:block ${item.side === "left" ? "right-1/2 mr-2" : "left-1/2 ml-2"}`}
+                  aria-hidden
                 />
 
-                {/* Card Container */}
-                <div className={`w-full md:w-1/2 ${item.side === 'left' ? 'md:pr-16 pl-10 md:pl-0' : 'md:pl-16 pl-10'}`}>
+                {/* Card container: full width + centered on mobile; alternating sides on md+ */}
+                <div
+                  className={`mx-auto w-full max-w-md md:mx-0 md:max-w-none md:w-1/2 ${
+                    item.side === "left" ? "md:pr-16 md:pl-0" : "md:pl-16"
+                  }`}
+                >
                    <motion.div
                      initial={{ opacity: 0, x: item.side === 'left' ? -150 : 150 }}
                      whileInView={{ opacity: 1, x: 0 }}

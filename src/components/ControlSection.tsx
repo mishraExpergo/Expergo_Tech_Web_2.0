@@ -534,22 +534,28 @@ const ScrollNarrative = () => {
     const rect = sectionRef.current.getBoundingClientRect();
     const sectionHeight = rect.height;
     const scrolled = -rect.top;
-    const progress = Math.max(0, Math.min(1, scrolled / (sectionHeight - window.innerHeight)));
+    const scrollRange = Math.max(1, sectionHeight - window.innerHeight);
+    const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
 
-    if (progress < 0.33) setPhase("detect");
-    else if (progress < 0.66) setPhase("decide");
+    if (progress < 1 / 3) setPhase("detect");
+    else if (progress < 2 / 3) setPhase("decide");
     else setPhase("control");
   }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ minHeight: "300vh" }}>
-    <div className="sticky top-0 flex min-h-[auto] lg:min-h-screen items-start lg:items-center py-6 lg:py-12">
-        <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[155vh] md:min-h-[165vh]"
+      aria-label="Detect, decide, and control narrative"
+    >
+      <div className="sticky top-[72px] z-10 bg-background px-6 py-8 md:px-10 md:py-10">
+        <div className="mx-auto w-full max-w-[1200px]">
           {/* Phase tabs */}
           <div className="mb-10 flex w-fit gap-1 rounded-lg bg-muted p-1">
             {(["detect", "decide", "control"] as Phase[]).map((p) => (
@@ -577,9 +583,9 @@ const ScrollNarrative = () => {
                   transition={{ duration: 0.355 }}
                 >
                   <h2 className="text-2xl sm:text-3xl lg:text-[52px] text-[#15B5C1] mb-1 font-bold">
-  {phaseContent[phase].heading}
-</h2>
-<p className="es-heading-sub text-muted-foreground mb-3">{phaseContent[phase].sub}</p>
+                    {phaseContent[phase].heading}
+                  </h2>
+                  <p className="es-heading-sub text-muted-foreground mb-3">{phaseContent[phase].sub}</p>
                   <ul className="space-y-2 mb-4">
                     {phaseContent[phase].bullets.map((b) => (
                       <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
