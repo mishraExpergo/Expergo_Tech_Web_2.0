@@ -17,7 +17,7 @@ export default function ActionNoiseSection() {
   ];
 
   return (
-    <section className="md:py-24 py-[-30px] bg-white relative">
+    <section className="md:py-24 py-[28px] bg-white relative">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.div

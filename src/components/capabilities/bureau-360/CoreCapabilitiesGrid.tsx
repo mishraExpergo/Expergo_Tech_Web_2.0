@@ -72,11 +72,11 @@ const itemVariants = {
 
 export default function CoreCapabilitiesGrid() {
   return (
-    <section className="py-24 bg-white overflow-hidden font-sans">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
+    <section className="relative z-10 overflow-hidden bg-white pb-24 font-sans max-md:overflow-visible max-md:pb-20 max-md:pt-6 md:py-20">
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center mb-16 md:my-0 my-[-90px]">
+        <div className="mb-16  text-center max-md:mb-10 md:my-6">
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}

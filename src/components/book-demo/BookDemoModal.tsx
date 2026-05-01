@@ -130,19 +130,20 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const canSubmit = useCallback(
-    () =>
-      Boolean(
-        form.fullName.trim() &&
-           emailRegex.test(form.workEmail) &&
-          form.companyName.trim() &&
-          form.phone.trim() &&
-          form.companySize &&
-          form.industry &&
-          form.interest
-      ),
-    [form]
-  );
+  const validate = useCallback((): boolean => {
+    const next: FormErrors = {};
+    if (!form.fullName.trim()) next.fullName = "This field is required.";
+    if (!form.workEmail.trim()) next.workEmail = "This field is required.";
+    else if (!emailRegex.test(form.workEmail))
+      next.workEmail = "Enter a valid email address.";
+    if (!form.companyName.trim()) next.companyName = "This field is required.";
+    if (!form.phone.trim()) next.phone = "This field is required.";
+    if (!form.companySize) next.companySize = "Please select a company size.";
+    if (!form.industry) next.industry = "Please select an industry.";
+    if (!form.interest) next.interest = "Please select a use case.";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  }, [form]);
 
   const update = (k: keyof FormState, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
@@ -178,7 +179,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [copy.source, form, submitting]);
+  }, [copy.source, form, submitting, validate]);
 
   return (
     <ConfigProvider
@@ -194,7 +195,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
         placement="right"
         onClose={onClose}
         open={open}
-        width={480}
+        size={480}
         closable={true}
         closeIcon={
           <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]">
@@ -212,7 +213,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-5 top-5 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]"
+          className="absolute right-5 md:top-6 top-7 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]"
           aria-label="Close"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>

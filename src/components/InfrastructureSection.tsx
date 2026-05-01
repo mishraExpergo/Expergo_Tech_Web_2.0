@@ -37,7 +37,7 @@ export function InfrastructureSection() {
       className="bg-white px-4 pt-6 pb-20 sm:px-6 md:py-20 lg:px-8"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col items-center max-md:-mt-14 md:my-0">
+        <div className="flex flex-col items-center max-md:mt-14 md:my-0">
           <p className="text-[16px] uppercase  text-[#1D68D5]">
             Infrastructure
           </p>

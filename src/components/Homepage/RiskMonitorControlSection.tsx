@@ -97,7 +97,7 @@ export function RiskMonitorControlSection() {
     >
       <motion.h2
         id="risk-monitor-control-heading"
-        className="es-heading-hero mx-5 mt-[-80px] max-w-4xl text-center font-bold text-[#111827] sm:mx-6 md:mx-auto md:mt-4"
+        className="es-heading-hero mx-5 mt-[2px] max-w-4xl text-center font-bold text-[#111827] sm:mx-6 md:mx-auto md:mt-4"
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}

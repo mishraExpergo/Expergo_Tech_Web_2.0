@@ -74,27 +74,26 @@ export default function DataPipelineSection() {
                 transition={{ duration: 0.5, delay: idx * 0.1, type: "spring", stiffness: 60 }}
                className="relative rounded-xl border-2 border-[#01AEE4]/35 bg-white p-4 shadow-[0_2px_14px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow,background-color] duration-200 hover:border-[#01AEE4] hover:bg-[#F6FBFF] hover:shadow-[0_14px_40px_-12px_rgba(1,174,228,0.28)] md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:bg-transparent md:hover:shadow-none"
               >
-                <Image
-                  src="/line.svg"
-                  alt=""
-                  width={500}
-                  height={500}
-                  className="pointer-events-none absolute hidden md:block"
-                  aria-hidden
-                />
+               
+               <img
+                src="/line.svg"
+                alt=""
+                aria-hidden="true"
+                className=" hidden md:block pointer-events-none absolute left-[60px]   w-[350px] opacity-100 z-0"
+              />
 
                 <div className="relative z-10 flex items-start gap-3 sm:gap-4 md:gap-5">
                   <span
-                    className="select-none text-4xl font-bold leading-none tabular-nums text-gray-300 sm:text-5xl md:text-6xl"
+                    className="select-none text-3xl font-bold mt-[-4px] leading-none tabular-nums text-gray-300 sm:text-5xl md:text-6xl"
                     aria-hidden
                   >
                     {step.id}
                   </span>
                   <div className="min-w-0 flex-1 flex flex-col pt-0.5">
-                    <h3 className="mb-1 inline-block w-fit text-[14px] font-semibold tracking-wide text-[#01AEE4]">
+                    <h3 className="mb-[-4px] inline-block w-fit text-[14px] font-semibold tracking-wide text-[#01AEE4]">
                       {step.title}
                     </h3>
-                    <p className="text-sm font-medium leading-relaxed text-gray-500">
+                    <p className="text-sm font-medium leading-relaxed text-gray-500 ">
                       {step.desc}
                     </p>
                   </div>
