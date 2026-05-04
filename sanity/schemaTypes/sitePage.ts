@@ -56,10 +56,10 @@ const zigzagItem = {
             { name: 'heading', type: 'string' },
             { name: 'body', type: 'text' },
           ],
-        },
+        }, 
       ],
     }),
-  ],
+  ],               
 }
 
 const stakeholderCard = {
@@ -70,7 +70,7 @@ const stakeholderCard = {
     { name: 'body', type: 'text' },
   ],
 }
-
+  
 const outcomeDetailCard = {
   type: 'object' as const,
   name: 'outcomesDetailCard',
@@ -96,7 +96,7 @@ const useCaseCard = {
   ],
 }
 
-export const sitePage = defineType({
+export const sitePage = defineType({     
   name: 'sitePage',
   title: 'Site page',
   type: 'document',
@@ -107,7 +107,7 @@ export const sitePage = defineType({
   ],
   fields: [
     defineField({
-      name: 'route',
+       name: 'route',
       title: 'Page route',
       type: 'string',
       group: 'meta',

@@ -25,7 +25,7 @@ const problemPoints = [
 const outcomesDelivered = [
   {
     index: "01",
-    metric: "20-40%",
+    metric: "20-40%", 
     metricLabel: "increase in pre-bounce recoveries",
     title: "Increase Pre-Bounce Recovery",
     problem:
@@ -57,7 +57,7 @@ const outcomesDelivered = [
     metricLabel: "of future delinquency identified early",
     title: "Detect Hidden Risk Before It Surfaces",
     problem: "A large portion of future NPAs are in 'current' accounts today.",
-    whatAegisDoes: [
+    whatAegisDoes: [  
       "Bureau stress (utilization, inquiries)",
       "Payment behavior shifts",
       "Engagement signals (intent deterioration)",
