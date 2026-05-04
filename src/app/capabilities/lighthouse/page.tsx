@@ -9,13 +9,15 @@ import CoreCapabilitiesList from "@/components/capabilities/lighthouse/CoreCapab
 import BusinessOutcomeBox from "@/components/capabilities/lighthouse/BusinessOutcomeBox";
 import LighthouseCTA from "@/components/capabilities/lighthouse/LighthouseCTA";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeLighthousePage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("capabilities-lighthouse");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-lighthouse", { preview });
   const { meta } = mergeLighthousePage(raw);
   return {
     title: meta.title,
@@ -25,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function LighthousePage() {
-  const raw = await getSitePageByRoute("capabilities-lighthouse");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-lighthouse", { preview });
   const { hero, stats } = mergeLighthousePage(raw);
 
   return (

@@ -1,11 +1,10 @@
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getSanityClient } from '../../../../sanity/lib/client'
-import { token } from '../../../../sanity/env'
+import { getPreviewSanityClient } from '../../../../sanity/lib/client'
 
 export async function GET(request: Request) {
-  const clientWithToken = getSanityClient({ isDraftMode: true, token })
+  const clientWithToken = getPreviewSanityClient()
   
   if (!clientWithToken) {
     return new Response('Missing environment variables for Sanity', { status: 500 })

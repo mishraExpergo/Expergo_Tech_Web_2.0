@@ -9,13 +9,15 @@ import CoreCapabilitiesGrid from "@/components/capabilities/bureau-360/CoreCapab
 import MeasurableImpactSection from "@/components/capabilities/bureau-360/MeasurableImpactSection";
 import BureauCTA from "@/components/capabilities/bureau-360/BureauCTA";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeBureauPage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("capabilities-bureau-360");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-bureau-360", { preview });
   const { meta } = mergeBureauPage(raw);
   return {
     title: meta.title,
@@ -25,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BureauPage() {
-  const raw = await getSitePageByRoute("capabilities-bureau-360");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-bureau-360", { preview });
   const { hero } = mergeBureauPage(raw);
 
   return (

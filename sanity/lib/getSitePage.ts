@@ -5,7 +5,7 @@ import type { SitePageRoute } from '../constants/sitePageRoutes'
 import { getSanityClient } from './client'
 import { token } from '../env'
 import { urlForImage } from './image'
-import { sitePageByRouteQuery } from './queries'
+import { previewSitePageByRouteQuery, sitePageByRouteQuery } from './queries'
 
 function imageUrl(source: Image | null | undefined, width = 1600): string | null {
   if (!source?.asset) return null
@@ -38,6 +38,7 @@ export type SitePageStatPair = { value: string; label: string }
 
 /** Flattened, JSON-serializable site page for Next.js props. */
 export type SitePageView = {
+  contentType?: string | null
   route: SitePageRoute
   metaTitle: string | null
   metaDescription: string | null
@@ -77,6 +78,10 @@ export type SitePageView = {
   insightsListEmptyMessage: string | null
 }
 
+type SitePageFetchOptions = {
+  preview?: boolean
+}
+
 type RawZigzag = {
   title?: string
   reversed?: boolean
@@ -107,6 +112,7 @@ function serializeZigzag(rows: RawZigzag[] | null | undefined): SitePageZigzagRo
 function serializeSitePageDoc(doc: any): SitePageView {
   const route = doc.route as SitePageRoute
   return {
+    contentType: doc._type ?? null,
     route,
     metaTitle: doc.metaTitle ?? null,
     metaDescription: doc.metaDescription ?? null,
