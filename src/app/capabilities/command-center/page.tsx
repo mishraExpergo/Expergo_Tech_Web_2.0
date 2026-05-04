@@ -9,13 +9,15 @@ import EngineeredPrecisionTab from "@/components/capabilities/command-center/Eng
 import CommandImpactTimeline from "@/components/capabilities/command-center/CommandImpactTimeline";
 import CommandCTA from "@/components/capabilities/command-center/CommandCTA";
 import { BlogCarousel } from "@/components/BlogCarousel";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeCommandPage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("capabilities-command-center");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-command-center", { preview });
   const { meta } = mergeCommandPage(raw);
   return {
     title: meta.title,
@@ -25,7 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CommandCenterPage() {
-  const raw = await getSitePageByRoute("capabilities-command-center");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("capabilities-command-center", { preview });
   const { hero } = mergeCommandPage(raw);
 
   return (

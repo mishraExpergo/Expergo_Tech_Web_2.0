@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Header } from "@/components/Header";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergeInsightsListPage } from "@/lib/sitePage/merges";
 import { getPostsForListing } from "@sanity/lib/getPosts";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
@@ -11,7 +12,8 @@ import { postImageUrl } from "@sanity/lib/postImage";
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const raw = await getSitePageByRoute("insights");
+  const preview = await isDraftModeEnabled();
+  const raw = await getSitePageByRoute("insights", { preview });
   const { meta } = mergeInsightsListPage(raw);
   return {
     title: meta.title,
@@ -21,7 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function InsightsPage() {
-  const [posts, raw] = await Promise.all([getPostsForListing(), getSitePageByRoute("insights")]);
+  const preview = await isDraftModeEnabled();
+  const [posts, raw] = await Promise.all([
+    getPostsForListing({ preview }),
+    getSitePageByRoute("insights", { preview }),
+  ]);
   const { list } = mergeInsightsListPage(raw);
 
   return (
