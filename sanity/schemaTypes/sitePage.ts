@@ -107,6 +107,21 @@ export const sitePage = defineType({
   ],
   fields: [
     defineField({
+      name: 'workflowState',
+      title: 'Workflow State',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'In Review', value: 'inReview' },
+          { title: 'Published', value: 'published' },
+        ],
+      },
+      initialValue: 'draft',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'route',
       title: 'Page route',
       type: 'string',

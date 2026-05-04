@@ -6,6 +6,21 @@ export const post = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'workflowState',
+      title: 'Workflow State',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'In Review', value: 'inReview' },
+          { title: 'Published', value: 'published' },
+        ],
+      },
+      initialValue: 'draft',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',

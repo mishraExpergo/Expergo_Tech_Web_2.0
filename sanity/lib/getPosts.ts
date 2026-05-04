@@ -1,7 +1,9 @@
 import type { Image } from 'sanity'
 import type { PortableTextBlock } from '@portabletext/types'
 
+import { draftMode } from 'next/headers'
 import { getSanityClient } from './client'
+import { token } from '../env'
 import {
   postBySlugQuery,
   postSlugsQuery,
@@ -39,31 +41,36 @@ export type SanityPostDetail = {
 }
 
 export async function getPostsForCarousel(): Promise<SanityPostCard[]> {
-  const client = getSanityClient()
+  const isDraftMode = (await draftMode()).isEnabled
+  const client = getSanityClient({ isDraftMode, token })
   if (!client) return []
   return client.fetch(postsForCarouselQuery)
 }
 
 export async function getPostsForListing(): Promise<SanityPostListItem[]> {
-  const client = getSanityClient()
+  const isDraftMode = (await draftMode()).isEnabled
+  const client = getSanityClient({ isDraftMode, token })
   if (!client) return []
   return client.fetch(postsForListingQuery)
 }
 
 export async function getPostBySlug(slug: string): Promise<SanityPostDetail | null> {
-  const client = getSanityClient()
+  const isDraftMode = (await draftMode()).isEnabled
+  const client = getSanityClient({ isDraftMode, token })
   if (!client) return null
   return client.fetch(postBySlugQuery, { slug })
 }
 
 export async function getPostSlugs(): Promise<string[]> {
-  const client = getSanityClient()
+  const isDraftMode = (await draftMode()).isEnabled
+  const client = getSanityClient({ isDraftMode, token })
   if (!client) return []
   return client.fetch(postSlugsQuery)
 }
 
 export async function getRelatedPostsForInsight(slug: string): Promise<SanityPostCard[]> {
-  const client = getSanityClient()
+  const isDraftMode = (await draftMode()).isEnabled
+  const client = getSanityClient({ isDraftMode, token })
   if (!client) return []
   return client.fetch(relatedPostsQuery, { slug })
 }

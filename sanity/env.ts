@@ -11,3 +11,6 @@ export const useCdn = false
 
 /** True when both public Sanity env vars are set — required for API and /insights. */
 export const isSanityConfigured = dataset.length > 0 && projectId.length > 0
+
+/** Token required for accessing draft content in Next.js Draft Mode */
+export const token = process.env.SANITY_API_READ_TOKEN

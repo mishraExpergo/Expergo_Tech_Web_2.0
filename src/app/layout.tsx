@@ -68,6 +68,8 @@ import { Inter, Poppins } from "next/font/google";
 import { Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
+import { draftMode } from "next/headers"
+import { VisualEditing } from "next-sanity"
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -99,7 +101,7 @@ export const metadata: Metadata = {
     "From periodic risk monitoring to continuous portfolio intelligence for institutional lenders.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -118,8 +120,10 @@ export default function RootLayout({
             <SpeedInsights />
             <Analytics />
             {children}
+            {(await draftMode()).isEnabled && <VisualEditing />}
             <Footer />
           </Providers>
+
 
           <CookieBanner />
         </AntdRegistry>

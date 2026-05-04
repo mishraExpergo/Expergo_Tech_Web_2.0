@@ -16,3 +16,31 @@ export const DEFAULT_BUREAU_TAGS = [
   'Borrower Financial Patterns',
   'Co-lenders Momentum',
 ] as const
+
+
+export const DEFAULT_BUREAU_CORE_CAPABILITIES = [
+  {
+    title:"Bureau Bheaviour Monoitring",
+    description:"Tracks key bureau indicators including score migration, enquiry velocity, trade line changes, off- us delinquency, and exposure patterns.",
+  },
+  {
+    title:"Cross-Lender Exposure Visibility",
+    description:"Provides a unified view of borrower exposure across the lending ecosystem, enabling identification of concentration and leverage trends.",
+  },
+  {
+    title:"Borrower Behaviour Segmentation",
+    description:"Segments borrowers based on bureau-driven behaviour patterns, supporting targeted monitoring and differentiated risk strategies.",
+  },
+  {
+    title:"Portfolio-Level Bureau Intelligence",    
+    description:"Aggregates borrower-level bureau signals into portfolio-level intelligence, enabling structured monitoring and trend analysis.",
+  },
+  {
+    title:"Exposure & Leverage Analysis",
+    description:"Monitors external leverage build-up and exposure concentration to identify emerging risks before they impact internal portfolios.",
+  },
+  {
+    title:"Structured Signal Interpretation",
+    description:"Transforms raw bureau data points into structured, interpretable signals that drive informed portfolio decisions.",
+  },
+] as const
