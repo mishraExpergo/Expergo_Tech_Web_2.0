@@ -123,8 +123,6 @@ export default async function RootLayout({
             {(await draftMode()).isEnabled && <VisualEditing />}
             <Footer />
           </Providers>
-
-
           <CookieBanner />
         </AntdRegistry>
       </body>
