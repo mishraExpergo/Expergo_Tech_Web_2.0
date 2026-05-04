@@ -12,8 +12,7 @@ import { postImageUrl } from "@sanity/lib/postImage";
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const preview = await isDraftModeEnabled();
-  const raw = await getSitePageByRoute("insights", { preview });
+  const raw = await getSitePageByRoute("insights");
   const { meta } = mergeInsightsListPage(raw);
   return {
     title: meta.title,
@@ -26,7 +25,7 @@ export default async function InsightsPage() {
   const preview = await isDraftModeEnabled();
   const [posts, raw] = await Promise.all([
     getPostsForListing({ preview }),
-    getSitePageByRoute("insights", { preview }),
+    getSitePageByRoute("insights"),
   ]);
   const { list } = mergeInsightsListPage(raw);
 

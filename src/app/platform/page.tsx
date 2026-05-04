@@ -8,15 +8,13 @@ import HeatmapSection from "@/components/HeatmapSection";
 import { InfrastructureSection } from "@/components/InfrastructureSection";
 import { CTASection } from "@/components/CTASection";
 import { BlogCarousel } from "@/components/BlogCarousel";
-import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { buildOpenGraphMetadata, mergePlatformPage } from "@/lib/sitePage/merges";
 import { getSitePageByRoute } from "@sanity/lib/getSitePage";
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const preview = await isDraftModeEnabled();
-  const raw = await getSitePageByRoute("platform", { preview });
+  const raw = await getSitePageByRoute("platform");
   const { meta } = mergePlatformPage(raw);
   return {
     title: meta.title,
@@ -26,8 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PlatformPage() {
-  const preview = await isDraftModeEnabled();
-  const raw = await getSitePageByRoute("platform", { preview });
+  const raw = await getSitePageByRoute("platform");
   const { hero } = mergePlatformPage(raw);
 
   return (

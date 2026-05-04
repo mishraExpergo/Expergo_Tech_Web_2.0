@@ -87,10 +87,10 @@ function useTransitionAction(props: ActionProps, nextStatus: ContentWorkflowStat
   const { patch } = useDocumentOperation(props.id, props.type)
   const doc = props.draft ?? props.published
   const currentStatus = (doc?.status as ContentWorkflowStatus | undefined) ?? 'draft'
-  const disabled = patch.disabled
+  const patchDisabled = Boolean(patch.disabled)
 
   const applyTransition = (note?: string, includePrompt = false) => {
-    if (disabled) return
+    if (patchDisabled) return
 
     const derivedNote = includePrompt ? window.prompt('Add note (optional)') || undefined : note
     const history = appendHistory(props, nextStatus, derivedNote)
@@ -121,7 +121,7 @@ function useTransitionAction(props: ActionProps, nextStatus: ContentWorkflowStat
   }
 
   return {
-    disabled,
+    disabled: patchDisabled,
     currentStatus,
     applyTransition,
     title,
@@ -237,7 +237,11 @@ const WorkflowPublishAction: DocumentActionComponent = (props) => {
   const document = (props as ActionProps).draft ?? (props as ActionProps).published
   const status = (document?.status as ContentWorkflowStatus | undefined) ?? 'draft'
   const isApprover = canApprove((props as ActionProps).currentUser)
-  const schedule = document?.scheduledPublishAt ? new Date(document.scheduledPublishAt) : null
+  const scheduledAt = document?.scheduledPublishAt
+  const schedule =
+    scheduledAt !== undefined && scheduledAt !== null && String(scheduledAt).trim() !== ''
+      ? new Date(String(scheduledAt))
+      : null
   const scheduleBlocked = Boolean(schedule && schedule.getTime() > Date.now())
 
   if (!document) return null
@@ -245,7 +249,7 @@ const WorkflowPublishAction: DocumentActionComponent = (props) => {
   return {
     label: 'Publish',
     disabled:
-      publish.disabled ||
+      Boolean(publish.disabled) ||
       !isApprover ||
       status !== 'approved' ||
       scheduleBlocked,
