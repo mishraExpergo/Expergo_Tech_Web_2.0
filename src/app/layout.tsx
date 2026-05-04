@@ -69,7 +69,7 @@ import { Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 import { draftMode } from "next/headers"
-import { VisualEditing } from "next-sanity"
+import { VisualEditing } from "next-sanity/visual-editing"
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { CookieBanner } from "@/components/CookieBanner";
