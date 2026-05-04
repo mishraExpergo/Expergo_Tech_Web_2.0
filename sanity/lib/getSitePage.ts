@@ -3,7 +3,6 @@ import type { Image } from 'sanity'
 import { draftMode } from 'next/headers'
 import type { SitePageRoute } from '../constants/sitePageRoutes'
 import { getSanityClient } from './client'
-import { token } from '../env'
 import { urlForImage } from './image'
 import { previewSitePageByRouteQuery, sitePageByRouteQuery } from './queries'
 
@@ -187,9 +186,10 @@ function serializeSitePageDoc(doc: any): SitePageView {
 
 export async function getSitePageByRoute(route: SitePageRoute): Promise<SitePageView | null> {
   const isDraftMode = (await draftMode()).isEnabled
-  const client = getSanityClient({ isDraftMode, token })
+  const client = getSanityClient(isDraftMode ? 'preview' : 'published')
   if (!client) return null
-  const doc = await client.fetch(sitePageByRouteQuery, { route })
+  const query = isDraftMode ? previewSitePageByRouteQuery : sitePageByRouteQuery
+  const doc = await client.fetch(query, { route })
   if (!doc) return null
   return serializeSitePageDoc(doc)
 }
