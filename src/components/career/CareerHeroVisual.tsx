@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, MouseEvent } from "react";
+import type { CSSProperties, MouseEvent, TouchEvent } from "react";
 import { useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -70,6 +70,9 @@ const rangeData: Record<
 
 const chartWidth = 238;
 const chartHeight = 70;
+/** Horizontal inset (SVG units) so stroke/cursor are not clipped at the card edge */
+const chartPadX = 5;
+const chartViewWidth = chartWidth + chartPadX * 2;
 const riskWidth = 92;
 const riskHeight = 30;
 
@@ -124,13 +127,25 @@ export default function CareerHeroVisual() {
     node.style.setProperty("--my", "50%");
   };
 
-  const handleChartMove = (event: MouseEvent<SVGSVGElement>) => {
-    const svg = event.currentTarget;
+  const updateChartFromClientX = (clientX: number, svg: SVGSVGElement) => {
     const bounds = svg.getBoundingClientRect();
-    const rawX = Math.max(0, Math.min(bounds.width, event.clientX - bounds.left));
-    const ratio = rawX / bounds.width;
+    const rawX = Math.max(0, Math.min(bounds.width, clientX - bounds.left));
+    /** Map hit X into 0…chartWidth to match padded viewBox + translate(chartPadX) */
+    const dataX =
+      bounds.width > 0 ? (rawX / bounds.width) * chartViewWidth - 2 * chartPadX : 0;
+    const ratio = chartWidth > 0 ? Math.max(0, Math.min(1, dataX / chartWidth)) : 0;
     const idx = Math.round(ratio * (current.line.length - 1));
     setActivePoint(Math.max(0, Math.min(current.line.length - 1, idx)));
+  };
+
+  const handleChartMove = (event: MouseEvent<SVGSVGElement>) => {
+    updateChartFromClientX(event.clientX, event.currentTarget);
+  };
+
+  const handleChartTouch = (event: TouchEvent<SVGSVGElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    updateChartFromClientX(touch.clientX, event.currentTarget);
   };
 
   return (
@@ -148,10 +163,10 @@ export default function CareerHeroVisual() {
         } as CSSProperties
       }
     >
-      <motion.div className="career-hero-card relative rounded-[18px] border border-brand-border bg-card p-3.5 shadow-[0_10px_30px_rgba(12,35,64,0.08)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(12,35,64,0.12)] sm:p-4">
-        <div className="flex items-center justify-between">
+      <motion.div className="career-hero-card relative rounded-[18px] border border-brand-border bg-card p-3 shadow-[0_10px_30px_rgba(12,35,64,0.08)] transition-shadow duration-300 hover:shadow-[0_14px_40px_rgba(12,35,64,0.12)] sm:p-4">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
           <p className="text-[10px] font-semibold text-brand-muted">Portfolio performance</p>
-          <div className="text-[9px] flex items-center gap-0.5 font-semibold text-muted-foreground">
+          <div className="text-[9px] flex flex-wrap items-center gap-0.5 font-semibold text-muted-foreground sm:justify-end">
             {rangeOrder.map((range) => (
               <motion.button
                 key={range}
@@ -181,48 +196,61 @@ export default function CareerHeroVisual() {
         </div>
         <p className="mt-0.5 text-[10px] text-muted-foreground">{current.label}</p>
 
-        <div className="career-hero-chart relative mt-2 rounded-xl border border-brand-border bg-white px-3 pb-2 pt-3">
-          <div className="career-hero-chart-grid absolute inset-0 rounded-xl" />
-          <svg
-            viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-            className="relative z-[1] h-[72px] w-full"
-            onMouseMove={handleChartMove}
-            onMouseLeave={() => setActivePoint(null)}
-            role="img"
-            aria-label="Portfolio trend chart"
-          >
-            <line
-              x1={activeX}
-              y1={0}
-              x2={activeX}
-              y2={chartHeight}
-              className="career-hero-chart-cursor"
-              style={{ opacity: activePoint === null ? 0 : 1 }}
-            />
-            <polyline className="career-hero-main-line" points={linePoints} />
-            <circle
-              cx={activeX}
-              cy={activeY}
-              r="2.8"
-              className="career-hero-main-dot"
-              style={{ opacity: activePoint === null ? 0 : 1 }}
-            />
-          </svg>
-          <div className="career-hero-badge absolute -right-2.5 -top-2.5 rounded-md border border-brand-border bg-white px-2 py-1 text-[10px] font-semibold text-brand-ink shadow-sm">
-            {hoveredValue}
+        <div className="career-hero-chart relative mt-2 rounded-xl border border-brand-border bg-white">
+          <div className="career-hero-chart-grid pointer-events-none absolute inset-0 rounded-xl" />
+          <div className="relative z-[1] px-2.5 pt-2 sm:px-3 sm:pt-2.5">
+            <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
+              <div className="career-hero-badge shrink-0 rounded-md border border-brand-border bg-white px-2 py-0.5 text-[10px] font-semibold tabular-nums text-brand-ink shadow-sm">
+                {hoveredValue}
+              </div>
+              <div className="max-w-full shrink truncate rounded-md border border-brand-border/80 bg-white/95 px-2 py-0.5 text-[10px] font-semibold text-brand-ink shadow-sm sm:max-w-[min(100%,11rem)] sm:truncate">
+                {current.gain}
+              </div>
+            </div>
           </div>
-          <div className="absolute right-2 top-9 rounded-md bg-white/95 px-1.5 py-0.5 text-[10px] font-semibold text-brand-ink shadow-sm">
-            {current.gain}
+          <div className="relative z-[1] px-1.5 pb-2 pt-1 sm:px-2 sm:pb-2.5 sm:pt-1.5">
+            <svg
+              viewBox={`-${chartPadX} 0 ${chartViewWidth} ${chartHeight}`}
+              className="h-[68px] w-full touch-none overflow-visible sm:h-[72px]"
+              onMouseMove={handleChartMove}
+              onMouseLeave={() => setActivePoint(null)}
+              onTouchStart={handleChartTouch}
+              onTouchMove={handleChartTouch}
+              onTouchEnd={() => setActivePoint(null)}
+              role="img"
+              aria-label="Portfolio trend chart"
+            >
+              <g transform={`translate(${chartPadX},0)`}>
+                <line
+                  x1={activeX}
+                  y1={0}
+                  x2={activeX}
+                  y2={chartHeight}
+                  className="career-hero-chart-cursor"
+                  style={{ opacity: activePoint === null ? 0 : 1 }}
+                />
+                <polyline className="career-hero-main-line" points={linePoints} />
+                <circle
+                  cx={activeX}
+                  cy={activeY}
+                  r="2.8"
+                  className="career-hero-main-dot"
+                  style={{ opacity: activePoint === null ? 0 : 1 }}
+                />
+              </g>
+            </svg>
           </div>
         </div>
 
-        <div className="mt-2.5 grid grid-cols-2 gap-2.5">
-          <div className="career-hero-metric-card rounded-xl border border-brand-border bg-white p-2.5">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] font-semibold text-brand-muted">Allocation</p>
-              <p className="text-[9px] text-muted-foreground">{current.allocation}</p>
+        <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-2.5">
+          <div className="career-hero-metric-card rounded-xl border border-brand-border bg-white p-2.5 sm:p-2.5">
+            <div className="flex items-start justify-between gap-2">
+              <p className="shrink-0 text-[10px] font-semibold text-brand-muted">Allocation</p>
+              <p className="min-w-0 text-right text-[9px] leading-tight text-muted-foreground sm:text-[9px]">
+                {current.allocation}
+              </p>
             </div>
-            <div className="mt-2 flex h-9 items-end gap-1">
+            <div className="mt-2 flex h-9 min-h-[2.25rem] items-end justify-between gap-0.5 sm:h-9 sm:gap-1">
               {current.bars.map((height, idx) => (
                 <motion.span
                   key={`${selectedRange}-${idx}`}
@@ -233,23 +261,25 @@ export default function CareerHeroVisual() {
                       ? { duration: 0 }
                       : { type: "spring", stiffness: 380, damping: 24, delay: idx * 0.035 }
                   }
-                  className={`career-hero-bar origin-bottom w-4 rounded-full ${idx % 3 === 0 ? "bg-brand-teal" : "bg-brand-blue"}`}
+                  className={`career-hero-bar origin-bottom max-w-[12%] flex-1 rounded-full sm:max-w-none sm:flex-none sm:w-4 ${idx % 3 === 0 ? "bg-brand-teal" : "bg-brand-blue"}`}
                   style={{ height: `${height}%` }}
                 />
               ))}
             </div>
           </div>
 
-          <div className="career-hero-metric-card rounded-xl border border-brand-border bg-white p-2.5">
+          <div className="career-hero-metric-card rounded-xl border border-brand-border bg-white p-2.5 sm:p-2.5">
             <p className="text-[10px] font-semibold text-brand-muted">Risk</p>
-            <p className="mt-1 text-[25px] font-semibold leading-none text-brand-footer">{current.risk}</p>
+            <p className="mt-1 text-[22px] font-semibold leading-none text-brand-footer sm:text-[25px]">{current.risk}</p>
             <svg
-              viewBox={`0 0 ${riskWidth} ${riskHeight}`}
-              className="mt-1.5 h-8 w-full"
+              viewBox={`-3 0 ${riskWidth + 6} ${riskHeight}`}
+              className="mt-1.5 h-8 w-full overflow-visible"
               role="img"
               aria-label="Risk trend"
             >
-              <polyline className="career-hero-risk-line" points={riskPoints} />
+              <g transform="translate(3,0)">
+                <polyline className="career-hero-risk-line" points={riskPoints} />
+              </g>
             </svg>
             <p className="text-[10px] text-muted-foreground">{current.volatility}</p>
           </div>
