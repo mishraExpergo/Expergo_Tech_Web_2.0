@@ -80,8 +80,8 @@ export const PredictiveTrajectoryCard = () => {
           </PlatformSizedChart>
         </div>
 
-        <div className="order-1 flex shrink-0 flex-col items-center gap-2 sm:flex-row sm:items-center sm:gap-4 lg:order-2 lg:flex-col lg:items-center lg:gap-4">
-          <div className="relative h-44 w-44 max-sm:h-40 max-sm:w-40 shrink-0 sm:h-48 sm:w-48">
+        <div className="order-1 flex w-full min-w-0 shrink-0 flex-row items-center gap-3 sm:gap-4 lg:order-2 lg:flex-col lg:items-center lg:gap-4">
+          <div className="relative h-40 w-40 shrink-0 sm:h-48 sm:w-48 lg:h-44 lg:w-44">
             <PlatformSizedChart className="h-full w-full min-h-0">
               <PieChart>
                 <Tooltip
@@ -131,7 +131,7 @@ export const PredictiveTrajectoryCard = () => {
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-col justify-center gap-2 sm:pl-2 lg:pl-0">
+          <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 lg:flex-none lg:pl-0">
             {pieData.map((d, i) => (
               <motion.div
                 key={d.name}

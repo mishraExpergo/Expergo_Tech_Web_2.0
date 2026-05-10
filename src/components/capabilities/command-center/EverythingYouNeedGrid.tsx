@@ -16,7 +16,7 @@ export default function EverythingYouNeedGrid() {
   ];
 
   return (
-    <section className="md:py-24 py-12 bg-gray-50 border-y border-gray-200 overflow-hidden relative">
+    <section className="md:py-24 py-12 mt-[30px] bg-gray-50 border-y border-gray-200 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         <div className="text-center mb-16">

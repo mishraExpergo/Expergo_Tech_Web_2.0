@@ -37,7 +37,7 @@ export default function MeasurableImpactSection() {
                      whileInView={{ opacity: 1, y: 0 }}
                      viewport={{ once: true }}
                      transition={{ delay: 0.1 }}
-                     className="text-[36px] mb-6 font-bold leading-tight text-gray-900"
+                     className="text-[30px] md:text-[36px] mb-6 font-bold leading-tight text-gray-900"
                   >
                      Measurable Impact on Portfolio Monitoring
                   </motion.h2>
