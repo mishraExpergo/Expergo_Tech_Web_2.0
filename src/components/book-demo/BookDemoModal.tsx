@@ -172,7 +172,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   };
 
   const handleConfirm = useCallback(async () => {
-    if (!validate() || submitting) return;
+    if (!canSubmit() || submitting) return;
     setSubmitError(null);
     setSubmitting(true);
 
@@ -215,7 +215,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
         placement="right"
         onClose={onClose}
         open={open}
-        size={480}
+        size ={480}
         closable={true}
         closeIcon={
           <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] transition hover:bg-[#F3F6FA] hover:text-[#111]">

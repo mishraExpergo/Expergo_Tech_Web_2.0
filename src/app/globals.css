@@ -138,6 +138,251 @@ html {
 }
 
 @layer utilities {
+  @keyframes hero-card-float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @keyframes hero-chart-sheen {
+    0% {
+      background-position: 130% 0;
+    }
+    100% {
+      background-position: -30% 0;
+    }
+  }
+
+  @keyframes hero-badge-pulse {
+    0%,
+    100% {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(16, 24, 40, 0.07);
+    }
+    50% {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 18px rgba(16, 24, 40, 0.12);
+    }
+  }
+
+  @keyframes hero-bar-rise {
+    0%,
+    100% {
+      transform: scaleY(0.92);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scaleY(1.08);
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-status-blink {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(22, 178, 195, 0.35);
+    }
+    65% {
+      opacity: 0.55;
+      box-shadow: 0 0 0 4px rgba(22, 178, 195, 0);
+    }
+  }
+
+  @keyframes hero-line-draw {
+    from {
+      stroke-dashoffset: 340;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .career-hero-visual {
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    perspective: 1000px;
+    animation: hero-card-float 7.5s ease-in-out infinite;
+  }
+
+  .career-hero-card {
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 200ms ease-out,
+      box-shadow 220ms ease-out;
+    background: #f7f9fc;
+  }
+
+  .career-hero-card::before {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.5), transparent 46%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  .career-hero-visual:hover {
+    animation-play-state: paused;
+  }
+
+  .career-hero-visual:hover .career-hero-card {
+    transform: translateY(-4px) rotateX(var(--ry)) rotateY(var(--rx));
+    box-shadow: 0 20px 45px rgba(12, 35, 64, 0.16);
+  }
+
+  .career-hero-visual:hover .career-hero-card::before {
+    opacity: 1;
+  }
+
+  .career-hero-chart-surface {
+    background-size: 220% 100%;
+    animation: hero-chart-sheen 5s linear infinite;
+  }
+
+  .career-hero-chart-grid {
+    background-image:
+      radial-gradient(circle, rgba(148, 163, 184, 0.35) 0.85px, transparent 0.85px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.08), transparent 40%);
+    background-size:
+      9px 9px,
+      100% 100%;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .career-hero-main-line {
+    fill: none;
+    stroke: #2563eb;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 340;
+    animation: hero-line-draw 650ms ease-out;
+  }
+
+  .career-hero-main-dot {
+    fill: #2563eb;
+    stroke: #ffffff;
+    stroke-width: 1.2;
+    transition: opacity 160ms ease;
+  }
+
+  .career-hero-chart-cursor {
+    stroke: rgba(37, 99, 235, 0.3);
+    stroke-dasharray: 3 3;
+    stroke-width: 1;
+    transition: opacity 160ms ease;
+  }
+
+  .career-hero-risk-line {
+    fill: none;
+    stroke: #1ba9d2;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 180;
+    animation: hero-line-draw 680ms ease-out;
+  }
+
+  .career-hero-range {
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .career-hero-metric-card {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .career-hero-metric-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(15, 23, 42, 0.08);
+  }
+
+  .career-hero-badge {
+    animation: hero-badge-pulse 3.2s ease-in-out infinite;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .career-hero-visual:hover .career-hero-badge {
+    transform: translateY(-3px);
+  }
+
+  .career-hero-bar {
+    transform-origin: bottom center;
+    animation: hero-bar-rise 2.6s ease-in-out infinite;
+    transition: height 280ms ease;
+  }
+
+  .career-hero-bar:nth-child(2) {
+    animation-delay: 120ms;
+  }
+
+  .career-hero-bar:nth-child(3) {
+    animation-delay: 220ms;
+  }
+
+  .career-hero-bar:nth-child(4) {
+    animation-delay: 340ms;
+  }
+
+  .career-hero-bar:nth-child(5) {
+    animation-delay: 460ms;
+  }
+
+  .career-hero-bar:nth-child(6) {
+    animation-delay: 560ms;
+  }
+
+  .career-hero-status {
+    transition: transform 220ms ease;
+    z-index: 2;
+  }
+
+  .career-hero-visual:hover .career-hero-status {
+    transform: translateY(-2px);
+  }
+
+  .career-hero-status-dot {
+    animation: hero-status-blink 2.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .career-hero-visual,
+    .career-hero-card,
+    .career-hero-chart-surface,
+    .career-hero-main-line,
+    .career-hero-risk-line,
+    .career-hero-badge,
+    .career-hero-bar,
+    .career-hero-status-dot {
+      animation: none;
+    }
+
+    .career-hero-card,
+    .career-hero-status {
+      transition: none;
+    }
+
+    .career-hero-visual:hover .career-hero-card,
+    .career-hero-visual:hover .career-hero-status {
+      transform: none;
+    }
+  }
+
   .font-heading {
     font-family: var(--font-stack-poppins);
   }
