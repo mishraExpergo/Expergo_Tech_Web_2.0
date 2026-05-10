@@ -1,11 +1,11 @@
+/**
+ * Carousel insights JSON for the marketing site. Sanity is loaded lazily so
+ * missing env at build time does not fail static analysis of this route.
+ */
 import { NextResponse } from 'next/server'
 
 export const revalidate = 60
 
-/**
- * Load Sanity only when this handler runs (not at module init). That way a missing
- * `NEXT_PUBLIC_SANITY_*` on Vercel cannot break the build during "Collecting page data".
- */
 export async function GET() {
   try {
     const [{ getPostsForListing }, { postImageUrl }] = await Promise.all([

@@ -1,6 +1,8 @@
 import { defineField, defineType } from 'sanity'
 
+import { getContentWorkflowStatusTitle } from '../constants/contentWorkflow'
 import { SITE_PAGE_ROUTES } from '../constants/sitePageRoutes'
+import { CONTENT_WORKFLOW_FIELDS } from './workflowFields'
 
 const routeOptions = SITE_PAGE_ROUTES.map((value) => ({ title: value, value }))
 
@@ -98,7 +100,7 @@ const useCaseCard = {
 
 export const sitePage = defineType({
   name: 'sitePage',
-  title: 'Site page',
+  title: 'Site page (Legacy)',
   type: 'document',
   groups: [
     { name: 'meta', title: 'SEO & route' },
@@ -106,6 +108,22 @@ export const sitePage = defineType({
     { name: 'blocks', title: 'Structured content' },
   ],
   fields: [
+    ...CONTENT_WORKFLOW_FIELDS,
+    defineField({
+      name: 'workflowState',
+      title: 'Workflow State',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'In Review', value: 'inReview' },
+          { title: 'Published', value: 'published' },
+        ],
+      },
+      initialValue: 'draft',
+      readOnly: true,
+      hidden: true,
+    }),
     defineField({
       name: 'route',
       title: 'Page route',
@@ -318,9 +336,12 @@ export const sitePage = defineType({
     }),
   ],
   preview: {
-    select: { route: 'route', metaTitle: 'metaTitle' },
-    prepare({ route, metaTitle }) {
-      return { title: metaTitle || route || 'Site page', subtitle: route }
+    select: { route: 'route', metaTitle: 'metaTitle', status: 'status' },
+    prepare({ route, metaTitle, status }) {
+      return {
+        title: metaTitle || route || 'Site page',
+        subtitle: `${route ?? 'No route'} • ${getContentWorkflowStatusTitle(status)}`,
+      }
     },
   },
 })
