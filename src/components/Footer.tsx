@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { Mail } from "lucide-react";
 import { useCallback, useState, type FormEvent } from "react";
-import { Linkedin, Mail } from "lucide-react";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { executeRecaptcha, subscribeNewsletter } from "@/lib/api/public";
 import { LinkedinFilled } from "@ant-design/icons";
@@ -131,11 +131,6 @@ export function Footer() {
                   Use Cases
                 </Link>
               </li>
-              {/* <li>
-                <Link href="/#company" className={linkClass}>
-                  Company
-                </Link>
-              </li> */}
             </ul>
           </nav>
 

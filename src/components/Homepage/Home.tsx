@@ -23,7 +23,7 @@ const BlogCarousel = dynamic(
 );
 import { CTASection } from "@/components/CTASection";
 import { RiskMonitorControlSection } from "@/components/Homepage/RiskMonitorControlSection";
-import { Hero } from "@/components/Homepage/Hero";
+import { Hero } from "./Hero";
 import type { MergedHomeHero } from "@/lib/sitePage/merges";
 
 const Index = ({ hero }: { hero: MergedHomeHero }) => {

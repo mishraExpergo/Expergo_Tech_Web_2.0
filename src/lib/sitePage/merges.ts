@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import type { SitePageView, SitePageZigzagRowSerialized } from '@sanity/lib/getSitePage'
 
 import {
@@ -257,10 +255,4 @@ export function mergeBureauPage(s: SitePageView | null) {
   }
 }
 
-export function buildOpenGraphMetadata(ogImageUrl: string | null): Pick<Metadata, 'openGraph' | 'twitter'> {
-  if (!ogImageUrl) return {}
-  return {
-    openGraph: { images: [{ url: ogImageUrl }] },
-    twitter: { card: 'summary_large_image', images: [ogImageUrl] },
-  }
-}
+export { buildOpenGraphMetadata } from '@/lib/sitePage/buildOpenGraphMetadata'
