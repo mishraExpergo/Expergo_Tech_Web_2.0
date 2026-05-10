@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";

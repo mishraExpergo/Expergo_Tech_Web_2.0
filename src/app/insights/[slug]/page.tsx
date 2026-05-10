@@ -8,6 +8,7 @@ import { InsightRelatedPosts } from "@/components/insights/detail/InsightRelated
 import { InsightToc } from "@/components/insights/detail/InsightToc";
 import { Header } from "@/components/Header";
 import { buildTocAndHeadingIds } from "@/lib/insights/toc";
+import { isDraftModeEnabled } from "@/lib/preview/isDraftModeEnabled";
 import { getPostBySlug, getPostSlugs, getRelatedPostsForInsight } from "@sanity/lib/getPosts";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,7 +22,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const preview = await isDraftModeEnabled();
+  const post = await getPostBySlug(slug, { preview });
   if (!post) {
     return { title: "Article | EXPERGO" };
   }
@@ -33,9 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InsightArticlePage({ params }: Props) {
   const { slug } = await params;
+  const preview = await isDraftModeEnabled();
   const [post, relatedPosts] = await Promise.all([
-    getPostBySlug(slug),
-    getRelatedPostsForInsight(slug),
+    getPostBySlug(slug, { preview }),
+    getRelatedPostsForInsight(slug, { preview }),
   ]);
 
   if (!post) {

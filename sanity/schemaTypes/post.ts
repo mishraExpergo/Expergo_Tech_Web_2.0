@@ -1,10 +1,29 @@
 import { defineField, defineType } from 'sanity'
 
+import { getContentWorkflowStatusTitle } from '../constants/contentWorkflow'
+import { CONTENT_WORKFLOW_FIELDS } from './workflowFields'
+
 export const post = defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
   fields: [
+    ...CONTENT_WORKFLOW_FIELDS,
+    defineField({
+      name: 'workflowState',
+      title: 'Workflow State',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Draft', value: 'draft' },
+          { title: 'In Review', value: 'inReview' },
+          { title: 'Published', value: 'published' },
+        ],
+      },
+      initialValue: 'draft',
+      readOnly: true,
+      hidden: true,
+    }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -58,9 +77,13 @@ export const post = defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', media: 'mainImage' },
-    prepare({ title, media }) {
-      return { title: title || 'Untitled', media }
+    select: { title: 'title', media: 'mainImage', status: 'status' },
+    prepare({ title, media, status }) {
+      return {
+        title: title || 'Untitled',
+        subtitle: getContentWorkflowStatusTitle(status),
+        media,
+      }
     },
   },
 })

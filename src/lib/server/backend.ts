@@ -20,7 +20,7 @@ export const bookDemoInputSchema = z.object({
   fullName: z.string().trim().min(2).max(120),
   workEmail: z.string().trim().email().max(254).toLowerCase(),
   companyName: z.string().trim().min(2).max(160),
-  phone: z.string().trim().min(6).max(40),
+  phone: z.string().trim().min(7).max(20),
   companySize: z.string().trim().max(80).optional(),
   country: z.string().trim().max(80).optional(),
   industry: z.string().trim().min(1).max(80),
@@ -29,6 +29,17 @@ export const bookDemoInputSchema = z.object({
   source: sourceSchema,
   recaptchaToken: z.string().optional(),
 }).superRefine((input, ctx) => {
+  const hasIntlPhone = /^\+\d{7,15}$/.test(input.phone);
+  const hasLocalPhone = /^\d{7,15}$/.test(input.phone);
+
+  if (!hasIntlPhone && !hasLocalPhone) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["phone"],
+      message: "Enter a valid phone number (7 to 15 digits).",
+    });
+  }
+
   if (!input.country && !input.companySize) {
     ctx.addIssue({
       code: "custom",
@@ -37,18 +48,43 @@ export const bookDemoInputSchema = z.object({
     });
   }
 }).transform((input) => {
-  const country = input.country || input.companySize || "Not specified";
+  const country = (input.country || "").trim();
+  const isCountryCallingCode = /^\+\d{1,4}$/.test(country);
+  const isLocalPhone = /^\d{7,15}$/.test(input.phone);
+  const normalizedPhone =
+    isCountryCallingCode && isLocalPhone ? `${country}${input.phone}` : input.phone;
 
   return {
     ...input,
+    phone: normalizedPhone,
     companySize: input.companySize || country,
-    country,
+    country: country || "Not specified",
     projectDetails: input.projectDetails || "",
   };
 });
 
+export const careerApplicationInputSchema = z.object({
+  roleTitle: z.string().trim().min(2).max(160),
+  firstName: z.string().trim().min(2).max(80),
+  lastName: z.string().trim().min(2).max(80),
+  email: z.string().trim().email().max(254).toLowerCase(),
+  linkedIn: z
+    .string()
+    .trim()
+    .min(1)
+    .max(300)
+    .regex(/^https?:\/\/(www\.)?linkedin\.com\/.+/i),
+  phone: z.string().trim().min(7).max(40),
+  location: z.string().trim().min(2).max(120),
+  resumeFileName: z.string().trim().min(1).max(260),
+  resumeFileSize: z.number().int().positive().max(5 * 1024 * 1024),
+  source: sourceSchema.default("career-apply-modal"),
+  recaptchaToken: z.string().optional(),
+});
+
 export type NewsletterInput = z.infer<typeof newsletterInputSchema>;
 export type BookDemoInput = z.infer<typeof bookDemoInputSchema>;
+export type CareerApplicationInput = z.infer<typeof careerApplicationInputSchema>;
 
 let ensuredTables = false;
 
@@ -78,6 +114,23 @@ async function ensureBackendTables() {
       industry text not null,
       use_case text not null,
       source text not null default 'website',
+      recaptcha_score numeric(4, 3),
+      metadata jsonb not null default '{}'::jsonb,
+      created_at timestamptz not null default now()
+    );
+
+    create table if not exists career_applications (
+      id bigserial primary key,
+      role_title text not null,
+      first_name text not null,
+      last_name text not null,
+      email text not null,
+      linkedin_url text not null,
+      phone text not null,
+      location text not null,
+      resume_file_name text not null,
+      resume_file_size integer not null,
+      source text not null default 'career-apply-modal',
       recaptcha_score numeric(4, 3),
       metadata jsonb not null default '{}'::jsonb,
       created_at timestamptz not null default now()
@@ -223,6 +276,71 @@ export async function saveBookDemoRequest(
         throw err;
       }
       console.warn("[book-demo] webhook failed", err);
+    }
+  }
+}
+
+export async function saveCareerApplication(
+  input: CareerApplicationInput,
+  recaptcha: RecaptchaResult
+) {
+  const webhookUrl =
+    process.env.CAREER_WEBHOOK_URL?.trim() ?? process.env.LEADS_WEBHOOK_URL?.trim();
+  const webhookRequired = !hasDatabaseUrl();
+  assertBackendConfigured(webhookUrl);
+
+  if (hasDatabaseUrl()) {
+    await ensureBackendTables();
+    await query(
+      `
+        insert into career_applications (
+          role_title,
+          first_name,
+          last_name,
+          email,
+          linkedin_url,
+          phone,
+          location,
+          resume_file_name,
+          resume_file_size,
+          source,
+          recaptcha_score,
+          metadata
+        )
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12::jsonb)
+      `,
+      [
+        input.roleTitle,
+        input.firstName,
+        input.lastName,
+        input.email,
+        input.linkedIn,
+        input.phone,
+        input.location,
+        input.resumeFileName,
+        input.resumeFileSize,
+        input.source,
+        recaptcha.score,
+        JSON.stringify({
+          recaptchaEnabled: recaptcha.enabled,
+        }),
+      ]
+    );
+  }
+
+  if (webhookUrl) {
+    try {
+      await postWebhook(webhookUrl, {
+        type: "career_application",
+        ...input,
+        recaptcha,
+        submittedAt: new Date().toISOString(),
+      });
+    } catch (err) {
+      if (webhookRequired) {
+        throw err;
+      }
+      console.warn("[career-application] webhook failed", err);
     }
   }
 }
