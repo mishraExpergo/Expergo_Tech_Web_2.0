@@ -164,7 +164,7 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
   };
 
   const handleConfirm = useCallback(async () => {
-    if (!canSubmit() || submitting) return;
+    if (!validate() || submitting) return;
     setSubmitError(null);
     setSubmitting(true);
 
