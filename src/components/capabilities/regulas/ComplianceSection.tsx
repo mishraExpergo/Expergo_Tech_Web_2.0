@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const features = [
   { id: 1, title: "Signal Detected", desc: "Early Warning captured in statutory compliance tool" },
@@ -62,11 +63,13 @@ export default function ComplianceSection() {
                  {feature.id}
               </div>
                 <div className="relative z-10 pl-4"> </div>
-               <img
+               <Image
                 src="/line.svg"
                 alt=""
-                aria-hidden="true"
-                className=" hidden md:block pointer-events-none absolute left-[70px] w-[350px] opacity-70 z-0"
+                width={350}
+                height={8}
+                aria-hidden
+                className="pointer-events-none absolute left-[70px] z-0 hidden h-auto w-[350px] opacity-70 md:block"
               />
               
             

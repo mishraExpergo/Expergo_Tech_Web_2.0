@@ -23,6 +23,7 @@
 4. Next.js enables Draft Mode cookie and redirects to real frontend route.
 5. Data layer switches to preview client (`perspective: drafts`) for that session.
 
+
 ## Regression Checklist
 
 - [ ] `/`, `/platform`, `/capabilities`, `/capabilities/lighthouse`, `/capabilities/regulas`, `/capabilities/command-center`, `/capabilities/bureau-360`, `/outcomes`, `/use-cases`, `/insights` render published content only in normal sessions.
@@ -33,10 +34,13 @@
 
 ## Backfill Existing Content
 
+
 Run migration after deploying schemas:
 
 ```bash
-npx sanity migration run sanity/migrations/backfillWorkflowStatus.ts
+npx sanity migration run sa
+
+nity/migrations/backfillWorkflowStatus.ts
 ```
 
 This sets missing `status` values to `published` for existing content.
