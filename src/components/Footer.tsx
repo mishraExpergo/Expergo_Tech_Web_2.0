@@ -114,7 +114,7 @@ export function Footer() {
             <p className="mt-1 text-sm text-white/75">Gurgaon, India</p>
           </div>
 
-          <nav aria-label="Site sections" className="sm:col-span-1">
+          <nav aria-label="Site sections" className="sm:col-span-1 ">
             <ul className="space-y-3">
               <li>
                 <Link href="/platform" className={linkClass}>
@@ -134,7 +134,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label="Product" className="sm:col-span-1">
+          <nav aria-label="Product" className="sm:col-span-1 max-sm:-mt-9">
             <ul className="space-y-3">
               <li>
                 <Link href="/capabilities" className={linkClass}>
