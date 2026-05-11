@@ -22,7 +22,7 @@ export const DEFAULT_CAPABILITIES_ZIGZAG: SitePageZigzagRowSerialized[] = [
   {
     title: 'Lighthouse',
     reversed: false,
-    linkPath: '/capabilities/lighthouse',
+    linkPath: '/capabilities/decide/lighthouse',
     useComplianceHubGraphic: false,
     rowImageUrl: '/tr-removebg-preview (1).png',
     items: [
@@ -39,7 +39,7 @@ export const DEFAULT_CAPABILITIES_ZIGZAG: SitePageZigzagRowSerialized[] = [
   {
     title: 'Regulus',
     reversed: true,
-    linkPath: '/capabilities/regulas',
+    linkPath: '/capabilities/control/regulas',
     useComplianceHubGraphic: true,
     rowImageUrl: null,
     items: [
@@ -56,7 +56,7 @@ export const DEFAULT_CAPABILITIES_ZIGZAG: SitePageZigzagRowSerialized[] = [
   {
     title: 'Command Center',
     reversed: false,
-    linkPath: '/capabilities/command-center',
+    linkPath: '/capabilities/control/command-center',
     useComplianceHubGraphic: false,
     rowImageUrl: '/1 1.png',
     items: [
@@ -73,7 +73,7 @@ export const DEFAULT_CAPABILITIES_ZIGZAG: SitePageZigzagRowSerialized[] = [
   {
     title: 'Bureau 360°',
     reversed: true,
-    linkPath: '/capabilities/bureau-360',
+    linkPath: '/capabilities/detect/bureau-360',
     useComplianceHubGraphic: false,
     rowImageUrl: '/Frame 3033 (1).svg',
     items: [
