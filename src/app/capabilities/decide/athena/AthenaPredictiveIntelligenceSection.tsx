@@ -110,7 +110,7 @@ function Panel({
   );
 }
 
-export default function AegisPredictiveIntelligenceSection() {
+export default function AthenaPredictiveIntelligenceSection() {
   const uid = useId().replace(/:/g, "");
   const outcomeFill = `intel-outcome-fill-${uid}`;
   const outcomeLine = `M4 40 L28 34 L52 28 L76 18 L100 10 L116 6`;

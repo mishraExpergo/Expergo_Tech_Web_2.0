@@ -232,7 +232,7 @@ function HexIcon({ icon }: { icon: IconKey }) {
   );
 }
 
-export default function AegisMeasuredImprovementSection() {
+export default function AthenaMeasuredImprovementSection() {
   return (
     <motion.section
       initial={{ opacity: 0, y: 14 }}

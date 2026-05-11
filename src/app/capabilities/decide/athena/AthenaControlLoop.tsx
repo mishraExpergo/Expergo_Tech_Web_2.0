@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-type AegisControlStep = {
+type AthenaControlStep = {
   id: string;
   label: string;
   title: string;
@@ -14,7 +14,7 @@ type AegisControlStep = {
   dots?: Array<{ cx: number; cy: number }>;
 };
 
-const controlSteps: AegisControlStep[] = [
+const controlSteps: AthenaControlStep[] = [
   {
     id: "01",
     label: "Anticipate Movement",
@@ -92,7 +92,7 @@ const controlSteps: AegisControlStep[] = [
   },
 ];
 
-export default function AegisControlLoop() {
+export default function AthenaControlLoop() {
   const [activeId, setActiveId] = useState<string>(controlSteps[0].id);
 
   const activeStep = useMemo(
@@ -194,20 +194,20 @@ export default function AegisControlLoop() {
                 transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
               >
                 <defs>
-                  <linearGradient id="aegis-line" x1="0" y1="0" x2="1" y2="0">
+                  <linearGradient id="athena-line" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#16B2C3" stopOpacity="0.65" />
                     <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.95" />
                   </linearGradient>
-                  <linearGradient id="aegis-fill" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="athena-fill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#1D68D5" stopOpacity="0.15" />
                     <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.02" />
                   </linearGradient>
                 </defs>
 
-                <path d={activeStep.fillPath} fill="url(#aegis-fill)" />
+                <path d={activeStep.fillPath} fill="url(#athena-fill)" />
                 <motion.path
                   d={activeStep.linePath}
-                  stroke="url(#aegis-line)"
+                  stroke="url(#athena-line)"
                   strokeWidth="2.35"
                   strokeLinecap="round"
                   strokeLinejoin="round"

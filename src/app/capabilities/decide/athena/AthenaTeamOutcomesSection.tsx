@@ -67,7 +67,7 @@ const wheelNodeStyles: Record<TeamKey, string> = {
   underwriting: "left-[-18px] top-1/2 -translate-y-1/2",
 };
 
-export default function AegisTeamOutcomesSection() {
+export default function AthenaTeamOutcomesSection() {
   const [activeKey, setActiveKey] = useState<TeamKey>("underwriting");
 
   const active = useMemo(

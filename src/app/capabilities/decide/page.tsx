@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function DecidePage() {
-  redirect("/capabilities/decide/aegis");
+  redirect("/capabilities/decide/athena");
 }

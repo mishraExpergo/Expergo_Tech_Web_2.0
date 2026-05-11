@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
-import AegisControlLoop from "@/app/capabilities/decide/aegis/AegisControlLoop";
-import AegisPredictiveIntelligenceSection from "@/app/capabilities/decide/aegis/AegisPredictiveIntelligenceSection";
-import AegisIntelligenceSection from "@/app/capabilities/decide/aegis/AegisIntelligenceSection";
-import AegisMeasuredImprovementSection from "@/app/capabilities/decide/aegis/AegisMeasuredImprovementSection";
-import AegisTeamOutcomesSection from "@/app/capabilities/decide/aegis/AegisTeamOutcomesSection";
+import AthenaControlLoop from "@/app/capabilities/decide/athena/AthenaControlLoop";
+import AthenaPredictiveIntelligenceSection from "@/app/capabilities/decide/athena/AthenaPredictiveIntelligenceSection";
+import AthenaIntelligenceSection from "@/app/capabilities/decide/athena/AthenaIntelligenceSection";
+import AthenaMeasuredImprovementSection from "@/app/capabilities/decide/athena/AthenaMeasuredImprovementSection";
+import AthenaTeamOutcomesSection from "@/app/capabilities/decide/athena/AthenaTeamOutcomesSection";
 
 export const metadata: Metadata = {
-  title: "Aegis | Expergo",
+  title: "Athena | Expergo",
   description:
-    "Aegis helps lending teams anticipate borrower behavior, prioritize action, and improve portfolio outcomes.",
+    "Athena helps lending teams anticipate borrower behavior, prioritize action, and improve portfolio outcomes.",
 };
 
-export default function AegisPage() {
+export default function AthenaPage() {
   return (
     <div className="min-h-screen flex flex-col bg-brand-surface">
       <Header />
@@ -28,7 +28,7 @@ export default function AegisPage() {
             </h1>
 
             <p className="mt-8 es-body max-w-xl">
-              Aegis enables lending teams to anticipate borrower behaviour,
+              Athena enables lending teams to anticipate borrower behaviour,
               prioritise action, and improve portfolio outcomes with
               forward-looking intelligence.
             </p>
@@ -46,11 +46,11 @@ export default function AegisPage() {
             </BookDemoButton>
           </div>
         </section>
-        <AegisControlLoop />
-        <AegisPredictiveIntelligenceSection />
-        <AegisTeamOutcomesSection />
-        <AegisMeasuredImprovementSection />
-        <AegisIntelligenceSection />
+        <AthenaControlLoop />
+        <AthenaPredictiveIntelligenceSection />
+        <AthenaTeamOutcomesSection />
+        <AthenaMeasuredImprovementSection />
+        <AthenaIntelligenceSection />
       </main>
     </div>
   );

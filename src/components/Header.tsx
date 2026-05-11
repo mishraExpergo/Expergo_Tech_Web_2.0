@@ -41,8 +41,8 @@ const capabilityGroups = [
     description: "Risk interpretation, prioritisation, and decision intelligence.",
     links: [
       {
-        href: "/capabilities/decide/aegis",
-        label: "Aegis",
+        href: "/capabilities/decide/athena",
+        label: "Athena",
         description: "Predict borrower movement early and prioritize portfolio actions with confidence.",
       },
       {

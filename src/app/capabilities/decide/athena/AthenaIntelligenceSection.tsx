@@ -3,7 +3,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-type SystemNodeId = "signals" | "aegis" | "athena" | "command-centre" | "outcomes";
+type SystemNodeId =
+  | "signals"
+  | "athena-reasoning"
+  | "athena-predictive"
+  | "command-centre"
+  | "outcomes";
 type SystemModuleId = "lighthouse" | "regulus";
 type ActiveItemId = SystemNodeId | SystemModuleId;
 
@@ -32,17 +37,17 @@ const systemNodes: SystemNode[] = [
     summaryText: "Real time portfolio behaviour and external data ingestion.",
   },
   {
-    id: "aegis",
-    label: "Aegis",
-    badge: "A",
-    summaryTitle: "Aegis",
-    summaryText: "Risk reasoning layer translates raw signal into understanding.",
-  },
-  {
-    id: "athena",
+    id: "athena-reasoning",
     label: "Athena",
     badge: "A",
     summaryTitle: "Athena",
+    summaryText: "Risk reasoning layer translates raw signal into understanding.",
+  },
+  {
+    id: "athena-predictive",
+    label: "Predictive intelligence",
+    badge: "P",
+    summaryTitle: "Predictive intelligence",
     summaryText: "Predictive intelligence — anticipates movement and prescribes action.",
   },
   {
@@ -67,19 +72,19 @@ const topModules: SystemModule[] = [
     name: "Lighthouse",
     type: "Visibility",
     summaryTitle: "Lighthouse",
-    summaryText: "Visibility modular orchestrated alongside Aegis.",
+    summaryText: "Visibility modular orchestrated alongside Athena.",
   },
   {
     id: "regulus",
     name: "Regulus",
     type: "Governance",
     summaryTitle: "Regulus",
-    summaryText: "Governance modular orchestrated alongside Aegis.",
+    summaryText: "Governance modular orchestrated alongside Athena.",
   },
 ];
 
-export default function AegisIntelligenceSection() {
-  const [activeItemId, setActiveItemId] = useState<ActiveItemId>("aegis");
+export default function AthenaIntelligenceSection() {
+  const [activeItemId, setActiveItemId] = useState<ActiveItemId>("athena-reasoning");
 
   const activeItem = useMemo(
     () => [...systemNodes, ...topModules].find((item) => item.id === activeItemId) ?? systemNodes[1],
@@ -99,7 +104,7 @@ export default function AegisIntelligenceSection() {
           Part of the EarlySafe <span className="text-brand-teal">Intelligence System</span>
         </h2>
         <p className="mt-4 text-[17px] leading-[1.45] text-brand-muted mx-auto max-w-2xl">
-          Aegis is one module in an enterprise-grade operating system - connected, orchestrated, continuously
+          Athena is one module in an enterprise-grade operating system - connected, orchestrated, continuously
           learning.
         </p>
       </motion.div>
