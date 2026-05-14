@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const GRID_TILE = 32;
 const GRID_BASE =
@@ -116,7 +117,13 @@ export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
 
         <div className="">
           {hero.sideImageUrl ? (
-            <img src={hero.sideImageUrl} alt={hero.sideImageAlt || "Command Center"} width={600} height={600} />
+            <Image
+              src={hero.sideImageUrl}
+              alt={hero.sideImageAlt || "Command Center"}
+              width={600}
+              height={600}
+              className="h-auto w-full max-w-[600px]"
+            />
           ) : null}
         </div>
 

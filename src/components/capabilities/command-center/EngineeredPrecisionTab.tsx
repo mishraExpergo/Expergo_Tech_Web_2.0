@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Server, Activity, Database, GitMerge, Zap, ShieldCheck } from "lucide-react";
+import { ChevronDown, Server, Activity, Database, GitMerge, Zap, ShieldCheck } from "lucide-react";
 import { CgController } from "react-icons/cg";
 import { PiTreeStructureDuotone } from "react-icons/pi";
 
@@ -30,14 +30,22 @@ function FeatureDetailBody({
   activeIndex,
   className = "",
   contentClassName = "",
+  showTopAccentLine = true,
+  compactTitle = false,
 }: {
   activeIndex: number;
   className?: string;
   contentClassName?: string;
+  /** Hide the cyan line above the icon (mobile detail panels). */
+  showTopAccentLine?: boolean;
+  /** Smaller, wrapping title for narrow mobile panels. */
+  compactTitle?: boolean;
 }) {
   return (
-    <div className={`relative flex flex-col justify-center min-h-0 ${className}`}>
-      <div className="absolute top-0 left-0 w-16 h-[2px] bg-[#01AEE4]/50" />
+    <div className={`relative flex min-h-0 flex-col justify-center ${className}`}>
+      {showTopAccentLine ? (
+        <div className="absolute left-0 top-0 hidden h-[2px] w-16 bg-[#01AEE4]/50 md:block" aria-hidden />
+      ) : null}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
@@ -45,18 +53,24 @@ function FeatureDetailBody({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -10 }}
           transition={{ duration: 0.3 }}
-          className={`relative z-10 ${contentClassName}`}
+          className={`relative z-10 min-w-0 ${contentClassName}`}
         >
-          <div className="text-[#01AEE4] mb-4">
+          <div className="mb-4 text-[#01AEE4]">
             {(() => {
               const Icon = features[activeIndex].icon;
-              return <Icon className="w-8 h-8" />;
+              return <Icon className="h-8 w-8 shrink-0" />;
             })()}
           </div>
-          <h3 className="es-heading-section mb-4 font-bold text-white">
-            {features[activeIndex].title}
+          <h3
+            className={
+              compactTitle
+                ? "mb-3 break-words text-lg font-bold leading-snug tracking-tight text-white sm:text-xl"
+                : "es-heading-section mb-4 font-bold text-white"
+            }
+          >
+            {features[activeIndex].title.trim()}
           </h3>
-          <p className="text-gray-400 leading-relaxed max-w-lg">
+          <p className="max-w-lg leading-relaxed text-gray-400">
             {features[activeIndex].desc}
           </p>
         </motion.div>
@@ -145,12 +159,22 @@ export default function EngineeredPrecisionTab() {
                           }
                         }}
                         aria-expanded={!isMdUp ? mobileOpenIndex === idx : undefined}
-                        className={`w-full text-left px-4 py-3 rounded-md text-sm font-semibold transition-colors flex items-center gap-3
-                          ${active ? "bg-[#1D2534] text-white border border-[#2d3a50]" : "text-gray-400 hover:text-gray-200 hover:bg-[#1f2838] border border-transparent"}
+                        className={`flex w-full items-center gap-3 rounded-md px-4 py-3 text-left text-sm font-semibold transition-colors md:gap-3
+                          ${active ? "border border-[#2d3a50] bg-[#1D2534] text-white" : "border border-transparent text-gray-400 hover:bg-[#1f2838] hover:text-gray-200"}
                         `}
                       >
-                        <feat.icon className={`w-4 h-4 shrink-0 ${active ? "text-[#01AEE4]" : "text-gray-500"}`} />
-                        {feat.id}. {feat.title}
+                        <feat.icon className={`h-4 w-4 shrink-0 ${active ? "text-[#01AEE4]" : "text-gray-500"}`} />
+                        <span className="min-w-0 flex-1 leading-snug">
+                          {feat.id}. {feat.title.trim()}
+                        </span>
+                        {!isMdUp ? (
+                          <ChevronDown
+                            className={`h-5 w-5 shrink-0 text-white/70 transition-transform duration-200 ease-out ${
+                              mobileOpenIndex === idx ? "rotate-180" : ""
+                            }`}
+                            aria-hidden
+                          />
+                        ) : null}
                       </button>
                       <AnimatePresence initial={false}>
                         {!isMdUp && mobileOpenIndex === idx && (
@@ -162,10 +186,12 @@ export default function EngineeredPrecisionTab() {
                             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                             className="md:hidden overflow-hidden"
                           >
-                            <div className="mt-1 rounded-md border border-[#2d3a50] bg-[#1D2534] p-4 pl-4 pr-3 relative">
+                            <div className="relative mt-1 overflow-x-clip rounded-md border border-[#2d3a50] bg-[#1D2534] px-3 py-4 sm:px-4">
                               <FeatureDetailBody
                                 activeIndex={idx}
                                 className="min-h-0 py-1 pb-10"
+                                showTopAccentLine={false}
+                                compactTitle
                               />
                             </div>
                           </motion.div>

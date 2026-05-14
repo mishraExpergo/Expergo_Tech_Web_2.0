@@ -7,6 +7,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recha
 
 import { platformCardClass, platformCardLayout, platformChart } from "./platformChartColors";
 import { PlatformSizedChart } from "./PlatformSizedChart";
+import { useIsBelowLg } from "@/hooks/useIsBelowLg";
 
 const data = [
   { name: "JAN", value: 45 },
@@ -22,6 +23,10 @@ const BAR_FILL = platformChart.purple;
 
 export const PortfolioIntelligenceCard = () => {
   const [activeBar, setActiveBar] = useState<number | null>(null);
+  const compactChart = useIsBelowLg();
+  const chartMargin = compactChart
+    ? { top: 6, right: 6, bottom: 6, left: 0 }
+    : { top: 5, right: 5, bottom: 5, left: 5 };
 
   return (
     <motion.div
@@ -36,11 +41,15 @@ export const PortfolioIntelligenceCard = () => {
     >
       <h3 className="text-base font-semibold text-brand-ink">Portfolio Intelligence Interface</h3>
       <p className="mt-1 mb-4 text-xs text-brand-muted">Executive dashboards & heat maps</p>
-      <PlatformSizedChart className="min-h-[11rem] h-[200px] w-full min-w-0 flex-1 shrink-0 lg:h-auto">
-        <BarChart data={data}>
+      <PlatformSizedChart className="min-h-[11rem] h-[200px] w-full min-w-0 flex-1 shrink-0 self-stretch text-left lg:h-auto">
+        <BarChart data={data} margin={chartMargin}>
           <CartesianGrid strokeDasharray="3 3" stroke={platformChart.cardBorder} />
           <XAxis dataKey="name" tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--color-brand-muted)" }} domain={[0, 100]} />
+          <YAxis
+            domain={[0, 100]}
+            tick={{ fontSize: compactChart ? 10 : 11, fill: "var(--color-brand-muted)" }}
+            width={compactChart ? 28 : undefined}
+          />
           <Tooltip
             contentStyle={{
               background: "#fff",

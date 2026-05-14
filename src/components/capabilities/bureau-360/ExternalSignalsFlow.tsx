@@ -1,34 +1,34 @@
 "use client";
-
+ 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-
+ 
 export default function ExternalSignalsFlow() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+ 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"]
   });
-
+ 
   const pathHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
+ 
   const leftCards = [
     { id: "01", text: "Bureau score migration" },
     { id: "03", text: "Trade line additions and closures" },
     { id: "05", text: "Borrower behaviour segmentation" },
   ];
-
+ 
   const rightCards = [
     { id: "02", text: "Enquiry velocity and recency" },
     { id: "04", text: "Off-us delinquency signals" }, // Text from the image
     { id: "06", text: "Multi-lender exposure patterns" },
   ];
-
+ 
   return (
     <section className="py-24 bg-white font-sans overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        
+       
         {/* Header */}
         <div className="text-center mb-8">
           <motion.h4
@@ -65,7 +65,7 @@ export default function ExternalSignalsFlow() {
             </p>
           </motion.div>
         </div>
-
+ 
         {/* Timeline Container */}
         <motion.div
            ref={containerRef}
@@ -77,18 +77,18 @@ export default function ExternalSignalsFlow() {
         >
           {/* Middle Vertical Line Tracker */}
           <div className="absolute top-16 bottom-48 left-1/2 -translate-x-1/2 w-px hidden md:block bg-transparent">
-             <motion.div 
+             <motion.div
                 style={{ height: pathHeight }}
-                className="w-full bg-[#01AEE4]" 
+                className="w-full bg-[#01AEE4]"
              />
           </div>
-
+ 
           <div className="flex flex-col md:flex-row justify-center relative w-full h-auto">
              
             {/* Mobile View - Single Column */}
             <div className="flex md:hidden flex-col gap-6 w-full relative z-10">
               {[...leftCards, ...rightCards].sort((a,b) => parseInt(a.id) - parseInt(b.id)).map((card, idx) => (
-                <motion.div 
+                <motion.div
                   key={card.id}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -101,13 +101,13 @@ export default function ExternalSignalsFlow() {
                 </motion.div>
               ))}
             </div>
-
+ 
             {/* Desktop View - Two Columns */}
             <div className="hidden md:flex w-full h-[550px] relative z-10">
                {/* Left Column */}
                <div className="flex-1 flex flex-col justify-between pr-12 relative h-full">
                   {leftCards.map((card, idx) => (
-                    <motion.div 
+                    <motion.div
                       key={card.id}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -119,17 +119,17 @@ export default function ExternalSignalsFlow() {
                       <div className="absolute top-1/2 -right-12 w-12 h-px bg-[#01AEE4]" />
                       {/* Dot on Center Line */}
                       <div className="absolute top-1/2 -right-[51px] -translate-y-1/2 w-2 h-2 rounded-full bg-[#01AEE4]" />
-
+ 
                       <span className="block text-xs font-bold text-white mb-1">{card.id}</span>
                       <span className="block text-white font-bold text-[14px] lg:text-[15px] leading-snug">{card.text}</span>
                     </motion.div>
                   ))}
                </div>
-
+ 
                {/* Right Column (Staggered by adding a margin top) */}
                <div className="flex-1 flex flex-col justify-between pl-12 relative h-full pt-[60px] pb-[60px]">
                   {rightCards.map((card, idx) => (
-                    <motion.div 
+                    <motion.div
                       key={card.id}
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -141,7 +141,7 @@ export default function ExternalSignalsFlow() {
                       <div className="absolute top-1/2 -left-12 w-12 h-px bg-[#01AEE4]" />
                       {/* Dot on Center Line */}
                       <div className="absolute top-1/2 -left-[51px] -translate-y-1/2 w-2 h-2 rounded-full bg-[#01AEE4]" />
-
+ 
                       <span className="block text-xs font-bold text-white mb-1">{card.id}</span>
                       <span className="block text-white font-bold text-[14px] lg:text-[15px] leading-snug">{card.text}</span>
                     </motion.div>
@@ -149,9 +149,9 @@ export default function ExternalSignalsFlow() {
                </div>
             </div>
           </div>
-
+ 
           {/* Bottom Footer Text within Container */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -159,15 +159,17 @@ export default function ExternalSignalsFlow() {
             className="mt-16 md:mt-24 text-center px-4"
           >
             <p className="text-[#C0CBE3] text-[13px] md:text-[14px] leading-relaxed max-w-2xl mx-auto font-medium">
-               Instead of using bureau data as a static input, BUREAU 360° helps institutions interpret how 
+               Instead of using bureau data as a static input, BUREAU 360° helps institutions interpret how
                borrower credit behaviour is evolving across the wider lending ecosystem. <br className="hidden md:block"/>
                This enables structured visibility into:
             </p>
           </motion.div>
-
+ 
         </motion.div>
-
+ 
       </div>
     </section>
   );
 }
+ 
+ 

@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import type { SitePageStatPair } from "@sanity/lib/getSitePage";
 
@@ -170,11 +171,13 @@ export default function LighthouseHero({
               ))}
             </div>
 
-            <img
+            <Image
               src={artSrc}
               alt={hero.illustrationAlt || "Lighthouse"}
-              className="relative z-10 w-full max-w-[100rem] h-auto max-h-[100vh] object-contain select-none transform translate-y-30"
-              decoding="async"
+              width={1200}
+              height={900}
+              sizes="(max-width: 1024px) 100vw, 520px"
+              className="relative z-10 h-auto max-h-[100vh] w-full max-w-[100rem] translate-y-30 transform select-none object-contain"
             />
           </motion.div>
         </div>

@@ -11,9 +11,9 @@ export default defineConfig({
   projectId,
   dataset,
   schema,
-  document: {
-    actions: resolveWorkflowActions,
-  },
+  // document: {
+  //   actions: resolveWorkflowActions,
+  // },
   plugins: [
     structureTool(),
     presentationTool({

@@ -41,12 +41,20 @@ export async function verifyRecaptcha(
   expectedAction: string
 ): Promise<RecaptchaResult> {
   const secret = process.env.RECAPTCHA_SECRET_KEY;
+  const isProd = process.env.NODE_ENV === "production";
 
   if (!secret) {
     return { enabled: false, score: null };
   }
 
   if (!token) {
+    if (!isProd) {
+      console.warn(
+        "[recaptcha] missing token in non-production, bypassing",
+        { expectedAction }
+      );
+      return { enabled: true, score: null };
+    }
     throw new Error("reCAPTCHA verification is required.");
   }
 
@@ -74,6 +82,37 @@ export async function verifyRecaptcha(
     process.env.RECAPTCHA_ALLOW_DEV_BYPASS === "true";
 
   if (!result.success) {
+
+    if (!isProd) {
+      console.warn(
+        "[recaptcha] verification failed in non-production, bypassing",
+        result["error-codes"] ?? []
+      );
+      return { enabled: true, score: result.score ?? null };
+    }
+    throw new Error("reCAPTCHA verification failed.");
+  }
+
+  if (result.action && result.action !== expectedAction) {
+    if (!isProd) {
+      console.warn(
+        "[recaptcha] action mismatch in non-production, bypassing",
+        { expectedAction, receivedAction: result.action }
+      );
+      return { enabled: true, score: result.score ?? null };
+    }
+    throw new Error("reCAPTCHA action did not match.");
+  }
+
+  if (typeof result.score === "number" && result.score < minScore) {
+    if (!isProd) {
+      console.warn(
+        "[recaptcha] low score in non-production, bypassing",
+        { score: result.score, minScore }
+      );
+      return { enabled: true, score: result.score };
+    }
+    throw new Error("reCAPTCHA score was too low.");
     if (allowBypassInDev) {
       console.warn("[recaptcha] verification bypassed in development", {
         errorCodes: result["error-codes"] ?? [],

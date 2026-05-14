@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import {
+  ChevronDown,
   ClipboardList,
   Clock4,
   FileStack,
@@ -106,6 +107,7 @@ export default function SevenPillarsSection() {
                 <div key={title} className="rounded-md">
                   <motion.button
                     type="button"
+                    aria-expanded={selected}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -116,7 +118,7 @@ export default function SevenPillarsSection() {
                         setActiveIndex(idx);
                       }
                     }}
-                    className={`w-full text-left bg-[#1a2b3c] text-white py-4 px-6 rounded-md flex items-center gap-3 transition-colors shadow-sm cursor-pointer border-2 ${
+                    className={`flex w-full cursor-pointer items-center gap-3 rounded-md border-2 bg-[#1a2b3c] px-4 py-4 text-left text-white shadow-sm transition-colors sm:px-6 ${
                       selected
                         ? "border-cyan-400/70 bg-[#20374e] ring-1 ring-cyan-400/30"
                         : "border-transparent hover:bg-[#20374e]"
@@ -129,9 +131,15 @@ export default function SevenPillarsSection() {
                         aria-hidden
                       />
                     </span>
-                    <span className="font-medium text-sm md:text-base">
+                    <span className="min-w-0 flex-1 font-medium text-sm leading-snug">
                       {title}
                     </span>
+                    <ChevronDown
+                      className={`h-5 w-5 shrink-0 text-white/75 transition-transform duration-200 ease-out ${
+                        selected ? "rotate-180" : ""
+                      }`}
+                      aria-hidden
+                    />
                   </motion.button>
 
                   <AnimatePresence>

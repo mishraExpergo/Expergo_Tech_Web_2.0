@@ -380,11 +380,11 @@ const DetectView = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-0 right-0 -mr-2 -mt-2 bg-foreground text-primary-foreground text-xs rounded-lg p-3 shadow-lg min-w-[180px] z-10"
+            className="absolute top-0 right-0 z-10 -mr-2 -mt-2 min-w-[180px] rounded-lg bg-[#101828] p-3 text-xs text-white shadow-lg"
           >
-            <p className="font-medium mb-1">Account #{a.id}</p>
-            <p className="opacity-70">{a.segment}</p>
-            <p className="opacity-70 mt-1">Signal: {a.signal}</p>
+            <p className="mb-1 font-medium text-white">Account #{a.id}</p>
+            <p className="text-white/80">{a.segment}</p>
+            <p className="mt-1 text-white/80">Signal: {a.signal}</p>
           </motion.div>
         );
       })()}
@@ -487,15 +487,17 @@ const ControlView = ({ accounts }: { accounts: AccountNode[] }) => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05, duration: 0.305 }}
-             className="flex items-center justify-between py-1.5 px-3 rounded-md bg-background border border-border">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-medium text-muted-foreground w-5">#{i + 1}</span>
-                <div>
+             className="flex items-center justify-between gap-2 py-1.5 px-3 rounded-md bg-background border border-border">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                <span className="text-xs font-medium text-muted-foreground w-5 shrink-0">#{i + 1}</span>
+                <div className="min-w-0">
                   <p className="text-xs font-medium text-foreground">Account {a.id} · {a.segment}</p>
                   <p className="text-[11px] text-muted-foreground">{a.signal}</p>
                 </div>
               </div>
-              <div className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${a.riskState === "high" ? "bg-risk-high text-risk-high-text" : "bg-risk-accelerating text-risk-accelerating-text"}`}>
+              <div
+                className={`shrink-0 text-[11px] font-medium px-2 rounded-full max-sm:inline-flex max-sm:h-[22px] max-sm:items-center max-sm:justify-center max-sm:whitespace-nowrap max-sm:py-0 max-sm:leading-none sm:py-0.5 ${a.riskState === "high" ? "bg-risk-high text-risk-high-text" : "bg-risk-accelerating text-risk-accelerating-text"}`}
+              >
                 {a.migrationProb}% migration
               </div>
             </motion.div>
@@ -534,22 +536,28 @@ const ScrollNarrative = () => {
     const rect = sectionRef.current.getBoundingClientRect();
     const sectionHeight = rect.height;
     const scrolled = -rect.top;
-    const progress = Math.max(0, Math.min(1, scrolled / (sectionHeight - window.innerHeight)));
+    const scrollRange = Math.max(1, sectionHeight - window.innerHeight);
+    const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
 
-    if (progress < 0.33) setPhase("detect");
-    else if (progress < 0.66) setPhase("decide");
+    if (progress < 1 / 3) setPhase("detect");
+    else if (progress < 2 / 3) setPhase("decide");
     else setPhase("control");
   }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ minHeight: "300vh" }}>
-    <div className="sticky top-0 flex min-h-[auto] lg:min-h-screen items-start lg:items-center py-6 lg:py-12">
-        <div className="mx-auto w-full max-w-[1200px] px-6 md:px-10">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[155vh] md:min-h-[165vh]"
+      aria-label="Detect, decide, and control narrative"
+    >
+      <div className="sticky top-[72px] z-10 bg-background px-6 py-8 md:px-10 md:py-10">
+        <div className="mx-auto w-full max-w-[1200px]">
           {/* Phase tabs */}
           <div className="mb-10 flex w-fit gap-1 rounded-lg bg-muted p-1">
             {(["detect", "decide", "control"] as Phase[]).map((p) => (
@@ -577,9 +585,9 @@ const ScrollNarrative = () => {
                   transition={{ duration: 0.355 }}
                 >
                   <h2 className="text-2xl sm:text-3xl lg:text-[52px] text-[#15B5C1] mb-1 font-bold">
-  {phaseContent[phase].heading}
-</h2>
-<p className="es-heading-sub text-muted-foreground mb-3">{phaseContent[phase].sub}</p>
+                    {phaseContent[phase].heading}
+                  </h2>
+                  <p className="es-heading-sub text-muted-foreground mb-3">{phaseContent[phase].sub}</p>
                   <ul className="space-y-2 mb-4">
                     {phaseContent[phase].bullets.map((b) => (
                       <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
