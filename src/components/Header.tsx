@@ -5,43 +5,76 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { useBookDemo } from "@/components/book-demo/BookDemoProvider";
 
+const isRouteActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(`${href}/`);
+
 const links = [
-  { href: "/platform", label: "Platform", match: (p: string) => false },
+  { href: "/platform", label: "Platform", match: (p: string) => isRouteActive(p, "/platform") },
   {
     href: "/capabilities",
     label: "Capabilities",
-    match: (p: string) => p === "/capabilities" || p.startsWith("/capabilities/"),
+    match: (p: string) => isRouteActive(p, "/capabilities"),
   },
-  { href: "/outcomes", label: "Outcomes", match: (p: string) => p === "/outcomes" },
-  { href: "/use-cases", label: "Use Cases", match: (p: string) => p === "/use-cases" },
-  { href: "/insights", label: "Insights", match: (p: string) => p === "/insights" },
-  { href: "/career", label: "Careers", match: (p: string) => p === "/career" },
-  { href: "/aegis", label: "Aegis", match: (p: string) => p === "/aegis" },
+  { href: "/outcomes", label: "Outcomes", match: (p: string) => isRouteActive(p, "/outcomes") },
+  { href: "/use-cases", label: "Use Cases", match: (p: string) => isRouteActive(p, "/use-cases") },
+  { href: "/insights", label: "Insights", match: (p: string) => isRouteActive(p, "/insights") },
 ] as const;
 
-const capabilityLinks = [
+const capabilityGroups = [
   {
-    href: "/capabilities/lighthouse",
-    label: "Lighthouse",
-    description: "Early stress detection and portfolio concentration monitoring.",
+    key: "detect",
+    label: "Detect",
+    description: "Early signal discovery and portfolio risk sensing.",
+    links: [
+      {
+        href: "/capabilities/detect/bureau-360",
+        label: "Bureau 360",
+        description: "External risk signals, exposure shifts, and borrower behaviour tracking.",
+      },
+    ],
   },
   {
-    href: "/capabilities/regulas",
-    label: "Regulus",
-    description: "Governance, regulatory alignment, and audit-ready signal control.",
+    key: "decide",
+    label: "Decide",
+    description: "Risk interpretation, prioritisation, and decision intelligence.",
+    links: [
+      {
+        href: "/capabilities/decide/aegis",
+        label: "Aegis",
+        description:
+          "Interpret signals into trajectories and actions so teams move portfolio outcomes, not just dashboards.",
+      },
+      {
+        href: "/capabilities/decide/athena",
+        label: "Athena",
+        description: "Predict borrower movement early and prioritize portfolio actions with confidence.",
+      },
+      {
+        href: "/capabilities/decide/lighthouse",
+        label: "Lighthouse",
+        description: "Early stress detection and portfolio concentration monitoring.",
+      },
+    ],
   },
   {
-    href: "/capabilities/command-center",
-    label: "Command Center",
-    description: "Operational prioritisation, escalation, and execution workflows.",
-  },
-  {
-    href: "/capabilities/bureau-360",
-    label: "Bureau 360",
-    description: "External risk signals, exposure shifts, and borrower behaviour tracking.",
+    key: "control",
+    label: "Control",
+    description: "Governance, execution discipline, and action orchestration.",
+    links: [
+      {
+        href: "/capabilities/control/regulas",
+        label: "Regulus",
+        description: "Governance, regulatory alignment, and audit-ready signal control.",
+      },
+      {
+        href: "/capabilities/control/command-center",
+        label: "Command Center",
+        description: "Operational prioritisation, escalation, and execution workflows.",
+      },
+    ],
   },
 ] as const;
 
@@ -49,10 +82,18 @@ export function Header() {
   const pathname = usePathname();
   const { openBookDemo } = useBookDemo();
   const [capabilitiesOpen, setCapabilitiesOpen] = useState(false);
+  const [expandedCapabilityGroup, setExpandedCapabilityGroup] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const activeGroup = capabilityGroups.find((group) =>
+      group.links.some((item) => pathname === item.href || pathname.startsWith(`${item.href}/`)),
+    );
+    setExpandedCapabilityGroup(activeGroup?.key ?? null);
   }, [pathname]);
 
   return (
@@ -60,7 +101,7 @@ export function Header() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.455, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 z-50 border-b border-[#E4E7EC] bg-white/90 text-brand-ink backdrop-blur-md"
+      className="sticky top-0 z-50 overflow-visible border-b border-[#E4E7EC] bg-white/90 text-brand-ink backdrop-blur-md"
     >
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
@@ -71,7 +112,6 @@ export function Header() {
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           {links.map((l) => {
             const active = l.match(pathname);
-            const useCasesBlue = l.href === "/use-cases" && active;
 
             if (l.href === "/capabilities") {
               return (
@@ -79,16 +119,21 @@ export function Header() {
                   key={l.href}
                   className="relative"
                   onMouseEnter={() => setCapabilitiesOpen(true)}
-                  onMouseLeave={() => setCapabilitiesOpen(false)}
+                  onMouseLeave={() => {
+                    setCapabilitiesOpen(false);
+                    setExpandedCapabilityGroup(null);
+                  }}
                   onFocus={() => setCapabilitiesOpen(true)}
                   onBlur={(event) => {
                     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
                       setCapabilitiesOpen(false);
+                      setExpandedCapabilityGroup(null);
                     }
                   }}
                   onKeyDown={(event) => {
                     if (event.key === "Escape") {
                       setCapabilitiesOpen(false);
+                      setExpandedCapabilityGroup(null);
                     }
                   }}
                 >
@@ -113,45 +158,95 @@ export function Header() {
                   </Link>
 
                   <div
-                    className={`absolute left-1/2 top-full  z-50 w-[360px] -translate-x-1/2 pt-5 transition duration-200 ${
+                    className={`absolute left-1/2 top-full z-50 min-w-[360px] -translate-x-1/2 pt-5 transition duration-200 ${
                       capabilitiesOpen
                         ? "pointer-events-auto visible translate-y-0 opacity-100"
                         : "pointer-events-none invisible translate-y-2 opacity-0"
                     }`}
                   >
-                    <div className="overflow-hidden rounded-lg border border-[#D8DEE8] bg-white shadow-[0_20px_45px_rgba(16,24,40,0.14)]">
-                      {/* <div className="border-b border-[#EEF2F6] px-4 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1D68D5]">
-                          Capabilities
-                        </p>
-                        <p className="mt-1 text-sm leading-5 text-[#667085]">
-                          Continuous risk control across every portfolio signal.
-                        </p>
-                      </div> */}
+                    <div className="overflow-visible rounded-lg border border-[#D8DEE8] bg-white shadow-[0_20px_45px_rgba(16,24,40,0.14)]">
                       <div className="p-2">
-                        {capabilityLinks.map((item) => {
-                          const itemActive = pathname === item.href;
+                        {capabilityGroups.map((group) => {
+                          const groupActive = group.links.some(
+                            (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+                          );
+                          const groupExpanded = expandedCapabilityGroup === group.key;
+                          const flyoutId = `capabilities-flyout-${group.key}`;
 
                           return (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              onClick={() => setCapabilitiesOpen(false)}
-                              className={`group block rounded-md px-3 py-3 transition ${
-                                itemActive ? "bg-[#EAF5FF]" : "hover:bg-[#F4FAFB]"
-                              }`}
+                            <div
+                              key={group.key}
+                              className={`relative rounded-md transition ${groupActive ? "bg-[#EAF5FF]" : "hover:bg-[#F4FAFB]"}`}
                             >
-                              <span
-                                className={`block text-sm font-semibold ${
-                                  itemActive ? "text-[#1D68D5]" : "text-[#101828] group-hover:text-[#1497A8]"
-                                }`}
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setExpandedCapabilityGroup((prev) => (prev === group.key ? null : group.key))
+                                }
+                                className="flex w-full items-start justify-between gap-3 px-3 py-3 text-left"
+                                aria-expanded={groupExpanded}
+                                aria-controls={groupExpanded ? flyoutId : undefined}
                               >
-                                {item.label}
-                              </span>
-                              <span className="mt-1 block text-xs leading-5 text-[#667085]">
-                                {item.description}
-                              </span>
-                            </Link>
+                                <span>
+                                  <span
+                                    className={`block text-sm font-semibold ${
+                                      groupActive ? "text-[#1D68D5]" : "text-[#101828]"
+                                    }`}
+                                  >
+                                    {group.label}
+                                  </span>
+                                  <span className="mt-1 block text-xs leading-5 text-[#667085]">
+                                    {group.description}
+                                  </span>
+                                </span>
+                                <ChevronRight
+                                  className={`mt-0.5 h-4 w-4 shrink-0 transition-transform duration-200 ${
+                                    groupExpanded ? "rotate-180 text-[#16B2C3]" : "text-[#667085]"
+                                  }`}
+                                  strokeWidth={2}
+                                  aria-hidden
+                                />
+                              </button>
+
+                              {groupExpanded ? (
+                                <>
+                                  <div
+                                    aria-hidden
+                                    className="absolute left-full top-0 z-[55] min-h-[260px] w-3 bg-transparent"
+                                  />
+                                  <div
+                                    id={flyoutId}
+                                    role="region"
+                                    aria-label={group.label}
+                                    className="absolute left-[calc(100%+12px)] top-0 z-[60] w-[280px] max-w-[calc(100vw-3rem)] rounded-lg border border-[#D8DEE8] bg-white p-2 shadow-[0_12px_30px_rgba(16,24,40,0.14)]"
+                                  >
+                                    <div className="space-y-1 text-left">
+                                      {group.links.map((item) => {
+                                        const itemActive =
+                                          pathname === item.href || pathname.startsWith(`${item.href}/`);
+                                        return (
+                                          <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setCapabilitiesOpen(false)}
+                                            className={`block rounded-md border border-transparent px-3 py-2 transition ${
+                                              itemActive
+                                                ? "border-[#1D68D5] bg-[#EAF5FF] text-[#1D68D5]"
+                                                : "bg-[#F9FAFB] text-[#344054] hover:border-[#E4E7EC] hover:bg-white"
+                                            }`}
+                                          >
+                                            <span className="block text-sm font-semibold">{item.label}</span>
+                                            <span className="mt-0.5 block text-xs leading-5 text-[#667085]">
+                                              {item.description}
+                                            </span>
+                                          </Link>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
+                            </div>
                           );
                         })}
                       </div>
@@ -166,11 +261,9 @@ export function Header() {
                 key={l.href}
                 href={l.href}
                 className={`text-sm font-medium transition-colors hover:text-[#101828] ${
-                  useCasesBlue
-                    ? "font-semibold text-[#1D68D5]"
-                    : active
-                      ? "text-[#344054] underline decoration-2 decoration-[#16B2C3] underline-offset-8"
-                      : "text-[#344054]"
+                  active
+                    ? "text-[#344054] underline decoration-2 decoration-[#16B2C3] underline-offset-8"
+                    : "text-[#344054]"
                 }`}
               >
                 {l.label}
@@ -212,7 +305,6 @@ export function Header() {
             <div className="space-y-1 px-4 pb-4 pt-2 sm:px-6">
               {links.map((l) => {
                 const active = l.match(pathname);
-                const useCasesBlue = l.href === "/use-cases" && active;
 
                 if (l.href === "/capabilities") {
                   return (
@@ -230,20 +322,53 @@ export function Header() {
                   </button>
                       {capabilitiesOpen && (
                       <div className="mt-2 space-y-1 pl-4">
-                        {capabilityLinks.map((item) => {
-                          const itemActive = pathname === item.href;
+                        {capabilityGroups.map((group) => {
+                          const groupActive = group.links.some(
+                            (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+                          );
+                          const groupExpanded = expandedCapabilityGroup === group.key;
                           return (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className={`block rounded-md px-3 py-2 text-sm font-medium ${
-                                itemActive
-                                  ? "bg-[#EAF5FF] text-[#1D68D5]"
-                                  : "text-[#667085] hover:bg-[#F4FAFB] hover:text-[#1497A8]"
-                              }`}
-                            >
-                              {item.label}
-                            </Link>
+                            <div key={group.key} className="rounded-md">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setExpandedCapabilityGroup((prev) => (prev === group.key ? null : group.key))
+                                }
+                                className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-semibold ${
+                                  groupActive ? "bg-[#EAF5FF] text-[#1D68D5]" : "text-[#344054] hover:bg-[#F4FAFB]"
+                                }`}
+                                aria-expanded={groupExpanded}
+                              >
+                                {group.label}
+                                <ChevronDown
+                                  className={`h-4 w-4 transition-transform ${
+                                    groupExpanded ? "rotate-180" : ""
+                                  }`}
+                                />
+                              </button>
+
+                              {groupExpanded && (
+                                <div className="mt-1 space-y-1 pl-4">
+                                  {group.links.map((item) => {
+                                    const itemActive =
+                                      pathname === item.href || pathname.startsWith(`${item.href}/`);
+                                    return (
+                                      <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={`block rounded-md px-3 py-2 text-sm font-medium ${
+                                          itemActive
+                                            ? "bg-[#EAF5FF] text-[#1D68D5]"
+                                            : "text-[#667085] hover:bg-[#F4FAFB] hover:text-[#1497A8]"
+                                        }`}
+                                      >
+                                        {item.label}
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
                           );
                         })}
                         
@@ -258,11 +383,9 @@ export function Header() {
                     key={l.href}
                     href={l.href}
                     className={`block rounded-md px-3 py-2 text-base font-semibold ${
-                      useCasesBlue
-                        ? "bg-[#EAF5FF] text-[#1D68D5]"
-                        : active
-                          ? "bg-gray-50 text-[#16B2C3]"
-                          : "text-[#344054] hover:bg-gray-50 hover:text-[#101828]"
+                      active
+                        ? "bg-gray-50 text-[#16B2C3]"
+                        : "text-[#344054] hover:bg-gray-50 hover:text-[#101828]"
                     }`}
                   >
                     {l.label}
