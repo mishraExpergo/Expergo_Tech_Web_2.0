@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const WHITE = "#FFFFFF";
 
 /** First card — compact Figma card 01 */
-const FIGMA_C1_PANEL = "#F0F7FF";
+const FIGMA_C1_PANEL = WHITE;
 const FIGMA_C1_STAT = "#1A56DB";
 const FIGMA_C1_STAT_SUB = "#344054";
 const FIGMA_C1_TITLE = "#1A56DB";
@@ -17,8 +17,14 @@ const FIGMA_C1_SECTION = "#101828";
 const FIGMA_C1_BODY = "#344054";
 const FIGMA_C1_INDEX = "#D0D5DD";
 const FIGMA_C1_RULE = "#E5E7EB";
-/** Vertical rule between left panel and copy (Figma) */
-const FIGMA_C1_PARTITION = "#1A56DB";
+/** Vertical rule between left panel and copy — 1.5px linear gradient (Figma: #0B64F4 → #15B5C1) */
+const FIGMA_C1_PARTITION = "linear-gradient(180deg, #0B64F4 0%, #15B5C1 100%)";
+/** Keeps the rule clipped to the card row (no gradient bleed past rounded / grid bounds). */
+const PARTITION_RULE_STYLE = {
+  backgroundImage: FIGMA_C1_PARTITION,
+  backgroundSize: "100% 100%",
+  backgroundRepeat: "no-repeat",
+} satisfies CSSProperties;
 const FIGMA_C1_WATERMARK = "#E2E8F0";
 const FIGMA_C1_WHY_ACCENT = "#14B8A6";
 /** Card 03 — light frame around illustration (Figma) */
@@ -81,9 +87,9 @@ function ShiftCardRowFirst({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -128,10 +134,10 @@ function ShiftCardRowFirst({ data }: { data: ShiftCardData }) {
         <div className="hidden min-h-0 md:block md:flex-1" aria-hidden />
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -211,9 +217,9 @@ function ShiftCardRowSecond({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -282,10 +288,10 @@ function ShiftCardRowSecond({ data }: { data: ShiftCardData }) {
         </div>
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -340,9 +346,9 @@ function ShiftCardRowThird({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -386,10 +392,10 @@ function ShiftCardRowThird({ data }: { data: ShiftCardData }) {
         <div className="hidden min-h-0 md:block md:flex-1" aria-hidden />
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -469,9 +475,9 @@ function ShiftCardRowFourth({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -540,10 +546,10 @@ function ShiftCardRowFourth({ data }: { data: ShiftCardData }) {
         </div>
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -598,9 +604,9 @@ function ShiftCardRowFifth({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -644,10 +650,10 @@ function ShiftCardRowFifth({ data }: { data: ShiftCardData }) {
         <div className="hidden min-h-0 md:block md:flex-1" aria-hidden />
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -727,9 +733,9 @@ function ShiftCardRowSixth({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
@@ -798,10 +804,10 @@ function ShiftCardRowSixth({ data }: { data: ShiftCardData }) {
         </div>
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -856,9 +862,9 @@ function ShiftCardRowSeventh({ data }: { data: ShiftCardData }) {
   const listRow = "flex gap-2.5 text-left";
 
   return (
-    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] md:grid md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-stretch md:gap-0">
+    <article className="mx-auto flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-white md:grid md:grid-cols-[minmax(0,1fr)_1.5px_minmax(0,1fr)] md:items-stretch md:gap-0">
       <ShiftColFromLeft
-        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-full md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
+        className="relative flex min-h-0 flex-col overflow-visible px-5 pb-5 pt-5 md:h-full md:min-h-0 md:rounded-l-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: FIGMA_C1_PANEL }}
       >
         <div className="relative z-[1] w-full shrink-0">
@@ -902,10 +908,10 @@ function ShiftCardRowSeventh({ data }: { data: ShiftCardData }) {
         <div className="hidden min-h-0 md:block md:flex-1" aria-hidden />
       </ShiftColFromLeft>
 
-      <div className="hidden w-px shrink-0 self-stretch md:block" style={{ backgroundColor: FIGMA_C1_PARTITION }} aria-hidden />
+      <div className="hidden w-[1.5px] shrink-0 self-stretch overflow-hidden md:block" style={PARTITION_RULE_STYLE} aria-hidden />
 
       <ShiftColFromRight
-        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
+        className="min-w-0 px-5 pb-5 pt-5 md:flex md:h-full md:min-h-0 md:flex-col md:justify-center md:rounded-r-xl md:px-5 md:pb-5 md:pt-5"
         style={{ backgroundColor: WHITE }}
       >
         <h3
