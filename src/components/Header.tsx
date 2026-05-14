@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { useBookDemo } from "@/components/book-demo/BookDemoProvider";
 
- const isRouteActive = (pathname: string, href: string) =>
+const isRouteActive = (pathname: string, href: string) =>
   pathname === href || pathname.startsWith(`${href}/`);
 
 const links = [
@@ -40,6 +40,12 @@ const capabilityGroups = [
     label: "Decide",
     description: "Risk interpretation, prioritisation, and decision intelligence.",
     links: [
+      {
+        href: "/capabilities/decide/aegis",
+        label: "Aegis",
+        description:
+          "Interpret signals into trajectories and actions so teams move portfolio outcomes, not just dashboards.",
+      },
       {
         href: "/capabilities/decide/athena",
         label: "Athena",
@@ -94,7 +100,7 @@ export function Header() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.455, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 z-50 border-b border-[#E4E7EC] bg-white/90 text-brand-ink backdrop-blur-md"
+      className="sticky top-0 z-50 overflow-visible border-b border-[#E4E7EC] bg-white/90 text-brand-ink backdrop-blur-md"
     >
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
@@ -120,11 +126,13 @@ export function Header() {
                   onBlur={(event) => {
                     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
                       setCapabilitiesOpen(false);
+                      setExpandedCapabilityGroup(null);
                     }
                   }}
                   onKeyDown={(event) => {
                     if (event.key === "Escape") {
                       setCapabilitiesOpen(false);
+                      setExpandedCapabilityGroup(null);
                     }
                   }}
                 >
@@ -149,32 +157,25 @@ export function Header() {
                   </Link>
 
                   <div
-                    className={`absolute left-1/2 top-full  z-50 w-[360px] -translate-x-1/2 pt-5 transition duration-200 ${
+                    className={`absolute left-1/2 top-full z-50 min-w-[360px] -translate-x-1/2 pt-5 transition duration-200 ${
                       capabilitiesOpen
                         ? "pointer-events-auto visible translate-y-0 opacity-100"
                         : "pointer-events-none invisible translate-y-2 opacity-0"
                     }`}
                   >
-                    <div className="overflow-hidden rounded-lg border border-[#D8DEE8] bg-white shadow-[0_20px_45px_rgba(16,24,40,0.14)]">
-                      {/* <div className="border-b border-[#EEF2F6] px-4 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1D68D5]">
-                          Capabilities
-                        </p>
-                        <p className="mt-1 text-sm leading-5 text-[#667085]">
-                          Continuous risk control across every portfolio signal.
-                        </p>
-                      </div> */}
+                    <div className="overflow-visible rounded-lg border border-[#D8DEE8] bg-white shadow-[0_20px_45px_rgba(16,24,40,0.14)]">
                       <div className="p-2">
                         {capabilityGroups.map((group) => {
                           const groupActive = group.links.some(
                             (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
                           );
                           const groupExpanded = expandedCapabilityGroup === group.key;
+                          const flyoutId = `capabilities-flyout-${group.key}`;
 
                           return (
                             <div
                               key={group.key}
-                              className={`rounded-md transition ${groupActive ? "bg-[#EAF5FF]" : "hover:bg-[#F4FAFB]"}`}
+                              className={`relative rounded-md transition ${groupActive ? "bg-[#EAF5FF]" : "hover:bg-[#F4FAFB]"}`}
                             >
                               <button
                                 type="button"
@@ -183,6 +184,7 @@ export function Header() {
                                 }
                                 className="flex w-full items-start justify-between gap-3 px-3 py-3 text-left"
                                 aria-expanded={groupExpanded}
+                                aria-controls={groupExpanded ? flyoutId : undefined}
                               >
                                 <span>
                                   <span
@@ -196,7 +198,7 @@ export function Header() {
                                     {group.description}
                                   </span>
                                 </span>
-                                <ChevronDown
+                                <ChevronRight
                                   className={`mt-0.5 h-4 w-4 shrink-0 transition-transform duration-200 ${
                                     groupExpanded ? "rotate-180 text-[#16B2C3]" : "text-[#667085]"
                                   }`}
@@ -205,29 +207,44 @@ export function Header() {
                                 />
                               </button>
 
-                              {groupExpanded && (
-                                <div className="space-y-1 px-3 pb-3">
-                                  {group.links.map((item) => {
-                                    const itemActive =
-                                      pathname === item.href || pathname.startsWith(`${item.href}/`);
-                                    return (
-                                      <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        onClick={() => setCapabilitiesOpen(false)}
-                                        className={`block rounded-md px-3 py-2 transition ${
-                                          itemActive ? "bg-white text-[#1D68D5]" : "bg-white/60 text-[#344054] hover:bg-white"
-                                        }`}
-                                      >
-                                        <span className="block text-sm font-semibold">{item.label}</span>
-                                        <span className="mt-0.5 block text-xs leading-5 text-[#667085]">
-                                          {item.description}
-                                        </span>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              )}
+                              {groupExpanded ? (
+                                <>
+                                  <div
+                                    aria-hidden
+                                    className="absolute left-full top-0 z-[55] min-h-[260px] w-3 bg-transparent"
+                                  />
+                                  <div
+                                    id={flyoutId}
+                                    role="region"
+                                    aria-label={group.label}
+                                    className="absolute left-[calc(100%+12px)] top-0 z-[60] w-[280px] max-w-[calc(100vw-3rem)] rounded-lg border border-[#D8DEE8] bg-white p-2 shadow-[0_12px_30px_rgba(16,24,40,0.14)]"
+                                  >
+                                    <div className="space-y-1 text-left">
+                                      {group.links.map((item) => {
+                                        const itemActive =
+                                          pathname === item.href || pathname.startsWith(`${item.href}/`);
+                                        return (
+                                          <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setCapabilitiesOpen(false)}
+                                            className={`block rounded-md border border-transparent px-3 py-2 transition ${
+                                              itemActive
+                                                ? "border-[#1D68D5] bg-[#EAF5FF] text-[#1D68D5]"
+                                                : "bg-[#F9FAFB] text-[#344054] hover:border-[#E4E7EC] hover:bg-white"
+                                            }`}
+                                          >
+                                            <span className="block text-sm font-semibold">{item.label}</span>
+                                            <span className="mt-0.5 block text-xs leading-5 text-[#667085]">
+                                              {item.description}
+                                            </span>
+                                          </Link>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
                             </div>
                           );
                         })}

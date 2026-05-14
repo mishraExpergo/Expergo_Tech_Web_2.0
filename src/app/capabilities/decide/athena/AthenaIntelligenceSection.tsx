@@ -3,12 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-type SystemNodeId =
-  | "signals"
-  | "athena-reasoning"
-  | "athena-predictive"
-  | "command-centre"
-  | "outcomes";
+type SystemNodeId = "signals" | "aegis" | "athena" | "command-centre" | "outcomes";
 type SystemModuleId = "lighthouse" | "regulus";
 type ActiveItemId = SystemNodeId | SystemModuleId;
 
@@ -37,17 +32,17 @@ const systemNodes: SystemNode[] = [
     summaryText: "Real time portfolio behaviour and external data ingestion.",
   },
   {
-    id: "athena-reasoning",
-    label: "Athena",
+    id: "aegis",
+    label: "Aegis",
     badge: "A",
-    summaryTitle: "Athena",
+    summaryTitle: "Aegis",
     summaryText: "Risk reasoning layer translates raw signal into understanding.",
   },
   {
-    id: "athena-predictive",
-    label: "Predictive intelligence",
-    badge: "P",
-    summaryTitle: "Predictive intelligence",
+    id: "athena",
+    label: "Athena",
+    badge: "A",
+    summaryTitle: "Athena",
     summaryText: "Predictive intelligence — anticipates movement and prescribes action.",
   },
   {
@@ -84,10 +79,10 @@ const topModules: SystemModule[] = [
 ];
 
 export default function AthenaIntelligenceSection() {
-  const [activeItemId, setActiveItemId] = useState<ActiveItemId>("athena-reasoning");
+  const [activeItemId, setActiveItemId] = useState<ActiveItemId>("athena");
 
   const activeItem = useMemo(
-    () => [...systemNodes, ...topModules].find((item) => item.id === activeItemId) ?? systemNodes[1],
+    () => [...systemNodes, ...topModules].find((item) => item.id === activeItemId) ?? systemNodes[2],
     [activeItemId],
   );
 
@@ -104,7 +99,7 @@ export default function AthenaIntelligenceSection() {
           Part of the EarlySafe <span className="text-brand-teal">Intelligence System</span>
         </h2>
         <p className="mt-4 text-[17px] leading-[1.45] text-brand-muted mx-auto max-w-2xl">
-          Athena is one module in an enterprise-grade operating system - connected, orchestrated, continuously
+          Athena is one module in an enterprise-grade operating system — connected, orchestrated, continuously
           learning.
         </p>
       </motion.div>
@@ -166,23 +161,28 @@ export default function AthenaIntelligenceSection() {
           ))}
         </motion.div>
 
+        {/* Figma: inverted-V dotted guides from Lighthouse/Regulus toward Athena */}
         <svg
-          viewBox="0 0 320 90"
-          className="pointer-events-none absolute left-1/2 top-[86px] h-[84px] w-[320px] -translate-x-1/2"
+          viewBox="0 0 1000 220"
+          className="pointer-events-none absolute left-0 right-0 top-[72px] z-[1] mx-auto hidden h-[200px] w-full max-w-[1000px] lg:block"
           fill="none"
+          preserveAspectRatio="none"
           aria-hidden="true"
         >
           <motion.path
-            d="M70 6L160 66L250 6"
-            stroke="#9EC7D5"
-            strokeWidth="1.4"
-            strokeDasharray="3 4"
-            animate={{ strokeDashoffset: [0, -14] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
+            d="M 330 8 L 500 108 L 670 8"
+            stroke="#1D68D5"
+            strokeWidth="2"
+            strokeDasharray="6 8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeOpacity={0.55}
+            animate={{ strokeDashoffset: [0, -28] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
           />
         </svg>
 
-        <motion.div className="mt-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: {} }}>
+        <motion.div className="relative z-[2] mt-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: {} }}>
           {/* Below lg: grid wraps in the viewport — no horizontal overflow */}
           <motion.div
             className="grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-3 lg:hidden"
