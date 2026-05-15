@@ -92,6 +92,111 @@ const controlSteps: AthenaControlStep[] = [
   },
 ];
 
+function AthenaStepDetail({ step }: { step: AthenaControlStep }) {
+  const lineGradId = `athena-line-mobile-${step.id}`;
+  const fillGradId = `athena-fill-mobile-${step.id}`;
+
+  return (
+    <>
+      <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#86A8B8]">{step.signal}</p>
+
+      <motion.svg
+        key={`chart-${step.id}`}
+        viewBox="0 0 400 96"
+        className="mt-4 h-24 w-[86%]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        initial={{ opacity: 0.7 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <defs>
+          <linearGradient id={lineGradId} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#16B2C3" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.95" />
+          </linearGradient>
+          <linearGradient id={fillGradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1D68D5" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.02" />
+          </linearGradient>
+        </defs>
+
+        <path d={step.fillPath} fill={`url(#${fillGradId})`} />
+        <motion.path
+          d={step.linePath}
+          stroke={`url(#${lineGradId})`}
+          strokeWidth="2.35"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 0.75, ease: "easeOut" }}
+        />
+        {step.dots?.map((dot, index) => (
+          <motion.circle
+            key={`${step.id}-dot-${index}`}
+            cx={dot.cx}
+            cy={dot.cy}
+            r="2"
+            fill="#1D68D5"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 0.9, scale: 1 }}
+            transition={{ duration: 0.28, delay: 0.18 + index * 0.05 }}
+          />
+        ))}
+      </motion.svg>
+
+      <h3 className="mt-4 font-heading text-[38px] leading-[1.1] text-brand-ink font-semibold">{step.title}</h3>
+      <p className="mt-2 max-w-lg text-[14px] leading-[1.45] text-[#5D7381]">{step.description}</p>
+    </>
+  );
+}
+
+type StepTriggerProps = {
+  step: AthenaControlStep;
+  isActive: boolean;
+  onSelect: () => void;
+};
+
+function StepTrigger({ step, isActive, onSelect }: StepTriggerProps) {
+  return (
+    <motion.button
+      type="button"
+      onClick={onSelect}
+      layout
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ layout: { duration: 0.24 }, default: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+      className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-xl border px-5 py-4 text-left transition-all duration-300 ${
+        isActive
+          ? "border-brand-teal bg-brand-teal text-white shadow-[0_10px_25px_rgba(22,178,195,0.28)]"
+          : "border-brand-border bg-[#DDF4F6] text-brand-ink hover:border-brand-teal/55 hover:bg-[#D4EFF2]"
+      }`}
+    >
+      {isActive ? (
+        <motion.span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.24)_45%,rgba(255,255,255,0.08)_100%)]"
+          initial={{ x: "-120%" }}
+          animate={{ x: "120%" }}
+          transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.1 }}
+        />
+      ) : null}
+      <motion.span
+        layout
+        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-semibold transition-colors duration-300 ${
+          isActive ? "bg-white/20 text-white" : "bg-white/70 text-brand-ink"
+        }`}
+      >
+        {step.id}
+      </motion.span>
+      <motion.span layout className={`relative z-10 font-medium ${isActive ? "text-white" : "text-brand-muted"}`}>
+        {step.label}
+      </motion.span>
+    </motion.button>
+  );
+}
+
 export default function AthenaControlLoop() {
   const [activeId, setActiveId] = useState<string>(controlSteps[0].id);
 
@@ -120,121 +225,157 @@ export default function AthenaControlLoop() {
       </div>
 
       <div className="mt-12 grid gap-4 lg:mt-14 lg:grid-cols-[1fr_1.3fr]">
-        <div className="space-y-3">
+        <div className="space-y-3 lg:hidden">
           {controlSteps.map((step) => {
             const isActive = step.id === activeStep.id;
 
             return (
-              <motion.button
-                key={step.id}
-                type="button"
-                onClick={() => setActiveId(step.id)}
-                layout
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.99 }}
-                transition={{ layout: { duration: 0.24 }, default: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
-                className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-xl border px-5 py-4 text-left transition-all duration-300 ${
-                  isActive
-                    ? "border-brand-teal bg-brand-teal text-white shadow-[0_10px_25px_rgba(22,178,195,0.28)]"
-                    : "border-brand-border bg-[#DDF4F6] text-brand-ink hover:border-brand-teal/55 hover:bg-[#D4EFF2]"
-                }`}
-              >
-                {isActive ? (
-                  <motion.span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.24)_45%,rgba(255,255,255,0.08)_100%)]"
-                    initial={{ x: "-120%" }}
-                    animate={{ x: "120%" }}
-                    transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.1 }}
-                  />
-                ) : null}
-                <motion.span
-                  layout
-                  className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-semibold transition-colors duration-300 ${
-                    isActive ? "bg-white/20 text-white" : "bg-white/70 text-brand-ink"
-                  }`}
-                >
-                  {step.id}
-                </motion.span>
-                <motion.span layout className={`relative z-10 font-medium ${isActive ? "text-white" : "text-brand-muted"}`}>
-                  {step.label}
-                </motion.span>
-              </motion.button>
+              <div key={step.id} className="space-y-3">
+                <StepTrigger step={step} isActive={isActive} onSelect={() => setActiveId(step.id)} />
+                <AnimatePresence initial={false}>
+                  {isActive ? (
+                    <motion.div
+                      key={step.id}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="relative overflow-hidden rounded-xl border border-[#C7E0E8] bg-[#D7EAF2] px-7 py-6 sm:px-9 sm:py-7 min-h-[242px]">
+                        <motion.div
+                          aria-hidden="true"
+                          className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,_rgba(29,104,213,0.20)_0%,_rgba(29,104,213,0)_70%)]"
+                          animate={{ x: [0, 8, -6, 0], y: [0, 10, 4, 0] }}
+                          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <AthenaStepDetail step={step} />
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
             );
           })}
         </div>
 
-        <div className="relative overflow-hidden rounded-xl border border-[#C7E0E8] bg-[#D7EAF2] px-7 py-6 sm:px-9 sm:py-7 min-h-[242px]">
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,_rgba(29,104,213,0.20)_0%,_rgba(29,104,213,0)_70%)]"
-            animate={{ x: [0, 8, -6, 0], y: [0, 10, 4, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeStep.id}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#86A8B8]">
-                {activeStep.signal}
-              </p>
+        <div className="hidden lg:contents">
+          <div className="space-y-3">
+            {controlSteps.map((step) => {
+              const isActive = step.id === activeStep.id;
 
-              <motion.svg
-                key={`chart-${activeStep.id}`}
-                viewBox="0 0 400 96"
-                className="mt-4 h-24 w-[86%]"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                initial={{ opacity: 0.7 }}
-                animate={{ opacity: 1 }}
+              return (
+                <motion.button
+                  key={step.id}
+                  type="button"
+                  onClick={() => setActiveId(step.id)}
+                  layout
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ layout: { duration: 0.24 }, default: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+                  className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-xl border px-5 py-4 text-left transition-all duration-300 ${
+                    isActive
+                      ? "border-brand-teal bg-brand-teal text-white shadow-[0_10px_25px_rgba(22,178,195,0.28)]"
+                      : "border-brand-border bg-[#DDF4F6] text-brand-ink hover:border-brand-teal/55 hover:bg-[#D4EFF2]"
+                  }`}
+                >
+                  {isActive ? (
+                    <motion.span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.24)_45%,rgba(255,255,255,0.08)_100%)]"
+                      initial={{ x: "-120%" }}
+                      animate={{ x: "120%" }}
+                      transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.1 }}
+                    />
+                  ) : null}
+                  <motion.span
+                    layout
+                    className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-semibold transition-colors duration-300 ${
+                      isActive ? "bg-white/20 text-white" : "bg-white/70 text-brand-ink"
+                    }`}
+                  >
+                    {step.id}
+                  </motion.span>
+                  <motion.span layout className={`relative z-10 font-medium ${isActive ? "text-white" : "text-brand-muted"}`}>
+                    {step.label}
+                  </motion.span>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          <div className="relative overflow-hidden rounded-xl border border-[#C7E0E8] bg-[#D7EAF2] px-7 py-6 sm:px-9 sm:py-7 min-h-[242px]">
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,_rgba(29,104,213,0.20)_0%,_rgba(29,104,213,0)_70%)]"
+              animate={{ x: [0, 8, -6, 0], y: [0, 10, 4, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep.id}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
               >
-                <defs>
-                  <linearGradient id="athena-line" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#16B2C3" stopOpacity="0.65" />
-                    <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.95" />
-                  </linearGradient>
-                  <linearGradient id="athena-fill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1D68D5" stopOpacity="0.15" />
-                    <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.02" />
-                  </linearGradient>
-                </defs>
+                <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#86A8B8]">
+                  {activeStep.signal}
+                </p>
 
-                <path d={activeStep.fillPath} fill="url(#athena-fill)" />
-                <motion.path
-                  d={activeStep.linePath}
-                  stroke="url(#athena-line)"
-                  strokeWidth="2.35"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.75, ease: "easeOut" }}
-                />
-                {activeStep.dots?.map((dot, index) => (
-                  <motion.circle
-                    key={`${activeStep.id}-dot-${index}`}
-                    cx={dot.cx}
-                    cy={dot.cy}
-                    r="2"
-                    fill="#1D68D5"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 0.9, scale: 1 }}
-                    transition={{ duration: 0.28, delay: 0.18 + index * 0.05 }}
+                <motion.svg
+                  key={`chart-${activeStep.id}`}
+                  viewBox="0 0 400 96"
+                  className="mt-4 h-24 w-[86%]"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  initial={{ opacity: 0.7 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <defs>
+                    <linearGradient id="athena-line" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="#16B2C3" stopOpacity="0.65" />
+                      <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.95" />
+                    </linearGradient>
+                    <linearGradient id="athena-fill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#1D68D5" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="#1D68D5" stopOpacity="0.02" />
+                    </linearGradient>
+                  </defs>
+
+                  <path d={activeStep.fillPath} fill="url(#athena-fill)" />
+                  <motion.path
+                    d={activeStep.linePath}
+                    stroke="url(#athena-line)"
+                    strokeWidth="2.35"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.75, ease: "easeOut" }}
                   />
-                ))}
-              </motion.svg>
+                  {activeStep.dots?.map((dot, index) => (
+                    <motion.circle
+                      key={`${activeStep.id}-dot-${index}`}
+                      cx={dot.cx}
+                      cy={dot.cy}
+                      r="2"
+                      fill="#1D68D5"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 0.9, scale: 1 }}
+                      transition={{ duration: 0.28, delay: 0.18 + index * 0.05 }}
+                    />
+                  ))}
+                </motion.svg>
 
-              <h3 className="mt-4 font-heading text-[38px] leading-[1.1] text-brand-ink font-semibold">
-                {activeStep.title}
-              </h3>
-              <p className="mt-2 max-w-lg text-[14px] leading-[1.45] text-[#5D7381]">{activeStep.description}</p>
-            </motion.div>
-          </AnimatePresence>
+                <h3 className="mt-4 font-heading text-[38px] leading-[1.1] text-brand-ink font-semibold">
+                  {activeStep.title}
+                </h3>
+                <p className="mt-2 max-w-lg text-[14px] leading-[1.45] text-[#5D7381]">{activeStep.description}</p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

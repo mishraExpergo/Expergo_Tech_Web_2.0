@@ -19,7 +19,7 @@ export default function AthenaPage() {
     <div className="min-h-screen flex flex-col bg-brand-surface">
       <Header />
       <main className="flex-1 w-full min-w-0 overflow-x-hidden bg-background">
-        <section className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-14 pt-20 sm:pt-24 lg:pt-10 pb-20 sm:pb-24">
+        <section className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-14 pt-10 sm:pt-24 lg:pt-10 pb-20 sm:pb-24">
           <div className="max-w-2xl">
             <h1 className="font-heading max-w-xl text-[30px] font-bold leading-[1.1] tracking-tight text-brand-ink sm:text-4xl md:text-[52px]">
                    Predict how your{" "}
