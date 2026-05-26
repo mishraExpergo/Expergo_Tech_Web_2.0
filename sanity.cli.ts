@@ -3,11 +3,17 @@ import { defineCliConfig } from 'sanity/cli'
 /**
  * Returns the studio **slug** for `https://<slug>.sanity.studio`.
  *
- * `sanity deploy` only uploads tarballs to Sanity-hosted studios. If
- * `SANITY_STUDIO_HOSTNAME` is a marketing domain (e.g. www.example.com), deploy fails with:
- * "External applications cannot upload tarballs".
+ * When `sanity deploy` uploads a build to Sanity hosting, their API rejects requests that mix
+ * "external application" registrations with tarball uploads (`400 External applications cannot upload tarballs`).
+ * Typical fixes:
  *
- * Set `SANITY_STUDIO_HOSTNAME=expergo` (slug only), or `https://expergo.sanity.studio` — not your Next.js site URL.
+ * - Set `SANITY_STUDIO_HOSTNAME` to your **hosted** slug only (e.g. `expergo`) or
+ *   `https://expergo.sanity.studio` — never your public Next.js URL (marketing domain).
+ * - If Studio is embedded at `/studio` only, skip `sanity deploy` entirely and deploy Next.js instead;
+ *   use `npm run sanity:schema:deploy` for schema.
+ * - If you use `SANITY_STUDIO_APP_ID` for embedding but tarball deploy fails, set
+ *   `SANITY_CLI_OMIT_DEPLOYMENT_APP_ID=true` so the CLI skips `deployment.appId` during deploy only.
+ *
  * Optional: `SANITY_STUDIO_APP_ID` from manage.sanity.io → Studio.
  */
 function normalizeStudioHost(raw: string): string {
@@ -15,8 +21,17 @@ function normalizeStudioHost(raw: string): string {
   const withoutProto = trimmed.replace(/^https?:\/\//i, '')
   const host = withoutProto.split('/')[0]?.toLowerCase() ?? ''
 
+  // Reject `sanity.studio` / `.sanity.studio` (would yield an empty or invalid slug).
   if (host.endsWith('.sanity.studio')) {
-    return host.replace(/\.sanity\.studio$/i, '')
+    const slug = host.replace(/\.sanity\.studio$/i, '')
+    if (!slug || slug.includes('.')) {
+      throw new Error(
+        `[sanity.cli] Invalid SANITY_STUDIO_HOSTNAME="${raw}". ` +
+          `Use a subdomain before .sanity.studio (e.g. https://expergo.sanity.studio) ` +
+          `or the slug only (e.g. expergo).`,
+      )
+    }
+    return slug
   }
 
   // Slug only, no dots (e.g. "expergo")
@@ -32,6 +47,8 @@ function normalizeStudioHost(raw: string): string {
 }
 
 const studioHostEnv = process.env.SANITY_STUDIO_HOSTNAME?.trim()
+const omitDeploymentAppId =
+  process.env.SANITY_CLI_OMIT_DEPLOYMENT_APP_ID?.toLowerCase() === 'true'
 
 export default defineCliConfig({
   api: {
@@ -44,7 +61,7 @@ export default defineCliConfig({
   ...(studioHostEnv ? { studioHost: normalizeStudioHost(studioHostEnv) } : {}),
   // autoUpdates requires @sanity/vision in package.json (same major as sanity) for version checks.
   // This project embeds Studio without Vision — keep autoUpdates off to avoid deploy build errors.
-  ...(process.env.SANITY_STUDIO_APP_ID
+  ...(process.env.SANITY_STUDIO_APP_ID && !omitDeploymentAppId
     ? { deployment: { appId: process.env.SANITY_STUDIO_APP_ID, autoUpdates: false } }
     : {}),
 })

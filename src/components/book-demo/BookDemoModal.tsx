@@ -140,13 +140,11 @@ export function BookDemoModal({ open, onClose, mode }: BookDemoModalProps) {
     }
   }, [open]);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   const validate = useCallback((): boolean => {
     const next: FormErrors = {};
     if (!form.fullName.trim()) next.fullName = "This field is required.";
     if (!form.workEmail.trim()) next.workEmail = "This field is required.";
-    else if (!emailRegex.test(form.workEmail))
+    else if (!EMAIL_REGEX.test(form.workEmail))
       next.workEmail = "Enter a valid email address.";
     if (!form.companyName.trim()) next.companyName = "This field is required.";
     if (!form.phone.trim()) next.phone = "This field is required.";

@@ -89,7 +89,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-gray-500 py-1 p-18 mb-2 w-[30rem] text-[16px] font-medium"
+            className="text-gray-500 py-1 p-14 mb-2 w-[30rem] text-[16px] font-medium"
           >
             {hero.subtitle}
           </motion.p>
@@ -113,7 +113,7 @@ export default function BureauHero({ hero }: { hero: BureauHeroCopy }) {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mb-12 -py-2"
           >
-            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium m-18 px-8 py-3 rounded-md transition-colors shadow-sm">
+            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium m-13  px-8 py-3 rounded-md transition-colors shadow-sm">
               Book Demo
             </BookDemoButton>
           </motion.div>

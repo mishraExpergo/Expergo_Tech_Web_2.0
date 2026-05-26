@@ -495,7 +495,7 @@ export function AegisPageContent() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="md:text-[52px] text-[32px] font-semibold leading-[1.1] text-[#101828]">
-              Risk doesn't need better visibility.
+              Risk doesn&apos;t need better visibility.
               <br />
               It needs{" "}
               <motion.span
@@ -509,8 +509,8 @@ export function AegisPageContent() {
               </motion.span>
             </h1>
             <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#667085] sm:text-[20px]">
-              Most portfolios don't fail from lack of data. They fail because signals are misread,
-              priorities are wrong, and actions don't move outcomes. Aegis fixes this at the source.
+              Most portfolios don&apos;t fail from lack of data. They fail because signals are misread,
+              priorities are wrong, and actions don&apos;t move outcomes. Aegis fixes this at the source.
             </p>
             <BookDemoButton
               mode="brief"
@@ -620,7 +620,7 @@ export function AegisPageContent() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             Early signals exist. Teams act. Yet{" "}
-            <span className="text-[#16B2C3]">outcomes don't move.</span>
+            <span className="text-[#16B2C3]">outcomes don&apos;t move.</span>
           </motion.h2>
 
           <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1.05fr_1fr]">

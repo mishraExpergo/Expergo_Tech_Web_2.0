@@ -71,14 +71,6 @@ function getApiUrl(path: string) {
     return path;
   }
   const origin = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "");
-
-  if (typeof window !== "undefined") {
-    const host = window.location.hostname;
-    if (host === "localhost" || host === "127.0.0.1") {
-      return path;
-    }
-  }
-
   return origin ? `${origin}${path}` : path;
 }
 

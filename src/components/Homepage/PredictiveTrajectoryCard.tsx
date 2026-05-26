@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from "recharts";
 
@@ -33,8 +33,31 @@ const DONUT_COLORS = [
 
 const CENTER_TOTAL = 961.71;
 
+const PIE_RADIUS = { inner: 48, outer: 74 } as const;
+const PIE_RADIUS_LG = {
+  inner: Math.round(PIE_RADIUS.inner * 1.3),
+  outer: Math.round(PIE_RADIUS.outer * 1.3),
+} as const;
+
+function useIsLgScreen() {
+  const [isLg, setIsLg] = useState(false);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsLg(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return isLg;
+}
+
 export const PredictiveTrajectoryCard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const isLg = useIsLgScreen();
+  const pieInnerRadius = isLg ? PIE_RADIUS_LG.inner : PIE_RADIUS.inner;
+  const pieOuterRadius = isLg ? PIE_RADIUS_LG.outer : PIE_RADIUS.outer;
 
   return (
     <motion.div
@@ -45,7 +68,7 @@ export const PredictiveTrajectoryCard = () => {
         scale: 1.02,
         boxShadow: "0 8px 30px color-mix(in srgb, var(--color-platform-coral) 15%, transparent)",
       }}
-      className={`${platformCardClass} ${platformCardLayout}`}
+      className={`${platformCardClass} ${platformCardLayout} mb-18`}
     >
       <h3 className="text-base font-semibold text-brand-ink">Predictive Trajectory Intelligence</h3>
       <p className="mt-1 mb-2 text-xs text-brand-muted lg:mb-4">
@@ -80,8 +103,8 @@ export const PredictiveTrajectoryCard = () => {
           </PlatformSizedChart>
         </div>
 
-        <div className="order-1 flex w-full min-w-0 shrink-0 flex-row items-center gap-3 sm:gap-4 lg:order-2 lg:flex-col lg:items-center lg:gap-4">
-          <div className="relative h-40 w-40 shrink-0 sm:h-48 sm:w-48 lg:h-44 lg:w-44">
+        <div className="order-1 flex w-full min-w-0 shrink-0 flex-row items-center gap-3 sm:gap-4 lg:order-2 lg:flex-row lg:items-center lg:justify-center lg:gap-6">
+          <div className="relative h-40 w-40 shrink-0 sm:h-48 sm:w-48 lg:h-[calc(12rem*1.3)] lg:w-[calc(12rem*1.3)]">
             <PlatformSizedChart className="h-full w-full min-h-0">
               <PieChart>
                 <Tooltip
@@ -96,8 +119,8 @@ export const PredictiveTrajectoryCard = () => {
                   data={pieData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={48}
-                  outerRadius={74}
+                  innerRadius={pieInnerRadius}
+                  outerRadius={pieOuterRadius}
                   paddingAngle={3}
                   dataKey="value"
                   animationDuration={1500}
@@ -118,7 +141,7 @@ export const PredictiveTrajectoryCard = () => {
             </PlatformSizedChart>
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <motion.span
-                className="text-xl font-bold text-brand-ink sm:text-2xl"
+                className="text-xl font-bold text-brand-ink sm:text-2xl lg:text-[1.625rem]"
                 key={activeIndex}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
