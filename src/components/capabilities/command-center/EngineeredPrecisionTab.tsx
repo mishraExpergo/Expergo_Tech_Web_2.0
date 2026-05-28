@@ -30,7 +30,7 @@ function FeatureDetailBody({
   activeIndex,
   className = "",
   contentClassName = "",
-  showTopAccentLine = true,
+  showTopAccentLine = false,
   compactTitle = false,
 }: {
   activeIndex: number;

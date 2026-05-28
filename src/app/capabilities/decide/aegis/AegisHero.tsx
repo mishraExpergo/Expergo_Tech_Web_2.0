@@ -10,7 +10,7 @@ const FIGMA = {
   ink: "#000000",
   teal: "#15B5C1",
   gray: "#666666",
-  gradient: "linear-gradient(180deg, #15B5C1 0%, #666666 100%)",
+  accent: "#01AEE4",
   accentBlue: "#1D70F2",
   accentMuted: "#7695C0",
   body: "#1F1F1F",
@@ -19,25 +19,24 @@ const FIGMA = {
 } as const;
 
 const gradientTextStyle = {
-  backgroundImage: FIGMA.gradient,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
+  color: FIGMA.accent,
 } as const;
 
+const SIGNAL_DOT_X = 150;
+
 const SIGNALS = [
-  { label: "Repayment", dotY: 40, path: "M 118 40 Q 188 38 228 88" },
-  { label: "Bureau", dotY: 90, path: "M 118 90 Q 195 90 228 108" },
-  { label: "Collections", dotY: 140, path: "M 118 140 Q 198 140 228 132" },
-  { label: "HUMINT", dotY: 190, path: "M 118 190 Q 198 190 228 152" },
-  { label: "Documents", dotY: 240, path: "M 118 240 Q 188 242 228 172" },
+  { label: "Repayment", dotY: 40, path: "M 150 40 Q 220 38 260 88" },
+  { label: "Bureau", dotY: 90, path: "M 150 90 Q 227 90 260 108" },
+  { label: "Collections", dotY: 140, path: "M 150 140 Q 230 140 260 132" },
+  { label: "Human Intelligence", dotY: 190, path: "M 150 190 Q 230 190 260 152" },
+  { label: "Documents", dotY: 240, path: "M 150 240 Q 220 242 260 172" },
 ] as const;
 
-const CENTER = { x: 280, y: 132, r: 54 };
+const CENTER = { x: 312, y: 132, r: 54 };
 /** Desktop — extra right inset so “Understanding Behaviour” is not clipped */
-const DESKTOP_DIAGRAM_VIEWBOX = { w: 660, h: 280 };
+const DESKTOP_DIAGRAM_VIEWBOX = { w: 692, h: 280 };
 /** Tighter crop on mobile so the diagram scales up within the viewport */
-const MOBILE_DIAGRAM_VIEWBOX = { w: 500, h: 280 };
+const MOBILE_DIAGRAM_VIEWBOX = { w: 532, h: 280 };
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
 type SignalsDiagramProps = {
@@ -62,8 +61,8 @@ function SignalsUnderstandingDiagram({
   dotRadius,
   pathStrokeWidth,
   arrowMarkerId,
-  outputArrowPath = "M 334 132 L 378 132",
-  outcomeTextX = 388,
+  outputArrowPath = "M 366 132 L 410 132",
+  outcomeTextX = 420,
   preserveAspectRatio = "xMidYMid meet",
   className = "",
 }: SignalsDiagramProps) {
@@ -92,7 +91,7 @@ function SignalsUnderstandingDiagram({
             {signal.label}
           </motion.text>
           <motion.circle
-            cx="118"
+            cx={SIGNAL_DOT_X}
             cy={signal.dotY}
             r={dotRadius}
             fill={FIGMA.accentBlue}
@@ -102,7 +101,7 @@ function SignalsUnderstandingDiagram({
           />
           {!reduceMotion && (
             <motion.circle
-              cx="118"
+              cx={SIGNAL_DOT_X}
               cy={signal.dotY}
               r={dotRadius}
               fill={FIGMA.accentBlue}
@@ -113,7 +112,7 @@ function SignalsUnderstandingDiagram({
                 delay: i * 0.28,
                 ease: "easeOut",
               }}
-              style={{ transformOrigin: `118px ${signal.dotY}px` }}
+              style={{ transformOrigin: `${SIGNAL_DOT_X}px ${signal.dotY}px` }}
             />
           )}
           <motion.path
@@ -290,7 +289,7 @@ export default function AegisHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: easeOut }}
             className="mt-5 max-w-[560px] font-sans text-[18px] font-normal leading-[1.55] lg:text-[20px]"
-            style={{ color: FIGMA.accentMuted }}
+            style={{ color: FIGMA.gray }}
           >
             Built for Risk, Collections, Credit and Underwriting leaders who need clarity on why
             accounts are behaving the way they are and what patterns are emerging.
@@ -342,8 +341,8 @@ export default function AegisHero() {
               dotRadius={5}
               pathStrokeWidth={2}
               arrowMarkerId="aegis-hero-arrow-mobile"
-              outputArrowPath="M 334 132 L 356 132"
-              outcomeTextX={372}
+              outputArrowPath="M 366 132 L 388 132"
+              outcomeTextX={404}
               className="mx-auto h-auto w-full max-w-full"
             />
           </div>

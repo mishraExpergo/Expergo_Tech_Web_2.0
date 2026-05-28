@@ -258,7 +258,9 @@ export default function AthenaPredictiveIntelligenceSection() {
           <Panel
             title="Portfolio Forecasting"
             bulletList={["Bucket movement", "Segment performance", "Portfolio quality trends"]}
-            footer={<div className="min-h-[48px]" aria-hidden />}
+            footer={
+              <PrescriptiveGuidanceBarChart barHeights={[11, 19, 13, 23, 17, 21, 15, 27, 12, 20, 16, 24]} />
+            }
           />
         </div>
       </motion.div>

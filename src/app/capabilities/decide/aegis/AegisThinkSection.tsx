@@ -17,7 +17,7 @@ export default function AegisThinkSection() {
 
   return (
     <section
-      className="bg-white px-6 py-16 sm:px-10 sm:py-20 lg:px-14 lg:py-24"
+      className="bg-white px-6 pt-16 pb-8 sm:px-10 sm:pt-20 sm:pb-8 lg:px-14 lg:pt-24 lg:pb-8"
       aria-labelledby="aegis-think-heading"
     >
       <div className="mx-auto max-w-3xl text-center">

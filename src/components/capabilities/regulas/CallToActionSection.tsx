@@ -5,7 +5,7 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 
 export default function CallToActionSection() {
   return (
-    <section className="md:py-24 py-[-40px] bg-white text-center">
+    <section className="md:pt-24 md:pb-8 py-[-40px] bg-white text-center">
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2 
           initial={{ opacity: 0, y: 10 }}

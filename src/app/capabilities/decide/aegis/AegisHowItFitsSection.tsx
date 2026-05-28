@@ -12,14 +12,11 @@ const FIGMA = {
   ink: "#101828",
   lineIdle: "#B8E6EE",
   ringIdle: "#B8E6EE",
-  gradient: "linear-gradient(180deg, #15B5C1 0%, #666666 100%)",
+  accent: "#01AEE4",
 } as const;
 
 const gradientTextStyle = {
-  backgroundImage: FIGMA.gradient,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
+  color: FIGMA.accent,
 } as const;
 
 const systemNodes = [
@@ -432,7 +429,7 @@ export default function AegisHowItFitsSection() {
           </div>
           <p
             className="mt-4 text-left text-base font-normal leading-relaxed sm:text-[17px] sm:leading-[1.55]"
-            style={{ color: FIGMA.teal }}
+            style={{ color: "#666666" }}
           >
             {aegisContent.description}
           </p>

@@ -57,11 +57,9 @@ export default function ExternalSignalsFlow() {
              className="text-[#5C6E82] mt-6 max-w-3xl mx-auto font-medium leading-relaxed text-sm md:text-base space-y-4"
           >
             <p>
-              BUREAU 360° is a bureau intelligence layer designed for credit portfolios. It helps institutions monitor borrower
-              behaviour across lenders by converting bureau data into structured, portfolio-level intelligence.
-            </p>
-            <p>
-              It brings together key bureau indicators such as:
+              BUREAU 360° is a bureau intelligence layer designed for credit portfolios.
+              <br />
+              It helps institutions monitor borrower behaviour across lenders by converting bureau data into structured, portfolio-level&nbsp;intelligence.
             </p>
           </motion.div>
         </div>

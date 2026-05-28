@@ -2,11 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-/** Figma linear gradient: #15B5C1 → #666666 */
 const FIGMA = {
   teal: "#15B5C1",
   gray: "#666666",
-  gradient: "linear-gradient(180deg, #15B5C1 0%, #666666 100%)",
+  accent: "#01AEE4",
   ink: "#101828",
   labelBlue: "#1D70F2",
   body: "#667085",
@@ -14,10 +13,7 @@ const FIGMA = {
 } as const;
 
 const gradientTextStyle = {
-  backgroundImage: FIGMA.gradient,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
+  color: FIGMA.accent,
 } as const;
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -94,7 +90,7 @@ export default function AegisEnablesSection() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 h-[min(420px,55vh)] w-[min(640px,70vw)] translate-x-[12%] translate-y-[18%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(21,181,193,0.1)_0%,transparent_68%)]"
+        className="pointer-events-none absolute bottom-0 right-0 h-[min(420px,55vh)] w-[min(640px,70vw)] translate-x-[12%] translate-y-[18%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(1,174,228,0.1)_0%,transparent_68%)]"
       />
 
       <div className="relative mx-auto max-w-[1475px]">
@@ -159,12 +155,12 @@ export default function AegisEnablesSection() {
                 transition={{ duration: 0.28, ease }}
               >
                 <span
-                  className="select-none font-serif text-[48px] font-normal leading-none tracking-tight text-[#E5E7EB] transition-all duration-300 group-hover:bg-[linear-gradient(180deg,#15B5C1_0%,#666666_100%)] group-hover:bg-clip-text group-hover:text-transparent sm:text-[52px]"
+                  className="select-none font-serif text-[48px] font-normal leading-none tracking-tight text-[#E5E7EB] transition-all duration-300 group-hover:text-[#01AEE4] sm:text-[52px]"
                   aria-hidden
                 >
                   {card.num}
                 </span>
-                <h3 className="mt-6 font-heading text-base font-bold leading-snug text-[#101828] transition-all duration-300 group-hover:bg-[linear-gradient(180deg,#15B5C1_0%,#666666_100%)] group-hover:bg-clip-text group-hover:text-transparent sm:mt-7 sm:text-lg">
+                <h3 className="mt-6 font-heading text-base font-bold leading-snug text-[#101828] transition-all duration-300 group-hover:text-[#01AEE4] sm:mt-7 sm:text-lg">
                   {card.title}
                 </h3>
                 <p

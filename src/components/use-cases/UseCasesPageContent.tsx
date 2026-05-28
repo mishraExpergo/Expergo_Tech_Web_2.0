@@ -132,7 +132,7 @@ export function UseCasesPageContent({ hero, cards }: UseCasesPageContentProps) {
 
       <section
         id="briefing"
-        className="border-y border-[#E4E7EC] bg-white px-4 py-20 sm:px-6 lg:px-8"
+        className="border-y border-[#E4E7EC] bg-white px-4 pt-20 pb-6 sm:px-6 lg:px-8"
         aria-labelledby="use-cases-cta-heading"
       >
         <div className="mx-auto max-w-3xl text-center">

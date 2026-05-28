@@ -154,7 +154,7 @@ export function CapabilitiesPageContent({ intro, zigzagRows, cta }: Capabilities
 
       <section
         id="briefing"
-        className="border-y border-[#E4E7EC] bg-white px-4 py-14 sm:px-6 sm:py-20 lg:px-8"
+        className="border-y border-[#E4E7EC] bg-white px-4 pt-14 pb-6 sm:px-6 sm:pt-20 sm:pb-6 lg:px-8"
         aria-labelledby="outcomes-cta-heading"
       >
         <div className="mx-auto max-w-3xl text-center">

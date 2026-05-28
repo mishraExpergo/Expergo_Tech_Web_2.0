@@ -5,7 +5,7 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 
 export default function LighthouseCTA() {
   return (
-    <section className="py-32 bg-[#F9FAFB] text-center border-t border-gray-100">
+    <section className="pt-32 pb-8 bg-[#F9FAFB] text-center border-t border-gray-100">
       <div className="max-w-4xl mx-auto px-6 md:my-0 my-[-90px]">
         
         <motion.h2 

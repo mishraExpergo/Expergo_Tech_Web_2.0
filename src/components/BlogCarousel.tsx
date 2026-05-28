@@ -59,11 +59,11 @@ export function BlogCarousel({ theme = "light", align = "left" }: BlogCarouselPr
       variant="slide-left"
       className={
         isDark
-          ? "border-t border-white/[0.06] bg-[#050912]/40 px-4 py-20 backdrop-blur-[1px] sm:px-6 lg:px-8"
-          : "bg-white px-4 py-20 sm:px-6 lg:px-8"
+          ? "border-t border-white/[0.06] bg-[#050912]/40 px-4 pt-8 pb-20 backdrop-blur-[1px] sm:px-6 lg:px-8"
+          : "bg-white px-4 pt-8 pb-20 sm:px-6 lg:px-8"
       }
     >
-      <div className="md:py-10 py-0 mx-auto max-w-6xl font-poppins">
+      <div className="mx-auto max-w-6xl font-poppins">
         <div className={isLeft ? "text-left" : "text-center"}>
           <p className="text-[16px] uppercase text-[#0B64F4]">Insights</p>
           <h2

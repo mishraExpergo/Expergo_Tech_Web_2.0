@@ -11,14 +11,11 @@ const FIGMA = {
   labelBlue: "#1D70F2",
   body: "#667085",
   cardBorder: "#E4E7EC",
-  gradient: "linear-gradient(180deg, #15B5C1 0%, #666666 100%)",
+  accent: "#01AEE4",
 } as const;
 
 const gradientTextStyle = {
-  backgroundImage: FIGMA.gradient,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
+  color: FIGMA.accent,
 } as const;
 
 const capabilities = [

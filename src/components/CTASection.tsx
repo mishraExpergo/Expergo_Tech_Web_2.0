@@ -7,11 +7,11 @@ export function CTASection() {
     <MotionSection
       id="demo"
       variant="fade-up"
-      className="px-4 py-20 sm:px-6 lg:px-8"
+      className="px-4 pt-20 pb-6 sm:px-6 lg:px-8"
     >
        <section
         id="briefing"
-        className=" bg-white px-4 md:py-20 py-0 sm:px-6 lg:px-8"
+        className=" bg-white px-4 md:pt-20 md:pb-0 py-0 sm:px-6 lg:px-8"
         aria-labelledby="outcomes-cta-heading"
       >
         <div className="mx-auto max-w-3xl md:my-0 my-[-70px] text-center">

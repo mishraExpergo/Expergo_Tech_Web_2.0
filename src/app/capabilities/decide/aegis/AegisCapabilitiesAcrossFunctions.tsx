@@ -26,16 +26,13 @@ const FIGMA = {
   tabBorderIdle: "#C5D9ED",
   activeBorder: "#15B5C1",
   divider: "#B8E6EE",
-  gradient: "linear-gradient(180deg, #15B5C1 0%, #666666 100%)",
+  accent: "#01AEE4",
   iconShadow: "drop-shadow(0 6px 14px rgba(29, 112, 242, 0.32))",
   panelShadow: "0 2px 16px rgba(16, 24, 40, 0.06)",
 } as const;
 
 const gradientTextStyle = {
-  backgroundImage: FIGMA.gradient,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
+  color: FIGMA.accent,
 } as const;
 
 const panelTransition = { duration: 0.28, ease } as const;
