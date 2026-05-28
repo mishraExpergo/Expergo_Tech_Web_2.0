@@ -81,8 +81,10 @@ function InsightCard({ num, text, className, index, enterFrom, enterVariant }: I
           {num}
         </span>
         <div className="min-w-0 flex-1 pt-1">
-          <p className="text-sm font-semibold leading-snug text-[#14B8A6] md:text-base">{text}</p>
-          <div className="mt-2 h-[2px] w-3/4 max-w-44 origin-left rounded-full bg-[#14B8A6]/90 transition-[width,transform] duration-300 ease-in-out group-hover:w-full group-hover:max-w-none" />
+          <div className="w-fit max-w-full md:w-full">
+            <p className="text-sm font-semibold leading-snug text-[#14B8A6] md:text-base">{text}</p>
+            <div className="mt-2 h-[2px] w-full origin-left rounded-full bg-[#14B8A6]/90 md:w-3/4 md:max-w-44 transition-[width,transform] duration-300 ease-in-out md:group-hover:w-full md:group-hover:max-w-none" />
+          </div>
         </div>
       </div>
     </motion.article>

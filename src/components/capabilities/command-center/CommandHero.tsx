@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import Link from "next/link";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -41,7 +42,7 @@ export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
       ref={sectionRef}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative pt-20 pb-16 overflow-hidden bg-white"
+      className="relative overflow-hidden bg-white pt-20 pb-6 md:pb-10"
     >
       {/* Interactive grid background */}
       <div
@@ -90,7 +91,7 @@ export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="md:text-[52px] text-[44px] md:mt-0px mt-[-80px] mb-6 font-bold tracking-tight text-[#15B5C1]"
+            className="font-heading text-site-sub md:text-site-display md:mt-0 mt-[-80px] mb-6 font-bold leading-[1.1] tracking-tight text-[#15B5C1]"
           >
             {hero.title}
           </motion.h1>
@@ -99,7 +100,7 @@ export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[20px] text-gray-600 font-medium mb-10 leading-relaxed max-w-lg"
+            className="es-paragraph mb-8 max-w-lg font-medium text-brand-muted md:mb-9"
           >
             {hero.subtitle}
           </motion.p>
@@ -108,14 +109,24 @@ export default function CommandHero({ hero }: { hero: CommandHeroCopy }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center gap-3 pb-12 sm:gap-4 sm:pb-14 md:pb-16 lg:pb-20"
           >
-            <BookDemoButton className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
+            <BookDemoButton
+              mode="demo"
+              className="inline-flex min-h-11 items-center justify-center rounded-lg bg-[#1D70F2] px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-[#1864db] sm:px-8 sm:text-base"
+            >
               {hero.ctaLabel}
             </BookDemoButton>
+            <Link
+              href="/use-cases"
+              className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#101828] bg-white px-7 py-3 text-sm font-medium text-[#101828] transition-colors hover:bg-[#F9FAFB] sm:px-8 sm:text-base"
+            >
+              Explore Use Cases
+            </Link>
           </motion.div>
         </div>
 
-        <div className="">
+        <div className="hidden md:block">
           {hero.sideImageUrl ? (
             <Image
               src={hero.sideImageUrl}
