@@ -21,6 +21,7 @@ const links = [
   { href: "/outcomes", label: "Outcomes", match: (p: string) => isRouteActive(p, "/outcomes") },
   { href: "/use-cases", label: "Use Cases", match: (p: string) => isRouteActive(p, "/use-cases") },
   { href: "/insights", label: "Insights", match: (p: string) => isRouteActive(p, "/insights") },
+  { href: "/career", label: "Careers", match: (p: string) => isRouteActive(p, "/career") },
 ] as const;
 
 const capabilityGroups = [

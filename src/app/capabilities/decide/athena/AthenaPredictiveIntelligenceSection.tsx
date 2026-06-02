@@ -130,11 +130,11 @@ export default function AthenaPredictiveIntelligenceSection() {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5, ease: cardEase }}
       >
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#64748b] sm:text-xs">Intelligence</p>
-        <h2 className="mt-4 font-heading text-3xl font-bold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-5xl">
+        <p className="text-[16px]  uppercase tracking-[0.16em] text-[#0B64F4] sm:text-m">Intelligence</p>
+        <h2 className="mt-4 font-heading text-3xl font-semibold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-[36px]">
           Predictive intelligence <span className="text-[#00C2CB]">across the portfolio</span>
         </h2>
-        <p className="mt-5 es-body mx-auto max-w-2xl text-[#64748b]">
+        <p className="mt-5 es-body mx-auto max-w-3xl text-[#64748b]">
           A focused intelligence surface — tuned to the decisions your teams actually make.
         </p>
       </motion.div>

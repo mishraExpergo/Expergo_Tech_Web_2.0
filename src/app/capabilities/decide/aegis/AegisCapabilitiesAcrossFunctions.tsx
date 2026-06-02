@@ -18,7 +18,7 @@ const LAYOUT = {
 const FIGMA = {
   teal: "#15B5C1",
   ink: "#101828",
-  kickerBlue: "#1677FF",
+  kickerBlue: "#0B64F4",
   iconBlue: "#1D70F2",
   iconFill: "#D6EBFF",
   iconFillSoft: "#E8F2FC",
@@ -26,7 +26,7 @@ const FIGMA = {
   tabBorderIdle: "#C5D9ED",
   activeBorder: "#15B5C1",
   divider: "#B8E6EE",
-  accent: "#01AEE4",
+  accent: "#15B5C1",
   iconShadow: "drop-shadow(0 6px 14px rgba(29, 112, 242, 0.32))",
   panelShadow: "0 2px 16px rgba(16, 24, 40, 0.06)",
 } as const;
@@ -470,14 +470,14 @@ export default function AegisCapabilitiesAcrossFunctions() {
           variants={headerVariants}
         >
           <p
-            className="text-sm font-semibold uppercase tracking-[0.16em]"
+            className="text-regular uppercase tracking-[0.16em]"
             style={{ color: FIGMA.kickerBlue }}
           >
             CAPABILITIES ACROSS FUNCTIONS
           </p>
           <h2
             id="aegis-across-functions-heading"
-            className="mt-4 font-heading text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-[44px]"
+            className="mt-4 font-heading text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl md:text-[36px]"
           >
             <span style={gradientTextStyle}>Built for the teams</span>
             <span style={{ color: FIGMA.ink }}> that interpret portfolio behaviour</span>

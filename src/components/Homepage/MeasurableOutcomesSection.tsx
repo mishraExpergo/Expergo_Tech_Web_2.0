@@ -40,7 +40,7 @@ export function MeasurableOutcomesSection() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.p
-          className="es-small-heading text-center text-[#1D68D5] tracking-[0.2em]"
+          className="text-regular text-center text-[#0B64F4] tracking-[0.2em]"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -58,7 +58,7 @@ export function MeasurableOutcomesSection() {
           transition={{ duration: 0.5, delay: 0.05, ease }}
         >
           Trajectory-led portfolio  {" "}
-          <span className="text-[#16B2C3]">outcomes.</span>
+          <span className="text-[#15B5C1]">outcomes.</span>
         </motion.h2>
 
         {/* <motion.p

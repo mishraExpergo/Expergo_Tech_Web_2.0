@@ -5,11 +5,11 @@ import { motion, useReducedMotion } from "framer-motion";
 const FIGMA = {
   teal: "#15B5C1",
   gray: "#666666",
-  accent: "#01AEE4",
+  accent: "#15B5C1",
   ink: "#101828",
-  labelBlue: "#1D70F2",
+  labelBlue: "#0B64F4",
   body: "#667085",
-  cardBorder: "#E4E7EC",
+  cardBorder: "#0B64F4",
 } as const;
 
 const gradientTextStyle = {
@@ -102,14 +102,14 @@ export default function AegisEnablesSection() {
           variants={headerVariants}
         >
           <p
-            className="font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+            className="font-sans text-regular uppercase tracking-[0.16em]"
             style={{ color: FIGMA.labelBlue }}
           >
             WHAT AEGIS ENABLES
           </p>
           <h2
             id="aegis-enables-heading"
-            className="mt-4 font-heading text-[32px] font-bold leading-[1.15] tracking-tight sm:text-[36px] md:text-[44px]"
+            className="mt-4 font-heading text-[32px] font-semibold leading-[1.15] tracking-tight sm:text-[36px] md:text-[36px]"
           >
             <span style={gradientTextStyle}>From Signals</span>
             <span style={{ color: FIGMA.ink }}> to Structured Understanding</span>
@@ -146,7 +146,7 @@ export default function AegisEnablesSection() {
                   reduceMotion
                     ? undefined
                     : {
-                        borderColor: FIGMA.teal,
+                        borderColor: FIGMA.cardBorder,
                         backgroundColor: "#FFFFFF",
                         boxShadow:
                           "0 0 0 1px #15B5C1, 0 12px 32px rgba(21, 181, 193, 0.22)",
@@ -155,12 +155,12 @@ export default function AegisEnablesSection() {
                 transition={{ duration: 0.28, ease }}
               >
                 <span
-                  className="select-none font-serif text-[48px] font-normal leading-none tracking-tight text-[#E5E7EB] transition-all duration-300 group-hover:text-[#01AEE4] sm:text-[52px]"
+                  className="select-none font-serif text-[48px] font-normal leading-none tracking-tight text-[#E5E7EB] transition-all duration-300 group-hover:text-[#0B64F4] sm:text-[52px]"
                   aria-hidden
                 >
                   {card.num}
                 </span>
-                <h3 className="mt-6 font-heading text-base font-bold leading-snug text-[#101828] transition-all duration-300 group-hover:text-[#01AEE4] sm:mt-7 sm:text-lg">
+                <h3 className="mt-6 font-heading text-base font-bold leading-snug text-[#101828] transition-all duration-300 group-hover:text-[#0B64F4] sm:mt-7 sm:text-lg">
                   {card.title}
                 </h3>
                 <p

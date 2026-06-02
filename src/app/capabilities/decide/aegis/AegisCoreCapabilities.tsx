@@ -10,8 +10,8 @@ const FIGMA = {
   ink: "#101828",
   labelBlue: "#1D70F2",
   body: "#667085",
-  cardBorder: "#E4E7EC",
-  accent: "#01AEE4",
+  cardBorder: "#0B64F4",
+  accent: "#15B5C1",
 } as const;
 
 const gradientTextStyle = {
@@ -111,7 +111,7 @@ function CapabilityChevron({ className }: { className?: string }) {
     >
       <path
         d="M5.25 2.625L10.9375 7L5.25 11.375V2.625Z"
-        className="fill-[#15B5C1] transition-colors duration-300 group-hover:fill-[#15B5C1]"
+        className="fill-[#15B5C1] transition-colors duration-300 group-hover:fill-[#0B64F4]"
       />
     </svg>
   );
@@ -145,14 +145,14 @@ function CapabilityCard({
         reduceMotion
           ? undefined
           : {
-              borderColor: FIGMA.teal,
+              borderColor: FIGMA.cardBorder,
               boxShadow: "0 0 0 1px #15B5C1, 0 12px 32px rgba(21, 181, 193, 0.22)",
             }
       }
       transition={{ duration: 0.28, ease }}
     >
       <span
-        className="pointer-events-none absolute right-5 top-5 z-[1] select-none font-serif text-[2.75rem] font-normal leading-none text-[#E5E7EB] sm:text-[3rem]"
+        className="pointer-events-none absolute right-5 top-5 z-[1] select-none font-serif text-[2.75rem] font-normal leading-none text-[#E5E7EB] group-hover:text-[#0B64F4] sm:text-[3rem]"
         aria-hidden
       >
         {num}
@@ -162,7 +162,7 @@ function CapabilityCard({
         <span className="-ml-1.5 flex h-[14px] w-[14px] shrink-0 items-center justify-center transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(21,181,193,0.75)] sm:-ml-2">
           <CapabilityChevron />
         </span>
-        <h3 className="min-w-0 flex-1 pr-11 font-heading text-base font-bold leading-snug text-[#101828] transition-colors duration-300 group-hover:text-[#15B5C1] sm:text-lg">
+        <h3 className="min-w-0 flex-1 pr-11 font-heading text-base font-bold leading-snug text-[#101828] transition-colors duration-300 group-hover:text-[#0B64F4] sm:text-lg">
           {title}
         </h3>
       </div>
@@ -181,7 +181,7 @@ function CapabilityCard({
           return (
             <li key={item} className="flex gap-2.5 text-left">
               <span
-                className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#D0D5DD] transition-all duration-300 group-hover:bg-[#15B5C1] group-hover:shadow-[0_0_8px_rgba(21,181,193,0.7)]"
+                className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#D0D5DD] transition-all duration-300 group-hover:bg-[#0B64F4] group-hover:shadow-[0_0_8px_rgba(21,181,193,0.7)]"
                 aria-hidden
               />
               <span className="text-sm leading-relaxed text-[#667085] sm:text-[15px]">{item}</span>
@@ -191,7 +191,7 @@ function CapabilityCard({
       </ul>
 
       <div
-        className={`mt-auto flex min-h-[5.75rem] shrink-0 items-start border-t border-[#E4E7EC] bg-white py-5 transition-colors duration-300 group-hover:border-[#15B5C1] sm:min-h-[6rem] sm:py-5 ${padX}`}
+        className={`mt-auto flex min-h-[5.75rem] shrink-0 items-start border-t border-[#E4E7EC] bg-white py-5 transition-colors duration-300 group-hover:border-[#0B64F4] sm:min-h-[6rem] sm:py-5 ${padX}`}
       >
         <p className="text-left text-sm leading-relaxed text-[#667085] sm:text-[15px]">{footer}</p>
       </div>
@@ -215,12 +215,12 @@ export default function AegisCoreCapabilities() {
           viewport={{ once: true, margin: "-80px" }}
           variants={headerVariants}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1677FF]">
+          <p className="text-regular  uppercase tracking-[0.16em] text-[#1677FF]">
             CORE CAPABILITIES
           </p>
           <h2
             id="aegis-core-capabilities-heading"
-            className="mt-4 font-heading text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-[44px]"
+            className="mt-4 font-heading text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl md:text-[36px]"
           >
             <span style={gradientTextStyle}>Understanding intelligence</span>
             <span style={{ color: FIGMA.ink }}> across the portfolio</span>

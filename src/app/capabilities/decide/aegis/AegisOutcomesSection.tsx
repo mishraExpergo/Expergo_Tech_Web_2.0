@@ -120,14 +120,14 @@ export default function AegisOutcomesSection() {
           transition={{ duration: 0.45, ease }}
         >
           <p
-            className="text-xs font-semibold uppercase tracking-[0.16em] sm:text-sm"
+            className="text-regular uppercase tracking-[0.16em] sm:text-sm"
             style={{ color: FIGMA.kicker }}
           >
             Outcomes
           </p>
           <h2
             id="aegis-outcomes-heading"
-            className="mt-2 font-heading text-[1.75rem] font-bold leading-[1.12] tracking-tight sm:mt-3 sm:text-4xl lg:text-[40px]"
+            className="mt-2 font-heading text-[1.75rem] font-semibold leading-[1.12] tracking-tight sm:mt-3 sm:text-4xl lg:text-[36px]"
           >
             <span style={{ color: FIGMA.ink }}>Designed for clearer </span>
             <span style={{ color: FIGMA.teal }}>decision-making</span>

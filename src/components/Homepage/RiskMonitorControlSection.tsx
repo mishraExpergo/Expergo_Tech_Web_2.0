@@ -75,15 +75,15 @@ function InsightCard({ num, text, className, index, enterFrom, enterVariant }: I
     >
       <div className="flex items-start gap-3 md:gap-4">
         <span
-          className="select-none text-4xl font-bold leading-none text-gray-200 transition-colors duration-300 ease-in-out group-hover:text-[#14B8A6]/35 md:text-5xl"
+          className="select-none text-4xl font-bold leading-none text-gray-200 md:text-5xl"
           aria-hidden
         >
           {num}
         </span>
         <div className="min-w-0 flex-1 pt-1">
           <div className="w-fit max-w-full md:w-full">
-            <p className="text-sm font-semibold leading-snug text-[#14B8A6] md:text-base">{text}</p>
-            <div className="mt-2 h-[2px] w-full origin-left rounded-full bg-[#14B8A6]/90 md:w-3/4 md:max-w-44 transition-[width,transform] duration-300 ease-in-out md:group-hover:w-full md:group-hover:max-w-none" />
+            <p className="text-sm font-semibold leading-snug text-[#0B64F4] md:text-base">{text}</p>
+            <div className="mt-2 h-[2px] w-full origin-left rounded-full bg-[#0B64F4]/90 transition-[width,transform] duration-300 ease-in-out md:w-3/4 md:max-w-44 md:group-hover:w-full md:group-hover:max-w-none" />
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@ export function RiskMonitorControlSection() {
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5 }}
       >
-        Most risk frameworks monitor. <span className="text-[#14B8A6]">Few control.</span>
+        Most risk frameworks monitor. <span className="text-[#15B5C1]">Few control.</span>
       </motion.h2>
 
       {/* Mobile: stacked */}
@@ -140,7 +140,7 @@ export function RiskMonitorControlSection() {
             <circle cx="200" cy="200" r="188" stroke="currentColor" strokeWidth="1.25" opacity="0.85" />
             <circle cx="200" cy="200" r="152" stroke="currentColor" strokeWidth="1" opacity="0.7" />
             <circle cx="200" cy="200" r="118" stroke="currentColor" strokeWidth="1" opacity="0.55" />
-            <circle cx="200" cy="200" r="84" stroke="#7DD3FC" strokeWidth="1" opacity="0.5" />
+            <circle cx="200" cy="200" r="84" stroke="currentColor" strokeWidth="1" opacity="0.5" />
           </svg>
           <div className="relative z-[1] flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-cyan-100 via-cyan-50 to-sky-100 shadow-[0_0_48px_rgba(34,211,238,0.35)] ring-1 ring-cyan-200/60 lg:h-36 lg:w-36">
             <Shield className="h-14 w-14 text-[#15B5C1] lg:h-16 lg:w-16" strokeWidth={1.35} aria-hidden />

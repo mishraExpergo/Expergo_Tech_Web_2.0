@@ -151,7 +151,7 @@ const HeatmapSection = () => {
           transition={{ duration: 0.305 }}
           className="mb-10"
         >
-          <p className="text-[16px] uppercase mb-1 text-[#15B5C1]">Portfolio Intelligence</p>
+          <p className="text-[16px] uppercase mb-1 text-[#0B64F4]">Portfolio Intelligence</p>
           <h2 className="text-[36px]  mb-4 font-semibold">Interactive  <span className="text-[#15B5C1]">Portfolio Heatmap</span></h2>
           <p className="es-body max-w-3xl ">
             Visualise where stress is forming across dimensions, vintages, and signal types.

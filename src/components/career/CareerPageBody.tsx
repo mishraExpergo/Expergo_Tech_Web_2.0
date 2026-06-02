@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import CareerHeroVisual from "@/components/career/CareerHeroVisual";
+import { CareerApplyModal, CareerOpeningRow } from "./CareerApplyModal";
 
 const values = [
   {
@@ -46,14 +47,10 @@ const values = [
 ];
 
 const openings = [
-  { title: "Senior Backend Engineer", team: "Core Platform" },
-  { title: "Lead Engineer", team: "Data Infrastructure" },
-  { title: "Product Manager", team: "Risk & Compliance" },
-  { title: "Senior Data Scientist", team: "Portfolio Analytics" },
-  { title: "Risk Analyst", team: "Market Risk" },
-  { title: "Frontend Engineer", team: "Dashboard & Reporting" },
-  { title: "Enterprise Account Executive", team: "Revenue" },
-  { title: "UX Designer", team: "Financial Workflows" },
+  { title: "Key Account Manager", team: "Core Platform" },
+  { title: "AI/ML Developer", team: "Data Infrastructure" },
+  { title: "Content & SEO Marketing Manager", team: "Risk & Compliance" },
+  { title: "MERN Full Stack Developer", team: "Portfolio Analytics" },
 ];
 
 const processSteps = [
@@ -90,6 +87,16 @@ export default function CareerPageBody() {
   const reduceMotion = useReducedMotion();
   const [processHoveredIndex, setProcessHoveredIndex] = useState<number | null>(null);
   const [processSelectedIndex, setProcessSelectedIndex] = useState(0);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOpening, setSelectedOpening] = useState<CareerOpeningRow | null>(null);
+  const [isGeneralApplication, setIsGeneralApplication] = useState(false);
+
+  const openApplyModal = (opening: CareerOpeningRow | null, isGeneral = false) => {
+    setSelectedOpening(opening);
+    setIsGeneralApplication(isGeneral);
+    setIsModalOpen(true);
+  };
 
   const processActiveIndex =
     processHoveredIndex !== null ? processHoveredIndex : processSelectedIndex;
@@ -184,7 +191,7 @@ export default function CareerPageBody() {
               Build the future of
               <br />
               <motion.span
-                className="inline-block text-brand-blue"
+                className="inline-block text-[#15B5C1]"
                 initial={reduceMotion ? false : { opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.45, ease: easeOut }}
@@ -192,7 +199,7 @@ export default function CareerPageBody() {
                 financial intelligence.
               </motion.span>
             </h1>
-            <p className="es-paragraph mt-4 max-w-[528px] text-brand-muted sm:mt-5">
+            <p className="text-[20px] mt-4 max-w-[528px] text-brand-muted sm:mt-5">
               Expergo sits at the intersection of technology and financial services. We are building the infrastructure
               that helps institutions move faster, make smarter decisions, and serve clients better. We are looking for
               people who want to do the same.
@@ -223,18 +230,18 @@ export default function CareerPageBody() {
         </motion.section>
 
         <motion.section
-          className="mt-8 pb-8 sm:mt-10 sm:pb-10 lg:mt-12 lg:pb-12"
+          className="mt-8 pb-8 sm:mt-10 sm:pb-10 lg:mt-28 lg:pb-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={staggerParent}
         >
-          <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-blue">
+          <motion.p variants={fadeUp} className="text-[16px] font-regular uppercase tracking-[0.18em] text-brand-blue">
             OUR PRINCIPLES
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="md:mt-2 mt-6 [font-size:var(--text-site-sub)] font-bold leading-[1.12] tracking-tight text-brand-footer"
+            className="md:mt-2 mt-6 [font-size:var(--text-site-sub)] font-semibold leading-[1.12] tracking-tight text-brand-footer"
           >
             What we hold ourselves to.
           </motion.h2>
@@ -250,7 +257,7 @@ export default function CareerPageBody() {
                 key={value.title}
                 variants={fadeUp}
                 {...cardLift} 
-                className="group relative cursor-pointer overflow-hidden rounded-2xl border border-[#E1E7EF] bg-[linear-gradient(180deg,rgba(13,162,231,0.06)_0%,rgba(13,162,231,0.02)_100%)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-[4px] transition-[border-color,box-shadow] duration-300 hover:border-brand-blue/35 hover:shadow-[0_16px_48px_-16px_rgba(13,162,231,0.28)] sm:min-h-[148px] sm:px-5"
+                className="group relative cursor-pointer overflow-hidden rounded-2xl border border-[#E1E7EF] bg-[linear-gradient(180deg,rgba(13,162,231,0.06)_0%,rgba(13,162,231,0.02)_100%)] px-4 py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-[4px] transition-[border-color,box-shadow] duration-300 hover:border-brand-blue/35 hover:shadow-[0_16px_48px_-16px_rgba(13,162,231,0.28)] sm:min-h-[148px] sm:px-5"
               >
                 <span
                   className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand-blue/[0.12] opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
@@ -276,7 +283,7 @@ export default function CareerPageBody() {
           viewport={{ once: true, margin: "-50px" }}
           variants={staggerParent}
         >
-          <motion.p variants={fadeUp} className="es-small-heading text-brand-blue">
+          <motion.p variants={fadeUp} className="text-[16px] font-regular text-brand-blue">
             OPEN POSITIONS
           </motion.p>
           <motion.h2
@@ -305,9 +312,9 @@ export default function CareerPageBody() {
                   animate="rest"
                   className="w-full"
                 >
-                  <Link
-                    href="mailto:careers@expergo.tech?subject=Application%20for%20role"
-                    className="group/role relative flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[linear-gradient(90deg,rgba(13,162,231,0.07)_0%,transparent_55%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-blue/35 sm:px-6"
+                  <button
+                    onClick={() => openApplyModal(opening, false)}
+                    className="group/role relative flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-[linear-gradient(90deg,rgba(13,162,231,0.07)_0%,transparent_55%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-blue/35 sm:px-6"
                   >
                     <span
                       className="absolute bottom-0 left-0 top-0 w-[3px] origin-bottom scale-y-0 bg-brand-blue transition-transform duration-200 ease-out group-hover/role:scale-y-100"
@@ -336,7 +343,7 @@ export default function CareerPageBody() {
                         <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/role:-translate-y-0.5 group-hover/role:translate-x-0.5" />
                       </span>
                     </div>
-                  </Link>
+                  </button>
                 </motion.div>
               </motion.div>
             ))}
@@ -351,14 +358,14 @@ export default function CareerPageBody() {
           viewport={{ once: true, margin: "-40px" }}
           variants={staggerParent}
         >
-          <motion.p variants={fadeUp} className="text-center text-sm font-semibold tracking-[0.08em] text-brand-blue sm:text-base">
-            Our hiring process
+          <motion.p variants={fadeUp} className="text-center text-[16px] font-regular tracking-[0.08em] text-[#0B64F4] sm:text-base">
+            OUR HIRING PROCESS
           </motion.p>
           <motion.h2
             variants={fadeUp}
             className="mt-2 text-center [font-size:var(--text-site-sub)] font-semibold leading-[1.12] tracking-tight text-brand-footer"
           >
-            Straight forward. <span className="text-brand-blue">No surprises</span>
+            Straight forward. <span className="text-[#15B5C1]">No surprises</span>
           </motion.h2>
           <motion.p
             variants={fadeUp}
@@ -573,8 +580,8 @@ export default function CareerPageBody() {
             that stand out.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-7 flex justify-center">
-            <motion.a
-              href="mailto:careers@expergo.tech?subject=General%20Application"
+            <motion.button
+              onClick={() => openApplyModal(null, true)}
               whileHover={
                 reduceMotion
                   ? undefined
@@ -593,10 +600,17 @@ export default function CareerPageBody() {
               />
               <span className="relative">Apply Anyway</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" aria-hidden />
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.section>
       </div>
+
+      <CareerApplyModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        opening={selectedOpening}
+        generalApplication={isGeneralApplication}
+      />
     </motion.main>
   );
 }

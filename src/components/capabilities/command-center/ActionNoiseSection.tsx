@@ -36,9 +36,9 @@ export default function ActionNoiseSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={inView}
             transition={{ duration: 0.55, delay: 0.1, ease: slideEase }}
-            className="text-[36px] mb-6 font-bold text-gray-900"
+            className="text-[36px] mb-6 font-semibold text-gray-900"
           >
-            Warning Without <span className="text-[#1677FF]">Action</span>
+            Warning Without <span className="text-[#0B64F4]">Action</span>
             <br /> Is Just Noise
           </motion.h2>
         </div>

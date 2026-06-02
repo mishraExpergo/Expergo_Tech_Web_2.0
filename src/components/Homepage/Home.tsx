@@ -42,7 +42,7 @@ const Index = ({ hero }: { hero: MergedHomeHero }) => {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="es-small-heading text-[var(--color-platform-accent)]"
+            className="es-small-heading text-[#0B64F4]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -51,7 +51,7 @@ const Index = ({ hero }: { hero: MergedHomeHero }) => {
           </motion.span>
           <h1 className="es-heading-hero mt-2 font-bold text-foreground">
             A unified portfolio Control{" "}
-            <span className="text-[var(--color-platform-accent)]">risk platform.</span>
+            <span className="text-[#15B5C1]">risk platform.</span>
           </h1>
           <p className="mx-auto mt-3 max-w-xl text-base text-[var(--color-brand-muted)]">
             Each layer performs a defined institutional function. Together, they form a unified portfolio risk

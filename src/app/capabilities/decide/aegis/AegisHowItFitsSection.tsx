@@ -7,12 +7,12 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const FIGMA = {
   teal: "#15B5C1",
-  blue: "#1D70F2",
-  kicker: "#1677FF",
+  blue: "#0B64F4",
+  kicker: "#0B64F4",
   ink: "#101828",
   lineIdle: "#B8E6EE",
   ringIdle: "#B8E6EE",
-  accent: "#01AEE4",
+  accent: "#15B5C1",
 } as const;
 
 const gradientTextStyle = {
@@ -318,14 +318,14 @@ export default function AegisHowItFitsSection() {
           transition={{ duration: 0.45, ease }}
         >
           <p
-            className="text-sm font-semibold uppercase tracking-[0.16em]"
+            className="text-regular uppercase tracking-[0.16em]"
             style={{ color: FIGMA.kicker }}
           >
             How Aegis Fits
           </p>
           <h2
             id="aegis-how-it-fits-heading"
-            className="mt-3 font-heading text-[1.75rem] font-bold leading-[1.12] tracking-tight sm:mt-4 sm:text-4xl lg:text-[40px]"
+            className="mt-3 font-heading text-[1.75rem] font-semibold leading-[1.12] tracking-tight sm:mt-4 sm:text-4xl lg:text-[36px]"
           >
             <span style={{ color: FIGMA.ink }}>Part of the </span>
             <span style={gradientTextStyle}>EarlySafe Intelligence System</span>

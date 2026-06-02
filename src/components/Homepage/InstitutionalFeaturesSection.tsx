@@ -29,7 +29,7 @@ export function InstitutionalFeaturesSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, ease }}
         >
-          Built for <span className="text-[#14B8A6]">Institutional</span> Environments
+          Built for <span className="text-[#15B5C1]">Institutional</span> Environments
         </motion.h2>
 
         <motion.p

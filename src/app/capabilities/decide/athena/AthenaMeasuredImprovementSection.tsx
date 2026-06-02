@@ -247,7 +247,7 @@ export default function AthenaMeasuredImprovementSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="font-heading text-3xl font-bold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-5xl"
+          className="font-heading text-3xl font-semibold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-[36px]"
         >
           Designed for <span className="text-brand-teal">measurable improvement</span>
         </motion.h2>

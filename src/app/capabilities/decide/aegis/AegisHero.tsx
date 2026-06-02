@@ -7,11 +7,11 @@ import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 /** Figma hero frame (node 5507-4634) — layout & color tokens */
 const FIGMA = {
   containerMax: 1475,
-  ink: "#000000",
+  ink: "#1F1F1F",
   teal: "#15B5C1",
   gray: "#666666",
-  accent: "#01AEE4",
-  accentBlue: "#1D70F2",
+  accent: "#15B5C1",
+  accentBlue: "#15B5C1",
   accentMuted: "#7695C0",
   body: "#1F1F1F",
   diagramLabel: "#98A2B3",

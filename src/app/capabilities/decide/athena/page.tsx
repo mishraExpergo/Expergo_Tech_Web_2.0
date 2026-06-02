@@ -23,7 +23,7 @@ export default function AthenaPage() {
           <div className="max-w-2xl">
             <h1 className="font-heading max-w-xl text-[30px] font-bold leading-[1.1] tracking-tight text-brand-ink sm:text-4xl md:text-[52px]">
                    Predict how your{" "}
-              <span className="text-brand-teal">portfolio will move</span>{" "}
+              <span className="text-[#15B5C1]">portfolio will move</span>{" "}
               and act early
             </h1>
 

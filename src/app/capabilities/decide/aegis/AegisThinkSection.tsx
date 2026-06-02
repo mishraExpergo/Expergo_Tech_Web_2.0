@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { BookDemoButton } from "@/components/book-demo/BookDemoProvider";
 
 const FIGMA = {
-  kicker: "#1677FF",
+  kicker: "#0B64F4",
   ink: "#101828",
   body: "#667085",
 } as const;
@@ -22,7 +22,7 @@ export default function AegisThinkSection() {
     >
       <div className="mx-auto max-w-3xl text-center">
         <motion.p
-          className="font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+          className="font-sans text-regular uppercase tracking-[0.16em]"
           style={{ color: FIGMA.kicker }}
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export default function AegisThinkSection() {
 
         <motion.h2
           id="aegis-think-heading"
-          className="mt-4 font-heading text-[1.75rem] font-bold leading-[1.15] tracking-tight sm:mt-5 sm:text-[2rem] md:text-[2.25rem] lg:text-[40px] lg:leading-[1.12]"
+          className="mt-4 font-heading text-[1.75rem] font-semibold leading-[1.15] tracking-tight sm:mt-5 sm:text-[2rem] md:text-[2.25rem] lg:text-[36px] lg:leading-[1.12]"
           style={{ color: FIGMA.ink }}
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export default function AegisThinkSection() {
         </motion.h2>
 
         <motion.p
-          className="mx-auto mt-5 max-w-2xl text-pretty font-sans text-base font-normal leading-[1.6] sm:mt-6 sm:text-lg"
+          className="mx-auto mt-5 max-w-2xl text-pretty font-sans text-base font-normal leading-[1.6] sm:mt-6 sm:text-[16px]"
           style={{ color: FIGMA.body }}
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,26 +57,16 @@ export default function AegisThinkSection() {
           confidence.
         </motion.p>
 
-        <motion.div
-          className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:mt-12"
-          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.45, delay: 0.14, ease }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap justify-center items-center gap-8 pt-8"
         >
-          <BookDemoButton
-            mode="demo"
-            className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-[#1D70F2] px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-[#1864db]"
-          >
-            Request a Demo
+          <BookDemoButton mode="brief"  className="bg-[#1677FF] hover:bg-blue-600 text-white font-medium px-8 py-3 rounded-md transition-colors shadow-sm">
+          Request Executive Brief
           </BookDemoButton>
-          <Link
-            href="/"
-            className="inline-flex min-h-[44px] items-center justify-center rounded-lg border bg-white px-8 py-3 text-sm font-medium transition-colors hover:bg-[#F9FAFB]"
-            style={{ borderColor: FIGMA.ink, color: FIGMA.ink }}
-          >
-            Explore EarlySafe
-          </Link>
         </motion.div>
       </div>
     </section>

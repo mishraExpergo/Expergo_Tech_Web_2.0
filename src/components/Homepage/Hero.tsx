@@ -91,11 +91,11 @@ export function Hero({ copy }: { copy: MergedHomeHero }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="md:text-[52px] text-[28px] sm:text-[52px]  lg:text-[52px] font-extrabold text-[#1E293B] leading-[1.15] mb-10 tracking-tight"
+            className="md:text-[52px] text-[28px] sm:text-[52px]  lg:text-[52px] font-extrabold text-black leading-[1.15] mb-10 tracking-tight"
           >
             {copy.titleLine1}
             <br className="hidden lg:block"/>
-            for <span className="text-[#1677FF] block mt-1">{copy.titleAccent}</span>
+            for <span className="text-[#0B64F4] block mt-1">{copy.titleAccent}</span>
           </motion.h1>
 
           <motion.div 

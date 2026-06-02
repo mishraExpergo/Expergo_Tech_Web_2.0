@@ -95,7 +95,7 @@ export default function AthenaIntelligenceSection() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h2 className="font-heading text-3xl font-bold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-5xl">
+        <h2 className="font-heading text-3xl font-semibold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-[36px">
           Part of the EarlySafe <span className="text-brand-teal">Intelligence System</span>
         </h2>
         <p className="mt-4 text-[17px] leading-[1.45] text-brand-muted mx-auto max-w-2xl">

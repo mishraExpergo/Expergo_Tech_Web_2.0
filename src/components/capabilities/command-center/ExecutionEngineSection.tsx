@@ -33,7 +33,7 @@ export default function ExecutionEngineSection() {
              viewport={{ once: true }}
              className="mb-4"
           >
-             <span className="text-[#1677FF] font-semibold text-site-kicker tracking-widest uppercase px-3 py-1 ">
+             <span className="text-[#0B64F4] font-semibold text-site-kicker tracking-widest uppercase px-3 py-1 ">
                 OVERVIEW
              </span>
           </motion.div>
@@ -42,10 +42,10 @@ export default function ExecutionEngineSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[36px] font-bold text-gray-900"
+            className="text-[36px] font-semibold text-gray-900"
           >
             The Execution Engine <br/>
-            Behind <span className="text-[#1677FF]">EarlySafe</span>
+            Behind <span className="text-[#15B5C1]">EarlySafe</span>
           </motion.h2>
           <motion.p
              initial={{ opacity: 0, y: 10 }}

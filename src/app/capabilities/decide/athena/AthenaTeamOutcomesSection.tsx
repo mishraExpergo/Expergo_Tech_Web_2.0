@@ -84,7 +84,7 @@ export default function AthenaTeamOutcomesSection() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <h2 className="font-heading text-3xl font-bold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-5xl">
+        <h2 className="font-heading text-3xl font-semibold leading-[1.15] tracking-tight text-brand-ink sm:text-4xl md:text-[36px]">
           Built for the teams that <span className="text-brand-teal">drive portfolio outcomes</span>
         </h2>
       </motion.div>
@@ -178,7 +178,7 @@ export default function AthenaTeamOutcomesSection() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h3 className="font-heading text-[32px] leading-tight font-semibold text-brand-ink">{active.title}</h3>
+              <h3 className="font-heading text-[28px] leading-tight font-semibold text-brand-ink">{active.title}</h3>
 
               <ul className="mt-4 space-y-1.5 list-disc pl-4 text-[15px] leading-7 text-brand-muted marker:text-brand-blue">
                 {active.bullets.map((item) => (

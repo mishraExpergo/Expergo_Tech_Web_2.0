@@ -14,80 +14,115 @@ export type CareerOpeningRow = {
 
 type JobDetailContent = {
   aboutRoleIntro: string;
-  aboutRoleBullets: string[];
   responsibilities: string[];
+  requiredExperienceSkills : string[];
 };
 
-const ABOUT_COMPANY = `Expergo is an AI-native Risk Operating System for lenders — helping institutions unify portfolio signals, orchestrate execution across teams, and stay inspection-ready as regulations and markets evolve.`;
+const ABOUT_COMPANY = `At ExperGo, we are building the first AI-native Risk Operating System for lenders. Our platform, EarlySafe, enables NBFCs, HFCs, and banks to move from static MIS reporting to predictive, AI-driven risk management. It helps financial institutions monitor risk parameters and regulatory indicators in real time, identify potential risks early, ensure compliance, and make informed decisions.
+We use AI-native analytics, machine learning (ML), graph AI, and generative AI to power risk detection and prediction, fraud detection, stress testing, and compliance automation.
+Our offerings span Risk Ops Outsourcing, Compliance-as-a-Service, Risk Analytics, Policy-as-Code, and Risk Intelligence giving CROs, CFOs, and CEOs what they want most: fewer surprises, lower NPAs, regulator comfort, and investor confidence.
+ 
+Join us to solve cutting-edge problems at the intersection of finance, data, and AI.`;
 
 const JOB_DETAILS: Record<string, JobDetailContent> = {
   "Key Account Manager": {
     aboutRoleIntro:
-      "Own strategic relationships with lenders and partners. You will translate portfolio risk priorities into clear roadmaps, coordinate cross-functional delivery, and expand adoption of Expergo across the account lifecycle.",
-    aboutRoleBullets: [
-      "Enterprise discovery & executive alignment",
-      "Renewals, expansion, and success planning",
-      "Partnering with Product and Engineering on outcomes",
-      "Pipeline hygiene, forecasting, and territory strategy",
-    ],
+      "We are looking for a highly driven Key Account Manager to lead strategic BFSI sales for ExperGo’s AI-powered risk infrastructure platform, EarlySafe. This is a client-facing enterprise sales role focused on engaging CXOs and senior decision-makers across NBFCs, HFCs, SFBs, and banks.The role involves owning the complete enterprise sales lifecycle — from identifying opportunities and building executive relationships to driving PoCs, commercial negotiations, and long-term account growth. You will work closely with founders and leadership teams to position EarlySafe as a strategic risk and credit intelligence platform for modern lenders.This opportunity is ideal for professionals with strong BFSI enterprise sales experience, consultative selling capabilities, and a proven track record of closing high-value SaaS or fintech deals. Candidates should be comfortable handling complex sales cycles, solution-driven discussions, and multi-stakeholder enterprise engagements.The role offers significant exposure to AI, risk analytics, lending technology, and strategic account management within the BFSI ecosystem.",
     responsibilities: [
-      "Build trusted relationships with economic buyers and operational champions.",
-      "Lead structured discovery to map risk workflows, stakeholders, and success criteria.",
-      "Coordinate demos, pilots, and business reviews with clear next steps.",
-      "Partner with internal teams to scope statements of work and implementation plans.",
-      "Track opportunity health, communicate risk early, and maintain CRM discipline.",
+      "Build strong CXO-level relationships with CEOs, CROs, CIOs, Risk Heads, and Collections leaders",
+      "Drive enterprise sales cycles from prospecting and consultative selling to PoC conversion and production deployment",
+      "Conduct face-to-face executive meetings, product demos, and solution presentations for senior stakeholders",
+      "Identify lending, collections, and risk management challenges and position EarlySafe as a strategic AI-driven risk infrastructure platform",
+      "Develop ROI-focused business cases and commercial proposals aligned with client objectives",
+      "Structure enterprise pricing models, multi-year contracts, and scalable commercial frameworks",
+      "Own end-to-end deal closure including negotiation, contracting, renewals, and stakeholder alignment",
+      "Coordinate with internal product, legal, compliance, and delivery teams to ensure successful onboarding and deployment",
+      "Drive account expansion opportunities across portfolios, business units, and geographies to increase recurring revenue",
+      "Maintain strong pipeline management, revenue forecasting, and sales reporting discipline",
+      "Track BFSI market trends, regulatory developments, and competitor activities to strengthen market positioning",
+      "Represent the company in strategic client discussions, networking events, and industry engagements",
+      "Collaborate closely with founders and leadership teams on key enterprise opportunities and strategic growth initiatives",
+    ],
+    requiredExperienceSkills : [
+      "Masters degree in Business Administration or Finance",
+      "4-8 years BFSI / fintech / enterprise SaaS field sales experience",
+      "Proven CXO closure track record",
+      "Strong negotiation & deal structuring skills",
+      "Comfortable selling complex infrastructure solutions",
+      "Understanding of lending, risk, collections & compliance preferred",
+      "Excellent executive communication skills ",
     ],
   },
   "AI/ML Developer": {
-    aboutRoleIntro:
-      "Design and ship models and data pipelines that power early risk detection, portfolio analytics, and explainable signals at scale — with strong attention to auditability and production reliability.",
-    aboutRoleBullets: [
-      "Feature engineering & model lifecycle",
-      "Batch and streaming inference patterns",
-      "Evaluation, monitoring, and drift checks",
-      "Collaboration with backend and product on APIs",
-    ],
+    aboutRoleIntro: "As an AI/ML Developer at ExperGo, you will contribute to the development of innovative AI-powered applications, intelligent automation systems, and real-time analytics solutions. You will work with advanced technologies including Large Language Models (LLMs), LangChain, Retrieval-Augmented Generation (RAG), Agentic AI, APIs, and PostgreSQL databases.This role offers an exciting opportunity to build practical AI solutions while working at the intersection of Artificial Intelligence, Machine Learning, Full-Stack Development, and Data Engineering",
+  
     responsibilities: [
-      "Develop, train, and validate ML models aligned with lending risk use cases.",
-      "Implement reproducible pipelines and experiment tracking suitable for regulated environments.",
-      "Work with engineers to deploy, monitor, and improve models in production.",
-      "Translate business questions into measurable objectives and evaluation metrics.",
-      "Document assumptions, data lineage, and model behaviour for internal review.",
+      "Develop and implement AI/ML solutions using Large Language Models (LLMs) for natural language processing, trend analysis, information retrieval, and predictive analytics.",
+      "Build AI-driven applications using LangChain and related frameworks to process structured and unstructured data efficiently.",
+      "Implement Retrieval-Augmented Generation (RAG) pipelines to enhance the accuracy, relevance, and contextual understanding of AI systems.",
+      "Contribute to the development of Agentic AI solutions capable of autonomous reasoning, task execution, and decision support.",
+      "Design, develop, and maintain RESTful APIs for seamless integration between AI models, databases, and front-end applications.",
+      "Work with PostgreSQL databases for data modeling, storage, querying, optimization, and management.",
+      "Collaborate with product, engineering, and business teams to integrate AI capabilities into scalable applications.",
+      "Assist in deploying, monitoring, and optimizing AI models and APIs in development and production environments.",
+      "Write clean, maintainable, and well-documented code following software engineering best practices.",
+      "Participate in research, experimentation, and innovation initiatives focused on improving AI model performance and business outcomes.",
+      "Stay updated with emerging AI technologies, frameworks, and industry best practices.",
+
+    ],
+
+    requiredExperienceSkills : [
+      "Experience with cloud platforms such as AWS, GCP, or Azure.",
+"Exposure to AI application deployment, MLOps, or containerization technologies.",
+"Knowledge of vector databases, embeddings, and semantic search techniques.",
+"Familiarity with financial services, risk analytics, fraud detection, or compliance-related applications.",
+"Personal, academic, or open-source projects involving AI/ML, full-stack development, or API engineering.",
+"Experience with Git, GitHub, and collaborative development workflows.",
+
     ],
   },
   "Content & SEO Marketing Manager": {
     aboutRoleIntro:
-      "Lead organic growth for Expergo by owning SEO strategy and high-impact content across the funnel — from technical foundations to thought leadership that resonates with risk and lending leaders.",
-    aboutRoleBullets: [
-      "Inbound website & landing pages",
-      "Outbound content & distribution",
-      "ABM and segment-specific narratives",
-      "Sales enablement decks & one-pagers",
-      "Performance reporting & iteration",
-    ],
+      "We are looking for a Content Marketing Analyst who will own end-to-end content strategy and execution across the B2B funnel, enabling ABM, strengthening engagement, and supporting enterprise sales cycles.You will build and manage a full-stack content engine, including:Inbound website and thought leadership content Outbound content such as emailers and newsletters ABM content for target accounts Sales enablement content such as case studies, decks, and collaterals Landing Pages and Blogs Social Media Posts and Campaign Content Strategies(TOFU, MOFU & BOFU) Video and Podcast content",
+   
     responsibilities: [
-      "Own technical and content SEO: architecture, keyword strategy, and on-page quality.",
-      "Create and edit high-trust content for risk, compliance, and lending audiences.",
-      "Partner with Sales and Product on messaging, launches, and enablement assets.",
-      "Measure traffic, engagement, and pipeline contribution; report monthly.",
-      "Maintain editorial standards, tone of voice, and brand consistency.",
+      "Own end-to-end content and SEO strategy across the B2B marketing funnel.",
+      "Create and manage high-impact content including blogs, landing pages, website pages, case studies, decks, emailers, newsletters, and social media campaigns.",
+      "Drive SEO growth through keyword research, on-page optimization, technical SEO coordination, backlink/content strategies, and organic traffic improvement.",
+      "Develop ABM and personalized content for enterprise accounts, buyer personas, and sales journeys.",
+      "Support sales enablement with pitch decks, one-pagers, product collaterals, and thought leadership content.",
+      "Plan and execute email nurture campaigns and lifecycle marketing journeys.",
+      "Optimize website conversion journeys, landing page performance, and lead quality.",
+      "Track content, SEO, and campaign performance using analytics dashboards and actionable insights.",
+      "Collaborate with sales, product, design, and performance marketing teams to align messaging and growth objectives.",
+      "Experiment with content formats, SEO strategies, and engagement campaigns to improve pipeline impact and brand visibility.",
     ],
   },
   "MERN Full Stack Developer": {
-    aboutRoleIntro:
-      "Build polished product surfaces and APIs across MongoDB, Express, React, and Node — focusing on performance, security, and clarity for users managing portfolio risk every day.",
-    aboutRoleBullets: [
-      "React dashboards & workflows",
-      "REST/GraphQL services & integrations",
-      "Auth, observability, and testing",
-      "Schema design and data access patterns",
-    ],
+    aboutRoleIntro: "As an AI/ML Developer at ExperGo, you will contribute to the development of innovative AI-powered applications, intelligent automation systems, and real-time analytics solutions. You will work with advanced technologies including Large Language Models (LLMs), LangChain, Retrieval-Augmented Generation (RAG), Agentic AI, APIs, and PostgreSQL databases.This role offers an exciting opportunity to build practical AI solutions while working at the intersection of Artificial Intelligence, Machine Learning, Full-Stack Development, and Data Engineering.",
+
     responsibilities: [
-      "Implement features end-to-end with attention to UX detail and edge cases.",
-      "Write maintainable services with tests, logging, and operational readiness.",
-      "Collaborate on API contracts with designers, PMs, and ML engineers.",
-      "Optimise bundle size, latency, and accessibility where users interact most.",
-      "Participate in code review and help raise engineering standards.",
+      "Develop and implement AI/ML solutions using Large Language Models (LLMs) for natural language processing, trend analysis, information retrieval, and predictive analytics.",
+"Build AI-driven applications using LangChain and related frameworks to process structured and unstructured data efficiently.",
+"Implement Retrieval-Augmented Generation (RAG) pipelines to enhance the accuracy, relevance, and contextual understanding of AI systems.",
+"Contribute to the development of Agentic AI solutions capable of autonomous reasoning, task execution, and decision support.",
+"Design, develop, and maintain RESTful APIs for seamless integration between AI models, databases, and front-end applications.",
+"Work with PostgreSQL databases for data modeling, storage, querying, optimization, and management.",
+"Collaborate with product, engineering, and business teams to integrate AI capabilities into scalable applications.",
+"Assist in deploying, monitoring, and optimizing AI models and APIs in development and production environments.",
+"Write clean, maintainable, and well-documented code following software engineering best practices.",
+"Participate in research, experimentation, and innovation initiatives focused on improving AI model performance and business outcomes.",
+"Stay updated with emerging AI technologies, frameworks, and industry best practices",
+
+    ],
+
+    requiredExperienceSkills:[
+      "Experience with cloud platforms such as AWS, GCP, or Azure.",
+"Exposure to AI application deployment, MLOps, or containerization technologies.",
+"Knowledge of vector databases, embeddings, and semantic search techniques.",
+"Familiarity with financial services, risk analytics, fraud detection, or compliance-related applications.",
+"Personal, academic, or open-source projects involving AI/ML, full-stack development, or API engineering.",
+"Experience with Git, GitHub, and collaborative development workflows.",
     ],
   },
 };
@@ -397,11 +432,7 @@ export function CareerApplyModal({
               <section>
                 <h3 className="text-sm font-bold text-brand-blue">About the Role</h3>
                 <p className="mt-2 text-[13px] leading-[1.65] sm:text-sm">{detail.aboutRoleIntro}</p>
-                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[13px] sm:text-sm">
-                  {detail.aboutRoleBullets.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+                
               </section>
               <section>
                 <h3 className="text-sm font-bold text-brand-blue">Key Responsibilities</h3>
